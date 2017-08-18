@@ -82,7 +82,7 @@ class DefaultController extends Controller
         if (\Yii::$app->request->post() && $contactFormModel->load(\Yii::$app->request->post()) && $contactFormModel->validate()) {
             $contactFormModel->sendEmail();
             \Yii::$app->session->setFlash('success', Module::t('Your message was sent successfully. Thank you.'));
-            return $this->redirect(Url::current());
+            return $this->redirect(Url::current() . '#w1-success-0');
         }
         return $this->render($view, [
             'post'        => $post,

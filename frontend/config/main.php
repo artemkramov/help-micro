@@ -9,7 +9,7 @@ $params = array_merge(
 return [
     'homeUrl'             => '/',
     'id'                  => 'app-frontend',
-    'name'                => 'Jenadin',
+    'name'                => 'Help Micro',
     'basePath'            => dirname(__DIR__),
     'bootstrap'           => ['log'],
     'controllerNamespace' => 'frontend\controllers',
@@ -79,7 +79,7 @@ return [
         'view'         => [
             'theme' => [
                 'pathMap' => [
-                    '@app/views' => '@frontend/web/themes/virtue4d'
+                    '@app/views' => '@frontend/web/themes/helpMicro'
                 ],
             ],
         ],

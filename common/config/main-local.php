@@ -3,7 +3,7 @@ return [
     'components' => [
         'db'     => [
             'class'                 => 'yii\db\Connection',
-            'dsn'                   => 'mysql:host=localhost;dbname=virtue4dclear',
+            'dsn'                   => 'mysql:host=localhost;dbname=help-micro',
             'username'              => 'root',
             'password'              => '',
             'charset'               => 'utf8',

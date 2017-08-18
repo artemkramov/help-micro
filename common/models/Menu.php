@@ -263,9 +263,12 @@ class Menu extends Bean
     {
         $url = $this->url;
         if (!isset($url)) {
+            /**
+             * @var Post $post
+             */
             $post = Post::findOne($this->bean_id);
             if (!empty($post)) {
-                $url = FrontendHelper::formLink('/' . $post->alias);
+                $url = $post->getUrl();
             }
         } else {
             if ($url != self::EMPTY_LINK) {

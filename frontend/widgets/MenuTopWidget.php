@@ -37,10 +37,7 @@ class MenuTopWidget extends Widget
      * @var array
      */
     private $callbackMenu = [
-        5  => 'callbackNews',
-        6  => 'callbackCollection',
-        9  => 'callbackShop',
-        25 => 'callbackSale',
+
     ];
 
     /**
@@ -81,11 +78,12 @@ class MenuTopWidget extends Widget
                     $menuTree[$key] = $this->{$methodName}($menuRoot);
                 }
             }
+
             /**
              * Check if the root menu belongs to the current page
              * Then check it as active
              */
-            if ($menuRoot['url'] == Url::current()) {
+            if ($menuRoot['url'] == \Yii::$app->request->url) {
                 $menuTree[$key]['active'] = true;
             }
         }

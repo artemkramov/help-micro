@@ -54,6 +54,9 @@ class Post extends Bean
      */
     public function getUrl()
     {
+        if ($this->default) {
+            return FrontendHelper::formLink('');
+        }
         return FrontendHelper::formLink('/' . $this->alias);
     }
 
@@ -62,7 +65,8 @@ class Post extends Bean
      * @var array
      */
     private static $templates = [
-        'content' => 'Main template'
+        'content'      => 'Common template',
+        'content-wide' => 'Full-width template'
     ];
 
     /**

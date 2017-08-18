@@ -9,7 +9,7 @@ $params = array_merge(
 return [
     'homeUrl'             => '/admin',
     'id'                  => 'app-backend',
-    'name'                => 'Virtue4d',
+    'name'                => 'Help Micro',
     'basePath'            => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap'           => ['log'],

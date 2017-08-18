@@ -52,7 +52,7 @@ class MenuFooterWidget extends Widget
             }
         }
 
-        $blocks = array_chunk($menuTreeEnabled, ceil(count($menuTreeEnabled) / 2));
+        $blocks = [$menuTreeEnabled];
 
 
         return $this->render($this->viewPath, [
