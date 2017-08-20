@@ -135,5 +135,70 @@ class SeoHelper
         $viewData->title = $blogPost->title . ' : ' . \Yii::$app->name;
     }
 
+    /**
+     * @param View $viewData
+     * @param $extraData
+     * @param $category
+     */
+    private static function handleCategory($viewData, $extraData, $category)
+    {
+        $categoryList = mb_strtolower(implode(', ', array_slice(ArrayHelper::getColumn(Category::findAllLocalized(), 'title'), 0, 10)), 'utf-8');
+        $viewData->registerMetaTag([
+            'description' => $categoryList,
+            'keywords'    => $categoryList . ', ' . \Yii::$app->name,
+        ]);
+        $viewData->title = Module::t('Product categories ') . ' ' . $category->title . ' : ' . \Yii::$app->name;
+    }
+
+    /**
+     * @param View $viewData
+     * @param $extraData
+     * @param Product $product
+     */
+    private static function handleProduct($viewData, $extraData, $product)
+    {
+        $description = $product->title . ' ' . trim(str_replace(PHP_EOL, '', preg_replace('#<[^>]+>#', ' ', $product->content)));
+        $categoryList = $product->getCategoriesList();
+        $keywords = $product->title . ', ' . strip_tags($product->short_description) . ', ' . $categoryList;
+        $title = $product->title . ', ' . $product->vendor_code . ' : ' . \Yii::$app->name;
+        $viewData->registerMetaTag([
+            'description' => $description,
+            'keywords'    => mb_strtolower($keywords, 'utf-8'),
+        ]);
+
+        /**
+         * Check if the link is canonical
+         */
+        $pathInfo = \Yii::$app->request->getPathInfo();
+        $previousType = explode('/', $pathInfo);
+        if ($previousType[0] == 'product') {
+            $viewData->registerLinkTag([
+                'ref'  => 'canonical',
+                'href' => BaseUrl::current([], true)
+            ]);
+        }
+
+        /**
+         * Add the meta tags for social networks
+         */
+        $viewData->registerMetaTag([
+            'content'  => \Yii::$app->request->hostInfo . $product->getDefaultImage(),
+            'property' => 'og:image'
+        ]);
+        $viewData->registerMetaTag([
+            'content'  => \Yii::$app->request->hostInfo . $product->getUrl(),
+            'property' => 'og:url'
+        ]);
+        $viewData->registerMetaTag([
+            'content'  => $title,
+            'property' => 'og:title'
+        ]);
+        $viewData->registerMetaTag([
+            'content'  => strip_tags($product->short_description),
+            'property' => 'og:description'
+        ]);
+        $viewData->title = $title;
+    }
+
 
 }

@@ -14,6 +14,7 @@ use backend\models\CharacteristicGroup;
 use backend\models\Currency;
 use backend\models\KitProduct;
 use backend\models\Product;
+use backend\models\ProductFile;
 use backend\models\ProductGallery;
 use backend\models\ProductVariation;
 use backend\models\SliderItem;
@@ -157,6 +158,32 @@ class MultipleBeanHelper
         }
         $viewPath = "@backend/modules/products/views/images/view";
         $attributes = (new ProductGallery())->getAttributes();
+        $attributesData = [];
+        foreach ($attributes as $attribute => $value) {
+            $attributesData[$attribute] = [
+                'id'   => self::formIdAttribute($attribute, $params['attribute'], $params['modelClass'], $params['counter']),
+                'name' => self::formName($attribute, $params['attribute'], $params['modelClass'], $params['counter'])
+            ];
+        }
+        return \Yii::$app->controller->renderPartial($viewPath, ArrayHelper::merge([
+            'model'          => $model,
+            'attributesData' => $attributesData,
+        ], $params));
+    }
+
+    /**
+     * Generate files for the product
+     * @param null $model
+     * @param array $params
+     * @return string
+     */
+    public function bindFiles($model = null, $params = [])
+    {
+        if (!isset($model)) {
+            $model = new ProductFile();
+        }
+        $viewPath = "@backend/modules/products/views/files/view";
+        $attributes = (new ProductFile())->getAttributes();
         $attributesData = [];
         foreach ($attributes as $attribute => $value) {
             $attributesData[$attribute] = [

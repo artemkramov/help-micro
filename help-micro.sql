@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 18, 2017 at 05:20 PM
+-- Generation Time: Aug 20, 2017 at 04:27 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.5.38
 
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `auth_item` (
 --
 
 INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`, `parent_id`) VALUES
-('admin', 1, 'Administrator', NULL, NULL, 1457028578, 1502891563, NULL),
+('admin', 1, 'Administrator', NULL, NULL, 1457028578, 1503221918, NULL),
 ('category', 2, 'Category management', NULL, NULL, 1502357680, 1502357680, ''),
 ('category/create', 2, 'Category create', NULL, NULL, 1502357759, 1502357759, 'category'),
 ('category/delete', 2, 'Category delete', NULL, NULL, 1502357775, 1502357775, 'category'),
@@ -118,6 +118,7 @@ INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `cr
 ('dashboard/default/index', 2, 'Dashboard', NULL, NULL, 1468306058, 1468306516, ''),
 ('i18n', 2, 'Translation management', NULL, NULL, 1464245784, 1464245784, NULL),
 ('permit/access', 2, 'Role and permission management', NULL, NULL, 1457031451, 1457031915, NULL),
+('products', 2, 'Products management', NULL, NULL, 1503221874, 1503221874, ''),
 ('settings', 2, 'Settings management', NULL, NULL, 1467648490, 1467819771, ''),
 ('settings/contact-form-settings/index', 2, 'Contact form settings list', NULL, NULL, 1470330678, 1470330678, 'settings'),
 ('settings/contact-form-settings/update', 2, 'Contact form settings update', NULL, NULL, 1470330545, 1470330545, 'settings'),
@@ -169,6 +170,7 @@ INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
 ('admin', 'dashboard/default/index'),
 ('admin', 'i18n'),
 ('admin', 'permit/access'),
+('admin', 'products'),
 ('admin', 'settings/contact-form-settings/index'),
 ('admin', 'settings/contact-form-settings/update'),
 ('admin', 'settings/contact-form-settings/view'),
@@ -286,67 +288,45 @@ CREATE TABLE IF NOT EXISTS `category` (
   `alias` varchar(255) NOT NULL,
   `enabled` tinyint(1) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`id`, `created_at`, `updated_at`, `sort`, `parent_id`, `level`, `alias`, `enabled`, `is_deleted`) VALUES
-(1, 12, 12, 1, NULL, 0, 'test', 1, 0),
-(2, 12, 12, 1, 1, 0, 'test1', 1, 0),
-(3, 12, 12, 1, NULL, 0, 'test2', 1, 0),
-(6, 1502465938, 1502466302, NULL, NULL, NULL, 'sport', 1, 0),
-(7, 1502466646, 1502466646, NULL, NULL, NULL, 'kino', 1, 0),
-(9, 1502741830, 1502741830, NULL, NULL, NULL, '', 1, 0),
-(10, 1502801985, 1502801985, NULL, NULL, NULL, 'sport11', 1, 0),
-(11, 1502880486, 1502880486, NULL, NULL, NULL, 'sport11-2', 1, 0);
+INSERT INTO `category` (`id`, `created_at`, `updated_at`, `sort`, `parent_id`, `level`, `alias`, `enabled`, `is_deleted`, `image`) VALUES
+(12, 1503222963, 1503232142, 0, NULL, 0, 'fiscal-registers', 1, 0, '/uploads/categories/images/3c15fe63-e89e-48f5-a215-3c54372bc445/2.jpg'),
+(13, 1503223002, 1503233897, 1, NULL, 0, 'cash-registers', 1, 0, '/uploads/categories/images/1583ce6e-daa4-488b-be28-9e23b576dee7/1.jpeg');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category_lang`
+-- Table structure for table `categorylang`
 --
 
-CREATE TABLE IF NOT EXISTS `category_lang` (
+CREATE TABLE IF NOT EXISTS `categorylang` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `language` varchar(2) NOT NULL,
   `category_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=39 ;
 
 --
--- Dumping data for table `category_lang`
+-- Dumping data for table `categorylang`
 --
 
-INSERT INTO `category_lang` (`id`, `language`, `category_id`, `title`, `description`) VALUES
-(1, 'en', 1, 'Test', 'dgdfgdfgdfg'),
-(2, 'ru', 1, 'Test ru', 'Test ru'),
-(3, 'ua', 1, 'Test ua', 'Test ua'),
-(4, 'en', 2, 'Test2', 'dgdfgdfgdfg'),
-(5, 'ru', 2, 'Test ru 2', 'Test ru'),
-(6, 'ua', 2, 'Test ua 2', 'Test ua'),
-(8, 'en', 3, 'Test3', 'dgdfgdfgdfg'),
-(9, 'ru', 3, 'Test ru 3', 'Test ru'),
-(10, 'ua', 3, 'Test ua 3', 'Test ua'),
-(16, 'en', 6, 'Sport (EN)', ''),
-(17, 'ru', 6, 'Спорт (РУ2)', ''),
-(18, 'ua', 6, 'Спорт', ''),
-(19, 'en', 7, 'Movies', ''),
-(20, 'ru', 7, 'Кино', ''),
-(21, 'ua', 7, 'Кіно', ''),
-(25, 'en', 9, 'Sport', ''),
-(26, 'ua', 9, 'Спорт', ''),
-(27, 'en', 10, 'Sport (EN)', ''),
-(28, 'ru', 10, 'Категория на русском', ''),
-(29, 'ua', 10, 'Категорія українською', ''),
-(30, 'en', 11, 'Sport11', ''),
-(31, 'ru', 11, 'Спорт11', ''),
-(32, 'ua', 11, 'Спорт12', '');
+INSERT INTO `categorylang` (`id`, `language`, `category_id`, `title`, `description`) VALUES
+(33, 'en', 12, 'Fiscal registers', ''),
+(34, 'ru', 12, 'Фискальные регистраторы', ''),
+(35, 'ua', 12, 'Фіскальні реєстратори', ''),
+(36, 'en', 13, 'Cash registers', ''),
+(37, 'ru', 13, 'Кассовые аппараты', ''),
+(38, 'ua', 13, 'Касові апарати', '');
 
 -- --------------------------------------------------------
 
@@ -365,12 +345,22 @@ CREATE TABLE IF NOT EXISTS `characteristic` (
   KEY `alias` (`alias`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `characteristic`
+-- Table structure for table `characteristiclang`
 --
 
-INSERT INTO `characteristic` (`id`, `created_at`, `updated_at`, `characteristic_group_id`, `sort`, `alias`) VALUES
-(1, 1, 1, 1, 1, 'red');
+CREATE TABLE IF NOT EXISTS `characteristiclang` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `characteristic_id` int(11) NOT NULL,
+  `language` varchar(5) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text,
+  PRIMARY KEY (`id`),
+  KEY `characteristic_group_id` (`characteristic_id`),
+  KEY `characteristic_id` (`characteristic_id`,`language`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -387,20 +377,13 @@ CREATE TABLE IF NOT EXISTS `characteristic_group` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
---
--- Dumping data for table `characteristic_group`
---
-
-INSERT INTO `characteristic_group` (`id`, `created_at`, `updated_at`, `alias`, `show_in_filter`) VALUES
-(1, 11, 11, 'color', 1);
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `characteristic_group_lang`
+-- Table structure for table `characteristic_grouplang`
 --
 
-CREATE TABLE IF NOT EXISTS `characteristic_group_lang` (
+CREATE TABLE IF NOT EXISTS `characteristic_grouplang` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `characteristic_group_id` int(11) NOT NULL,
   `language` varchar(5) NOT NULL,
@@ -409,41 +392,6 @@ CREATE TABLE IF NOT EXISTS `characteristic_group_lang` (
   KEY `characteristic_group_id` (`characteristic_group_id`),
   KEY `characteristic_group_id_2` (`characteristic_group_id`,`language`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-
---
--- Dumping data for table `characteristic_group_lang`
---
-
-INSERT INTO `characteristic_group_lang` (`id`, `characteristic_group_id`, `language`, `title`) VALUES
-(1, 1, 'en', 'Color'),
-(2, 1, 'ru', 'Цвет'),
-(3, 1, 'ua', 'Колір');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `characteristic_lang`
---
-
-CREATE TABLE IF NOT EXISTS `characteristic_lang` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `characteristic_id` int(11) NOT NULL,
-  `language` varchar(5) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `description` text,
-  PRIMARY KEY (`id`),
-  KEY `characteristic_group_id` (`characteristic_id`),
-  KEY `characteristic_id` (`characteristic_id`,`language`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-
---
--- Dumping data for table `characteristic_lang`
---
-
-INSERT INTO `characteristic_lang` (`id`, `characteristic_id`, `language`, `title`, `description`) VALUES
-(1, 1, 'en', 'Red', NULL),
-(2, 1, 'ru', 'Красный', NULL),
-(3, 1, 'ua', 'Червоний', NULL);
 
 -- --------------------------------------------------------
 
@@ -481,6 +429,30 @@ INSERT INTO `comment` (`id`, `created_at`, `updated_at`, `text`, `user_id`, `par
 (20, 1502895747, 1502895747, 'Текст', 4, NULL, NULL, 1, 0, 2),
 (21, 1502895761, 1502895761, 'Текст', 4, 18, NULL, 1, 0, 2),
 (23, 1502895852, 1502895852, 'Текст inner', 4, NULL, NULL, 1, 0, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `currency`
+--
+
+CREATE TABLE IF NOT EXISTS `currency` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `iso_4217` varchar(10) NOT NULL,
+  `sign` varchar(10) NOT NULL,
+  `is_default` tinyint(1) NOT NULL,
+  `show_after_price` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `currency`
+--
+
+INSERT INTO `currency` (`id`, `name`, `iso_4217`, `sign`, `is_default`, `show_after_price`) VALUES
+(1, 'Гривня', 'UAH', '₴', 1, 1),
+(2, 'Евро', 'EUR', '€', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -600,14 +572,14 @@ CREATE TABLE IF NOT EXISTS `menu` (
 
 INSERT INTO `menu` (`id`, `created_at`, `updated_at`, `sort`, `parent_id`, `bean_type`, `bean_id`, `url`, `enabled`, `menu_type_id`, `image`, `is_direct`, `is_new_tab`) VALUES
 (1, 1503049918, 1503050171, 0, NULL, 'post', 1, NULL, 1, 1, NULL, 0, 0),
-(2, 1503049959, 1503069481, 1, NULL, 'post', 1, '/about-us', 1, 1, NULL, 0, 0),
-(3, 1503049991, 1503069497, 2, NULL, 'post', 1, 'sss', 1, 1, NULL, 0, 0),
+(2, 1503049959, 1503145024, 1, NULL, 'post', 5, NULL, 1, 1, NULL, 0, 0),
+(3, 1503049991, 1503148716, 2, NULL, 'post', 6, NULL, 1, 1, NULL, 0, 0),
 (4, 1503050071, 1503069511, 3, NULL, 'post', 1, 'sadasd', 1, 1, NULL, 0, 0),
 (5, 1503050130, 1503066051, 4, NULL, 'post', 4, NULL, 1, 1, NULL, 0, 0),
 (6, 1503050754, 1503050860, 0, 4, 'post', 1, NULL, 1, 1, NULL, 0, 0),
 (7, 1503050811, 1503050861, 1, 4, 'post', 1, NULL, 1, 1, NULL, 0, 0),
 (8, 1503053836, 1503054122, 0, NULL, 'post', 1, NULL, 1, 2, NULL, 0, 0),
-(9, 1503053871, 1503054122, 1, NULL, 'post', 1, NULL, 1, 2, NULL, 0, 0),
+(9, 1503053871, 1503145036, 1, NULL, 'post', 5, NULL, 1, 2, NULL, 0, 0),
 (10, 1503053897, 1503066063, 2, NULL, 'post', 4, NULL, 1, 2, NULL, 0, 0);
 
 -- --------------------------------------------------------
@@ -2185,7 +2157,28 @@ INSERT INTO `message` (`id`, `language`, `translation`) VALUES
 (957, 'ua', 'Адреса: вул. Бажана, 16А, Київ, 02000'),
 (958, 'en', ''),
 (958, 'ru', 'Оставьте сообщение'),
-(958, 'ua', 'Залиште повідомлення');
+(958, 'ua', 'Залиште повідомлення'),
+(959, 'en', 'Help Micro Company presents a set of hardware and software technologies for<br/> trade automation and reception of utility and postal payments.'),
+(959, 'ru', 'Компания Хелп-Микро представляет набор аппаратно-программных технологий для<br/> автоматизации торговли и приема коммунальных и почтовых платежей. '),
+(959, 'ua', 'Компанія Хелп-Мікро представляє набір апаратно-програмних технологій для<br/> автоматизації торгівлі і прийому комунальних та поштових платежів.'),
+(960, 'en', ''),
+(960, 'ru', 'Наши достижения'),
+(960, 'ua', 'Наші досягнення'),
+(961, 'en', ''),
+(961, 'ru', 'Файлы'),
+(961, 'ua', 'Файли'),
+(962, 'en', ''),
+(962, 'ru', 'Файл'),
+(962, 'ua', 'Файл'),
+(963, 'en', 'Product'),
+(963, 'ru', 'Продукция'),
+(963, 'ua', 'Продукція'),
+(964, 'en', ''),
+(964, 'ru', 'Купить'),
+(964, 'ua', 'Купити'),
+(965, 'en', NULL),
+(965, 'ru', NULL),
+(965, 'ua', NULL);
 
 -- --------------------------------------------------------
 
@@ -2226,7 +2219,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   `template` varchar(20) NOT NULL,
   `default` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `post`
@@ -2234,7 +2227,10 @@ CREATE TABLE IF NOT EXISTS `post` (
 
 INSERT INTO `post` (`id`, `created_at`, `updated_at`, `enabled`, `alias`, `template`, `default`) VALUES
 (1, 1502005649, 1503055902, 1, 'home', 'content-wide', 1),
-(4, 1503066027, 1503066027, 1, 'contacts', 'content-wide', 0);
+(4, 1503066027, 1503066027, 1, 'contacts', 'content-wide', 0),
+(5, 1503145005, 1503148236, 1, 'about-us', 'content', 0),
+(6, 1503148677, 1503148690, 1, 'services', 'content', 0),
+(7, 1503231608, 1503231608, 1, 'shop', 'content', 0);
 
 -- --------------------------------------------------------
 
@@ -2252,7 +2248,7 @@ CREATE TABLE IF NOT EXISTS `postlang` (
   KEY `post_id` (`post_id`),
   KEY `language` (`language`),
   KEY `post_id_2` (`post_id`,`language`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 --
 -- Dumping data for table `postlang`
@@ -2264,7 +2260,232 @@ INSERT INTO `postlang` (`id`, `post_id`, `language`, `title`, `content`) VALUES
 (3, 1, 'ua', 'Головна', '<p>головна сторінка</p>'),
 (10, 4, 'en', 'How to reach us', ''),
 (11, 4, 'ru', 'Как нас найти', ''),
-(12, 4, 'ua', 'Як нас знайти', '');
+(12, 4, 'ua', 'Як нас знайти', ''),
+(13, 5, 'en', 'About us', '<p class="lead" style="text-align: left;">The firm developed and introduced system cash registers of various models into production at OOO "Expotrade", NPF "Unisystem", JV "Link", GNPP "Elektronmash", SE "Kiev Radiozavod". Apparatuses successfully work in the offices of Ukrainian banks, Ukrpochta offices, as well as in the largest trade enterprises (Central Department Store, Children''s World, Department Store Ukraine).<br /> Specialists of the company have developed and implemented automated subsystems for managing the trading floor in these and other enterprises.<br /> The firm also has tremendous experience in the foreign market, as evidenced by the successful implementation of the company''s equipment in the Czech Republic, Bulgaria, Belarus and other countries.</p>'),
+(14, 5, 'ru', 'О нас', '<p class="lead" style="text-align: left;">Фирмой разработаны и внедрены в производство на ООО "Экспотрейд", НПФ "Юнисистем", СП "Линк", ГНПП "Электронмаш", ГП "Киевский Радиозавод" системные кассовые аппараты различных моделей. Аппараты с успехом работают в отделениях банков Украины, отделениях "Укрпочты", а также в крупнейших торговых предприятиях (АО "Центральный Универмаг", AO "Детский мир", АО "Универмаг Украина").&nbsp;<br />Специалисты фирмы разработали и внедрили в этих и других предприятиях автоматизированные подсистемы управления торговым залом.<br />Фирма также имеет колоссальный опыт работы на иностранном рынке, чему&nbsp;свидетельствуют успешные внедрения аппаратов компании в Чехии, Болгарии, Беларуси и других странах.</p>'),
+(15, 5, 'ua', 'Про нас', '<p class="lead" style="text-align: left;">Фірмою розроблені і впроваджені у виробництво на ТОВ "Експотрейд", НПФ "Юнісістем", СП "Лінк", ДНВП "Електронмаш", ДП "Київський Радіозавод" системні касові апарати різних моделей. Апарати з успіхом працюють у відділеннях банків України, відділеннях "Укрпошти", а також в найбільших торгівельних підприємствах (АТ "Центральний Універмаг", AO "Дитячий світ", АТ "Універмаг Україна").<br /> Фахівці фірми розробили і впровадили в цих та інших підприємствах автоматизовані підсистеми управління торговим залом.<br /> Фірма також має колосальний досвід роботи на іноземному ринку, чому свідчать успішні впровадження апаратів компанії в Чехії, Болгарії, Білорусі та інших країнах.</p>'),
+(16, 6, 'en', 'Services', ''),
+(17, 6, 'ru', 'Услуги', ''),
+(18, 6, 'ua', 'Послуги', ''),
+(19, 7, 'en', 'Product', ''),
+(20, 7, 'ru', 'Продукция', ''),
+(21, 7, 'ua', 'Продукція', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product`
+--
+
+CREATE TABLE IF NOT EXISTS `product` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
+  `enabled` int(11) NOT NULL,
+  `vendor_code` varchar(255) NOT NULL,
+  `sort` int(11) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `in_stock` tinyint(1) DEFAULT NULL,
+  `alias` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `currency_id` int(11) NOT NULL,
+  `video` varchar(255) DEFAULT NULL,
+  `is_new` tinyint(1) NOT NULL,
+  `image_color` varchar(255) DEFAULT NULL,
+  `buy_link` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `alias` (`alias`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=120 ;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`id`, `created_at`, `updated_at`, `enabled`, `vendor_code`, `sort`, `price`, `in_stock`, `alias`, `type`, `currency_id`, `video`, `is_new`, `image_color`, `buy_link`) VALUES
+(114, 1503223302, 1503236495, 1, 'MG-N707TS', NULL, 1200, NULL, 'MG-N707TS', 'simple', 1, NULL, 0, NULL, 'https://gera.com.ua/oborudovanie/fiskalnye-registratory/fiskalnyy-registrator-mg-n707ts/'),
+(115, 1503237339, 1503237833, 1, 'MG-N707TS.1', NULL, 12, NULL, 'MG-N707TS.1', 'simple', 1, NULL, 0, NULL, 'https://gera.com.ua/oborudovanie/fiskalnye-registratory/fiskalnyy-registrator-mg-n707ts/'),
+(116, 1503237648, 1503237648, 1, 'MG-N707TS.2', NULL, 1222, NULL, 'MG-N707TS.2', 'simple', 1, NULL, 0, NULL, 'https://gera.com.ua/oborudovanie/fiskalnye-registratory/fiskalnyy-registrator-mg-n707ts/'),
+(117, 1503237782, 1503237782, 1, 'MG-N707TS.3', NULL, 23123, NULL, 'MG-N707TS.3', 'simple', 1, NULL, 0, NULL, 'https://gera.com.ua/oborudovanie/fiskalnye-registratory/fiskalnyy-registrator-mg-n707ts/'),
+(118, 1503238299, 1503238299, 1, 'MG N707TS.4', NULL, 11, NULL, 'MG N707TS.4', 'simple', 1, NULL, 0, NULL, 'https://gera.com.ua/oborudovanie/fiskalnye-registratory/fiskalnyy-registrator-mg-n707ts/'),
+(119, 1503238382, 1503238382, 1, 'MG N707TS.5', NULL, 12, NULL, 'MG N707TS.5', 'simple', 1, NULL, 0, NULL, 'https://gera.com.ua/oborudovanie/fiskalnye-registratory/fiskalnyy-registrator-mg-n707ts/');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `productlang`
+--
+
+CREATE TABLE IF NOT EXISTS `productlang` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `language` varchar(5) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `size_fit` text NOT NULL,
+  `editor_notes` text NOT NULL,
+  `content` text NOT NULL,
+  `short_description` text,
+  `table_size` text NOT NULL,
+  `search_text` text,
+  PRIMARY KEY (`id`),
+  KEY `product_id` (`product_id`),
+  KEY `product_id_2` (`product_id`,`language`),
+  FULLTEXT KEY `search_text` (`search_text`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=358 ;
+
+--
+-- Dumping data for table `productlang`
+--
+
+INSERT INTO `productlang` (`id`, `product_id`, `language`, `title`, `size_fit`, `editor_notes`, `content`, `short_description`, `table_size`, `search_text`) VALUES
+(340, 114, 'en', 'MG N707TS', '', '<p>Простота, доступная цена и высокое качество - основные качества фискального регистратора MG-N707TS, который идеально подходит для небольших компаний и частных предпринимателей.</p>\r\n<ul>\r\n<li>Введен в Государственный Реестр РРО Украины и соответствует нормам, действующим с 1 января 2015 года</li>\r\n<li>Встроенный модем для on-line передачи контрольной ленты в электронной форме (КЛЭФ) в фискальную службу</li>\r\n<li>Скорость печати до 56 миллиметров в секунду</li>\r\n<li>Великолепный дизайн</li>\r\n<li>Высокая надежность</li>\r\n</ul>\r\n<p>MG-N707TS &mdash; фискальный регистратор на базе проверенного временем фискального принтера Bono-E, от польской компании Novitus, известного европейского производителя фискальной техники.</p>\r\n<ul>\r\n<li>Регистратор оснащен встроенным индикатором клиента и имеет исключительно привлекательный дизайн.</li>\r\n<li>Особенности фискального регистратора (РРО) MG-N707TS:</li>\r\n<li>Соответствие законодательным нормам, действующим с 1 января 2015 г.</li>\r\n<li>Элементарная загрузка чековой ленты (технология Easy-load)</li>\r\n<li>Все необходимые интерфейсы для простого подключения к POS, ПК, локальной сети, денежному ящику</li>\r\n<li>Совместимость с ПО ведущих украинских производителей</li>\r\n<li>Качественный сервис на всей территории Украины. Решение любой проблемы в течение максимум 72 часов.</li>\r\n</ul>\r\n<p>Фискальный регистратор MG-N707TS идеально подходит для небольших предприятий и частных предпринимателей.</p>', '', '<p class="group inner list-group-item-text">Простота, доступная цена и высокое качество - основные качества фискального регистратора MG-N707TS, который идеально подходит для небольших компаний и частных предпринимателей.</p>', '', 'FISCAL REGISTERS MG N707TS  ПРОСТОТА, ДОСТУПНАЯ ЦЕНА И ВЫСОКОЕ КАЧЕСТВО - ОСНОВНЫЕ КАЧЕСТВА ФИСКАЛЬНОГО РЕГИСТРАТОРА MG-N707TS, КОТОРЫЙ ИДЕАЛЬНО ПОДХОДИТ ДЛЯ НЕБОЛЬШИХ КОМПАНИЙ ЧАСТНЫХ ПРЕДПРИНИМАТЕЛЕЙ.'),
+(341, 114, 'ru', 'MG N707TS', '', '<p>Простота, доступная цена и высокое качество - основные качества фискального регистратора MG-N707TS, который идеально подходит для небольших компаний и частных предпринимателей.</p>\r\n<ul>\r\n<li>Введен в Государственный Реестр РРО Украины и соответствует нормам, действующим с 1 января 2015 года</li>\r\n<li>Встроенный модем для on-line передачи контрольной ленты в электронной форме (КЛЭФ) в фискальную службу</li>\r\n<li>Скорость печати до 56 миллиметров в секунду</li>\r\n<li>Великолепный дизайн</li>\r\n<li>Высокая надежность</li>\r\n</ul>\r\n<p>MG-N707TS &mdash; фискальный регистратор на базе проверенного временем фискального принтера Bono-E, от польской компании Novitus, известного европейского производителя фискальной техники.</p>\r\n<ul>\r\n<li>Регистратор оснащен встроенным индикатором клиента и имеет исключительно привлекательный дизайн.</li>\r\n<li>Особенности фискального регистратора (РРО) MG-N707TS:</li>\r\n<li>Соответствие законодательным нормам, действующим с 1 января 2015 г.</li>\r\n<li>Элементарная загрузка чековой ленты (технология Easy-load)</li>\r\n<li>Все необходимые интерфейсы для простого подключения к POS, ПК, локальной сети, денежному ящику</li>\r\n<li>Совместимость с ПО ведущих украинских производителей</li>\r\n<li>Качественный сервис на всей территории Украины. Решение любой проблемы в течение максимум 72 часов.</li>\r\n</ul>\r\n<p>Фискальный регистратор MG-N707TS идеально подходит для небольших предприятий и частных предпринимателей.</p>', '', '<p class="group inner list-group-item-text">Простота, доступная цена и высокое качество - основные качества фискального регистратора MG-N707TS, который идеально подходит для небольших компаний и частных предпринимателей.</p>', '', 'ФИСКАЛЬНЫЕ РЕГИСТРАТОРЫ MG N707TS  ПРОСТОТА, ДОСТУПНАЯ ЦЕНА И ВЫСОКОЕ КАЧЕСТВО - ОСНОВНЫЕ КАЧЕСТВА ФИСКАЛЬНОГО РЕГИСТРАТОРА MG-N707TS, КОТОРЫЙ ИДЕАЛЬНО ПОДХОДИТ ДЛЯ НЕБОЛЬШИХ КОМПАНИЙ ЧАСТНЫХ ПРЕДПРИНИМАТЕЛЕЙ.'),
+(342, 114, 'ua', 'MG N707TS', '', '<p>Простота, доступная цена и высокое качество - основные качества фискального регистратора MG-N707TS, который идеально подходит для небольших компаний и частных предпринимателей.</p>\r\n<ul>\r\n<li>Введен в Государственный Реестр РРО Украины и соответствует нормам, действующим с 1 января 2015 года</li>\r\n<li>Встроенный модем для on-line передачи контрольной ленты в электронной форме (КЛЭФ) в фискальную службу</li>\r\n<li>Скорость печати до 56 миллиметров в секунду</li>\r\n<li>Великолепный дизайн</li>\r\n<li>Высокая надежность</li>\r\n</ul>\r\n<p>MG-N707TS &mdash; фискальный регистратор на базе проверенного временем фискального принтера Bono-E, от польской компании Novitus, известного европейского производителя фискальной техники.</p>\r\n<ul>\r\n<li>Регистратор оснащен встроенным индикатором клиента и имеет исключительно привлекательный дизайн.</li>\r\n<li>Особенности фискального регистратора (РРО) MG-N707TS:</li>\r\n<li>Соответствие законодательным нормам, действующим с 1 января 2015 г.</li>\r\n<li>Элементарная загрузка чековой ленты (технология Easy-load)</li>\r\n<li>Все необходимые интерфейсы для простого подключения к POS, ПК, локальной сети, денежному ящику</li>\r\n<li>Совместимость с ПО ведущих украинских производителей</li>\r\n<li>Качественный сервис на всей территории Украины. Решение любой проблемы в течение максимум 72 часов.</li>\r\n</ul>\r\n<p>Фискальный регистратор MG-N707TS идеально подходит для небольших предприятий и частных предпринимателей.</p>', '<table style="width: 100%;">\r\n<tbody>\r\n<tr>\r\n<td>Версия ПО:</td>\r\n<td>MG-07</td>\r\n</tr>\r\n<tr>\r\n<td>Индикатор покупателя:</td>\r\n<td>встроенный люминесцентный, 5 рядов по 16 символов</td>\r\n</tr>\r\n</tbody>\r\n</table>', '<p class="group inner list-group-item-text">Простота, доступная цена и высокое качество - основные качества фискального регистратора MG-N707TS, который идеально подходит для небольших компаний и частных предпринимателей.</p>', '', 'ФІСКАЛЬНІ РЕЄСТРАТОРИ MG N707TS  ВЕРСИЯ ПО: MG-07 ИНДИКАТОР ПОКУПАТЕЛЯ: ВСТРОЕННЫЙ ЛЮМИНЕСЦЕНТНЫЙ, 5 РЯДОВ ПО 16 СИМВОЛОВ ПРОСТОТА, ДОСТУПНАЯ ЦЕНА И ВЫСОКОЕ КАЧЕСТВО - ОСНОВНЫЕ КАЧЕСТВА ФИСКАЛЬНОГО РЕГИСТРАТОРА MG-N707TS, КОТОРЫЙ ИДЕАЛЬНО ПОДХОДИТ ДЛЯ НЕБОЛЬШИХ КОМПАНИЙ ЧАСТНЫХ ПРЕДПРИНИМАТЕЛЕЙ.'),
+(343, 115, 'en', 'MG N707TS.1', '', '<p>Простота, доступная цена и высокое качество - основные качества фискального регистратора MG-N707TS, который идеально подходит для небольших компаний и частных предпринимателей.</p>\r\n<ul>\r\n<li>Введен в Государственный Реестр РРО Украины и соответствует нормам, действующим с 1 января 2015 года</li>\r\n<li>Встроенный модем для on-line передачи контрольной ленты в электронной форме (КЛЭФ) в фискальную службу</li>\r\n<li>Скорость печати до 56 миллиметров в секунду</li>\r\n<li>Великолепный дизайн</li>\r\n<li>Высокая надежность</li>\r\n</ul>\r\n<p>MG-N707TS &mdash; фискальный регистратор на базе проверенного временем фискального принтера Bono-E, от польской компании Novitus, известного европейского производителя фискальной техники.</p>\r\n<ul>\r\n<li>Регистратор оснащен встроенным индикатором клиента и имеет исключительно привлекательный дизайн.</li>\r\n<li>Особенности фискального регистратора (РРО) MG-N707TS:</li>\r\n<li>Соответствие законодательным нормам, действующим с 1 января 2015 г.</li>\r\n<li>Элементарная загрузка чековой ленты (технология Easy-load)</li>\r\n<li>Все необходимые интерфейсы для простого подключения к POS, ПК, локальной сети, денежному ящику</li>\r\n<li>Совместимость с ПО ведущих украинских производителей</li>\r\n<li>Качественный сервис на всей территории Украины. Решение любой проблемы в течение максимум 72 часов.</li>\r\n</ul>\r\n<p>Фискальный регистратор MG-N707TS идеально подходит для небольших предприятий и частных предпринимателей.</p>', '<table style="width: 100%;">\r\n<tbody>\r\n<tr>\r\n<td>Версия ПО:</td>\r\n<td>MG-07</td>\r\n</tr>\r\n<tr>\r\n<td>Индикатор покупателя:</td>\r\n<td>встроенный люминесцентный, 5 рядов по 16 символов</td>\r\n</tr>\r\n</tbody>\r\n</table>', '<p class="group inner list-group-item-text">Простота, доступная цена и высокое качество - основные качества фискального регистратора MG-N707TS, который идеально подходит для небольших компаний и частных предпринимателей.</p>', '', 'FISCAL REGISTERS MG N707TS.1  ВЕРСИЯ ПО: MG-07 ИНДИКАТОР ПОКУПАТЕЛЯ: ВСТРОЕННЫЙ ЛЮМИНЕСЦЕНТНЫЙ, 5 РЯДОВ ПО 16 СИМВОЛОВ ПРОСТОТА, ДОСТУПНАЯ ЦЕНА И ВЫСОКОЕ КАЧЕСТВО - ОСНОВНЫЕ КАЧЕСТВА ФИСКАЛЬНОГО РЕГИСТРАТОРА MG-N707TS, КОТОРЫЙ ИДЕАЛЬНО ПОДХОДИТ ДЛЯ НЕБОЛЬШИХ КОМПАНИЙ ЧАСТНЫХ ПРЕДПРИНИМАТЕЛЕЙ.'),
+(344, 115, 'ru', 'MG N707TS.1', '', '<p>Простота, доступная цена и высокое качество - основные качества фискального регистратора MG-N707TS, который идеально подходит для небольших компаний и частных предпринимателей.</p>\r\n<ul>\r\n<li>Введен в Государственный Реестр РРО Украины и соответствует нормам, действующим с 1 января 2015 года</li>\r\n<li>Встроенный модем для on-line передачи контрольной ленты в электронной форме (КЛЭФ) в фискальную службу</li>\r\n<li>Скорость печати до 56 миллиметров в секунду</li>\r\n<li>Великолепный дизайн</li>\r\n<li>Высокая надежность</li>\r\n</ul>\r\n<p>MG-N707TS &mdash; фискальный регистратор на базе проверенного временем фискального принтера Bono-E, от польской компании Novitus, известного европейского производителя фискальной техники.</p>\r\n<ul>\r\n<li>Регистратор оснащен встроенным индикатором клиента и имеет исключительно привлекательный дизайн.</li>\r\n<li>Особенности фискального регистратора (РРО) MG-N707TS:</li>\r\n<li>Соответствие законодательным нормам, действующим с 1 января 2015 г.</li>\r\n<li>Элементарная загрузка чековой ленты (технология Easy-load)</li>\r\n<li>Все необходимые интерфейсы для простого подключения к POS, ПК, локальной сети, денежному ящику</li>\r\n<li>Совместимость с ПО ведущих украинских производителей</li>\r\n<li>Качественный сервис на всей территории Украины. Решение любой проблемы в течение максимум 72 часов.</li>\r\n</ul>\r\n<p>Фискальный регистратор MG-N707TS идеально подходит для небольших предприятий и частных предпринимателей.</p>', '<table style="width: 100%;">\r\n<tbody>\r\n<tr>\r\n<td>Версия ПО:</td>\r\n<td>MG-07</td>\r\n</tr>\r\n<tr>\r\n<td>Индикатор покупателя:</td>\r\n<td>встроенный люминесцентный, 5 рядов по 16 символов</td>\r\n</tr>\r\n</tbody>\r\n</table>', '<p class="group inner list-group-item-text">Простота, доступная цена и высокое качество - основные качества фискального регистратора MG-N707TS, который идеально подходит для небольших компаний и частных предпринимателей.</p>', '', 'ФИСКАЛЬНЫЕ РЕГИСТРАТОРЫ MG N707TS.1  ВЕРСИЯ ПО: MG-07 ИНДИКАТОР ПОКУПАТЕЛЯ: ВСТРОЕННЫЙ ЛЮМИНЕСЦЕНТНЫЙ, 5 РЯДОВ ПО 16 СИМВОЛОВ ПРОСТОТА, ДОСТУПНАЯ ЦЕНА И ВЫСОКОЕ КАЧЕСТВО - ОСНОВНЫЕ КАЧЕСТВА ФИСКАЛЬНОГО РЕГИСТРАТОРА MG-N707TS, КОТОРЫЙ ИДЕАЛЬНО ПОДХОДИТ ДЛЯ НЕБОЛЬШИХ КОМПАНИЙ ЧАСТНЫХ ПРЕДПРИНИМАТЕЛЕЙ.'),
+(345, 115, 'ua', 'MG N707TS.1', '', '<p>Простота, доступная цена и высокое качество - основные качества фискального регистратора MG-N707TS, который идеально подходит для небольших компаний и частных предпринимателей.</p>\r\n<ul>\r\n<li>Введен в Государственный Реестр РРО Украины и соответствует нормам, действующим с 1 января 2015 года</li>\r\n<li>Встроенный модем для on-line передачи контрольной ленты в электронной форме (КЛЭФ) в фискальную службу</li>\r\n<li>Скорость печати до 56 миллиметров в секунду</li>\r\n<li>Великолепный дизайн</li>\r\n<li>Высокая надежность</li>\r\n</ul>\r\n<p>MG-N707TS &mdash; фискальный регистратор на базе проверенного временем фискального принтера Bono-E, от польской компании Novitus, известного европейского производителя фискальной техники.</p>\r\n<ul>\r\n<li>Регистратор оснащен встроенным индикатором клиента и имеет исключительно привлекательный дизайн.</li>\r\n<li>Особенности фискального регистратора (РРО) MG-N707TS:</li>\r\n<li>Соответствие законодательным нормам, действующим с 1 января 2015 г.</li>\r\n<li>Элементарная загрузка чековой ленты (технология Easy-load)</li>\r\n<li>Все необходимые интерфейсы для простого подключения к POS, ПК, локальной сети, денежному ящику</li>\r\n<li>Совместимость с ПО ведущих украинских производителей</li>\r\n<li>Качественный сервис на всей территории Украины. Решение любой проблемы в течение максимум 72 часов.</li>\r\n</ul>\r\n<p>Фискальный регистратор MG-N707TS идеально подходит для небольших предприятий и частных предпринимателей.</p>', '<table style="width: 100%;">\r\n<tbody>\r\n<tr>\r\n<td>Версия ПО:</td>\r\n<td>MG-07</td>\r\n</tr>\r\n<tr>\r\n<td>Индикатор покупателя:</td>\r\n<td>встроенный люминесцентный, 5 рядов по 16 символов</td>\r\n</tr>\r\n</tbody>\r\n</table>', '<p class="group inner list-group-item-text">Простота, доступная цена и высокое качество - основные качества фискального регистратора MG-N707TS, кот.</p>', '', 'ФІСКАЛЬНІ РЕЄСТРАТОРИ MG N707TS.1  ВЕРСИЯ ПО: MG-07 ИНДИКАТОР ПОКУПАТЕЛЯ: ВСТРОЕННЫЙ ЛЮМИНЕСЦЕНТНЫЙ, 5 РЯДОВ ПО 16 СИМВОЛОВ ПРОСТОТА, ДОСТУПНАЯ ЦЕНА И ВЫСОКОЕ КАЧЕСТВО - ОСНОВНЫЕ КАЧЕСТВА ФИСКАЛЬНОГО РЕГИСТРАТОРА MG-N707TS, КОТ.'),
+(352, 118, 'en', 'MG N707TS.4', '', '', '', '', '', 'FISCAL REGISTERS MG N707TS.4'),
+(353, 118, 'ru', 'MG N707TS.4', '', '', '', '', '', 'ФИСКАЛЬНЫЕ РЕГИСТРАТОРЫ MG N707TS.4'),
+(354, 118, 'ua', 'MG N707TS.4', '', '', '', '', '', 'ФІСКАЛЬНІ РЕЄСТРАТОРИ MG N707TS.4'),
+(346, 116, 'en', 'MG N707TS.2', '', '<p>Простота, доступная цена и высокое качество - основные качества фискального регистратора MG-N707TS, который идеально подходит для небольших компаний и частных предпринимателей.</p>\r\n<ul>\r\n<li>Введен в Государственный Реестр РРО Украины и соответствует нормам, действующим с 1 января 2015 года</li>\r\n<li>Встроенный модем для on-line передачи контрольной ленты в электронной форме (КЛЭФ) в фискальную службу</li>\r\n<li>Скорость печати до 56 миллиметров в секунду</li>\r\n<li>Великолепный дизайн</li>\r\n<li>Высокая надежность</li>\r\n</ul>\r\n<p>MG-N707TS &mdash; фискальный регистратор на базе проверенного временем фискального принтера Bono-E, от польской компании Novitus, известного европейского производителя фискальной техники.</p>\r\n<ul>\r\n<li>Регистратор оснащен встроенным индикатором клиента и имеет исключительно привлекательный дизайн.</li>\r\n<li>Особенности фискального регистратора (РРО) MG-N707TS:</li>\r\n<li>Соответствие законодательным нормам, действующим с 1 января 2015 г.</li>\r\n<li>Элементарная загрузка чековой ленты (технология Easy-load)</li>\r\n<li>Все необходимые интерфейсы для простого подключения к POS, ПК, локальной сети, денежному ящику</li>\r\n<li>Совместимость с ПО ведущих украинских производителей</li>\r\n<li>Качественный сервис на всей территории Украины. Решение любой проблемы в течение максимум 72 часов.</li>\r\n</ul>\r\n<p>Фискальный регистратор MG-N707TS идеально подходит для небольших предприятий и частных предпринимателей.</p>', '<table style="width: 100%;">\r\n<tbody>\r\n<tr>\r\n<td>Версия ПО:</td>\r\n<td>MG-07</td>\r\n</tr>\r\n<tr>\r\n<td>Индикатор покупателя:</td>\r\n<td>встроенный люминесцентный, 5 рядов по 16 символов</td>\r\n</tr>\r\n</tbody>\r\n</table>', '<p class="group inner list-group-item-text">Простота, доступная цена и высокое качество - основные качества фискального регистратора MG-N707TS, который идеально подходит для небольших компаний и частных предпринимателей.</p>', '', 'FISCAL REGISTERS MG N707TS.2  ВЕРСИЯ ПО: MG-07 ИНДИКАТОР ПОКУПАТЕЛЯ: ВСТРОЕННЫЙ ЛЮМИНЕСЦЕНТНЫЙ, 5 РЯДОВ ПО 16 СИМВОЛОВ ПРОСТОТА, ДОСТУПНАЯ ЦЕНА И ВЫСОКОЕ КАЧЕСТВО - ОСНОВНЫЕ КАЧЕСТВА ФИСКАЛЬНОГО РЕГИСТРАТОРА MG-N707TS, КОТОРЫЙ ИДЕАЛЬНО ПОДХОДИТ ДЛЯ НЕБОЛЬШИХ КОМПАНИЙ ЧАСТНЫХ ПРЕДПРИНИМАТЕЛЕЙ.'),
+(347, 116, 'ru', 'MG N707TS.2', '', '<p>Простота, доступная цена и высокое качество - основные качества фискального регистратора MG-N707TS, который идеально подходит для небольших компаний и частных предпринимателей.</p>\r\n<ul>\r\n<li>Введен в Государственный Реестр РРО Украины и соответствует нормам, действующим с 1 января 2015 года</li>\r\n<li>Встроенный модем для on-line передачи контрольной ленты в электронной форме (КЛЭФ) в фискальную службу</li>\r\n<li>Скорость печати до 56 миллиметров в секунду</li>\r\n<li>Великолепный дизайн</li>\r\n<li>Высокая надежность</li>\r\n</ul>\r\n<p>MG-N707TS &mdash; фискальный регистратор на базе проверенного временем фискального принтера Bono-E, от польской компании Novitus, известного европейского производителя фискальной техники.</p>\r\n<ul>\r\n<li>Регистратор оснащен встроенным индикатором клиента и имеет исключительно привлекательный дизайн.</li>\r\n<li>Особенности фискального регистратора (РРО) MG-N707TS:</li>\r\n<li>Соответствие законодательным нормам, действующим с 1 января 2015 г.</li>\r\n<li>Элементарная загрузка чековой ленты (технология Easy-load)</li>\r\n<li>Все необходимые интерфейсы для простого подключения к POS, ПК, локальной сети, денежному ящику</li>\r\n<li>Совместимость с ПО ведущих украинских производителей</li>\r\n<li>Качественный сервис на всей территории Украины. Решение любой проблемы в течение максимум 72 часов.</li>\r\n</ul>\r\n<p>Фискальный регистратор MG-N707TS идеально подходит для небольших предприятий и частных предпринимателей.</p>', '<table style="width: 100%;">\r\n<tbody>\r\n<tr>\r\n<td>Версия ПО:</td>\r\n<td>MG-07</td>\r\n</tr>\r\n<tr>\r\n<td>Индикатор покупателя:</td>\r\n<td>встроенный люминесцентный, 5 рядов по 16 символов</td>\r\n</tr>\r\n</tbody>\r\n</table>', '<p class="group inner list-group-item-text">Простота, доступная цена и высокое качество - основные качества фискального регистратора MG-N707TS, который идеально подходит для небольших компаний и частных предпринимателей.</p>', '', 'ФИСКАЛЬНЫЕ РЕГИСТРАТОРЫ MG N707TS.2  ВЕРСИЯ ПО: MG-07 ИНДИКАТОР ПОКУПАТЕЛЯ: ВСТРОЕННЫЙ ЛЮМИНЕСЦЕНТНЫЙ, 5 РЯДОВ ПО 16 СИМВОЛОВ ПРОСТОТА, ДОСТУПНАЯ ЦЕНА И ВЫСОКОЕ КАЧЕСТВО - ОСНОВНЫЕ КАЧЕСТВА ФИСКАЛЬНОГО РЕГИСТРАТОРА MG-N707TS, КОТОРЫЙ ИДЕАЛЬНО ПОДХОДИТ ДЛЯ НЕБОЛЬШИХ КОМПАНИЙ ЧАСТНЫХ ПРЕДПРИНИМАТЕЛЕЙ.'),
+(348, 116, 'ua', 'MG N707TS.2', '', '<p>Простота, доступная цена и высокое качество - основные качества фискального регистратора MG-N707TS, который идеально подходит для небольших компаний и частных предпринимателей.</p>\r\n<ul>\r\n<li>Введен в Государственный Реестр РРО Украины и соответствует нормам, действующим с 1 января 2015 года</li>\r\n<li>Встроенный модем для on-line передачи контрольной ленты в электронной форме (КЛЭФ) в фискальную службу</li>\r\n<li>Скорость печати до 56 миллиметров в секунду</li>\r\n<li>Великолепный дизайн</li>\r\n<li>Высокая надежность</li>\r\n</ul>\r\n<p>MG-N707TS &mdash; фискальный регистратор на базе проверенного временем фискального принтера Bono-E, от польской компании Novitus, известного европейского производителя фискальной техники.</p>\r\n<ul>\r\n<li>Регистратор оснащен встроенным индикатором клиента и имеет исключительно привлекательный дизайн.</li>\r\n<li>Особенности фискального регистратора (РРО) MG-N707TS:</li>\r\n<li>Соответствие законодательным нормам, действующим с 1 января 2015 г.</li>\r\n<li>Элементарная загрузка чековой ленты (технология Easy-load)</li>\r\n<li>Все необходимые интерфейсы для простого подключения к POS, ПК, локальной сети, денежному ящику</li>\r\n<li>Совместимость с ПО ведущих украинских производителей</li>\r\n<li>Качественный сервис на всей территории Украины. Решение любой проблемы в течение максимум 72 часов.</li>\r\n</ul>\r\n<p>Фискальный регистратор MG-N707TS идеально подходит для небольших предприятий и частных предпринимателей.</p>', '<table style="width: 100%;">\r\n<tbody>\r\n<tr>\r\n<td>Версия ПО:</td>\r\n<td>MG-07</td>\r\n</tr>\r\n<tr>\r\n<td>Индикатор покупателя:</td>\r\n<td>встроенный люминесцентный, 5 рядов по 16 символов</td>\r\n</tr>\r\n</tbody>\r\n</table>', '<p class="group inner list-group-item-text">Простота, доступная цена и высокое качество - основные качества фискального регистратора MG-N707TS, который идеально подходит для небольших компаний и частных предпринимателей.</p>', '', 'ФІСКАЛЬНІ РЕЄСТРАТОРИ MG N707TS.2  ВЕРСИЯ ПО: MG-07 ИНДИКАТОР ПОКУПАТЕЛЯ: ВСТРОЕННЫЙ ЛЮМИНЕСЦЕНТНЫЙ, 5 РЯДОВ ПО 16 СИМВОЛОВ ПРОСТОТА, ДОСТУПНАЯ ЦЕНА И ВЫСОКОЕ КАЧЕСТВО - ОСНОВНЫЕ КАЧЕСТВА ФИСКАЛЬНОГО РЕГИСТРАТОРА MG-N707TS, КОТОРЫЙ ИДЕАЛЬНО ПОДХОДИТ ДЛЯ НЕБОЛЬШИХ КОМПАНИЙ ЧАСТНЫХ ПРЕДПРИНИМАТЕЛЕЙ.'),
+(349, 117, 'en', 'MG N707TS.3', '', '', '', '', '', 'FISCAL REGISTERS MG N707TS.3'),
+(350, 117, 'ru', 'MG N707TS.3', '', '', '', '', '', 'ФИСКАЛЬНЫЕ РЕГИСТРАТОРЫ MG N707TS.3'),
+(351, 117, 'ua', 'MG N707TS.3', '', '', '', '', '', 'ФІСКАЛЬНІ РЕЄСТРАТОРИ MG N707TS.3'),
+(355, 119, 'en', 'MG N707TS.5', '', '', '', '', '', 'FISCAL REGISTERS MG N707TS.5'),
+(356, 119, 'ru', 'MG N707TS.5', '', '', '', '', '', 'ФИСКАЛЬНЫЕ РЕГИСТРАТОРЫ MG N707TS.5'),
+(357, 119, 'ua', 'MG N707TS.5', '', '', '', '', '', 'ФІСКАЛЬНІ РЕЄСТРАТОРИ MG N707TS.5');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_category`
+--
+
+CREATE TABLE IF NOT EXISTS `product_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `product_id` (`product_id`),
+  KEY `category_id` (`category_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=261 ;
+
+--
+-- Dumping data for table `product_category`
+--
+
+INSERT INTO `product_category` (`id`, `product_id`, `category_id`) VALUES
+(255, 114, 12),
+(256, 115, 12),
+(257, 116, 12),
+(258, 117, 12),
+(259, 118, 12),
+(260, 119, 12);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_characteristic`
+--
+
+CREATE TABLE IF NOT EXISTS `product_characteristic` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `characteristic_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `product_id` (`product_id`,`characteristic_id`),
+  KEY `characteristic_id` (`characteristic_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3761 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_file`
+--
+
+CREATE TABLE IF NOT EXISTS `product_file` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `file` varchar(255) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `sort` int(11) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `product_id` (`product_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
+
+--
+-- Dumping data for table `product_file`
+--
+
+INSERT INTO `product_file` (`id`, `file`, `product_id`, `sort`, `name`) VALUES
+(21, '/uploads/products/114/file/Bucklet_MG-N707TSe4a7.pdf', 114, 1, 'Буклет'),
+(22, '/uploads/products/114/file/RNDIS9624.zip', 114, 2, 'Драйвер для Windows'),
+(23, '/uploads/products/114/file/707-protocolc2ab.pdf', 114, 3, 'Протокол RS-232'),
+(26, '/uploads/products/115/file/RNDIS9624.zip', 115, 1, 'Драйвера для Windows');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_gallery`
+--
+
+CREATE TABLE IF NOT EXISTS `product_gallery` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `image` varchar(255) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `sort` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `product_id` (`product_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1639 ;
+
+--
+-- Dumping data for table `product_gallery`
+--
+
+INSERT INTO `product_gallery` (`id`, `image`, `product_id`, `sort`) VALUES
+(1627, '/uploads/products/114/1.jpeg', 114, 0),
+(1628, '/uploads/products/114/2.jpg', 114, 1),
+(1633, '/uploads/products/116/1.jpeg', 116, NULL),
+(1634, '/uploads/products/117/1.jpeg', 117, NULL),
+(1635, '/uploads/products/115/1.jpeg', 115, 1),
+(1636, '/uploads/products/115/2.jpg', 115, 2),
+(1637, '/uploads/products/118/1.jpeg', 118, NULL),
+(1638, '/uploads/products/119/1.jpeg', 119, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_relation`
+--
+
+CREATE TABLE IF NOT EXISTS `product_relation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `product_related_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `product_id` (`product_id`,`product_related_id`),
+  KEY `product_id_2` (`product_id`),
+  KEY `product_related_id` (`product_related_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=12 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_variation`
+--
+
+CREATE TABLE IF NOT EXISTS `product_variation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `characteristic_id` int(11) NOT NULL,
+  `price` double NOT NULL,
+  `currency_id` int(11) NOT NULL,
+  `in_stock` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `product_id` (`product_id`,`characteristic_id`),
+  KEY `characteristic_id` (`characteristic_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=53 ;
 
 -- --------------------------------------------------------
 
@@ -2342,7 +2563,7 @@ CREATE TABLE IF NOT EXISTS `source_message` (
   `category` varchar(255) DEFAULT NULL,
   `message` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=959 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=966 ;
 
 --
 -- Dumping data for table `source_message`
@@ -2863,7 +3084,93 @@ INSERT INTO `source_message` (`id`, `category`, `message`) VALUES
 (955, 'common/modules/i18n', 'We develop devices due to requirements of different countries'),
 (956, 'common/modules/i18n', 'Our partners'),
 (957, 'common/modules/i18n', 'Contact page address'),
-(958, 'common/modules/i18n', 'Leave your message');
+(958, 'common/modules/i18n', 'Leave your message'),
+(959, 'common/modules/i18n', 'About us lead text'),
+(960, 'common/modules/i18n', 'Our achievements'),
+(961, 'common/modules/i18n', 'Files'),
+(962, 'common/modules/i18n', 'File'),
+(963, 'common/modules/i18n', 'Production'),
+(964, 'common/modules/i18n', 'Buy'),
+(965, 'common/modules/i18n', 'Buy link');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stock`
+--
+
+CREATE TABLE IF NOT EXISTS `stock` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
+  `enabled` tinyint(1) NOT NULL,
+  `sort` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `stock`
+--
+
+INSERT INTO `stock` (`id`, `created_at`, `updated_at`, `enabled`, `sort`) VALUES
+(1, 1470239099, 1470561474, 1, 0),
+(2, 1470239372, 1470301178, 1, 1),
+(3, 1470301277, 1470301952, 1, 2),
+(4, 1470301377, 1470301952, 1, 3),
+(5, 1470301462, 1470301952, 1, 4),
+(6, 1470301549, 1470301952, 1, 5),
+(7, 1470301622, 1473958884, 1, 7),
+(8, 1470301713, 1473958884, 1, 8),
+(9, 1470301868, 1473958884, 1, 6);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stocklang`
+--
+
+CREATE TABLE IF NOT EXISTS `stocklang` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `stock_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `language` varchar(5) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `stock_id` (`stock_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
+
+--
+-- Dumping data for table `stocklang`
+--
+
+INSERT INTO `stocklang` (`id`, `stock_id`, `title`, `content`, `language`) VALUES
+(1, 1, 'Kiev', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>"Mod House", Geroyiv Stalingradu avenue, 10А, tel.+38 (044) 581 21 97</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>"ALDI"-Zabolotnogo street,37</div>\r\nArtMoll moll, 1st floor of the boutique gallery, tel. +38 (097) 393 29 27</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>"GALLERY 48", Antonovicha street,48, tel.+38 (073) 484 84 03</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>"FІOLET", Malyshko street, 3</div>\r\nKubyk mall (4-th floor), tel. +38 (098) 653 55 55</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>"Buro 38 August", V.Vasylkivska street, 13/1, tel. +38 (067) 483 34 08</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>Showroom Burba, Pushkinska street, 8, tel.+38 (095) 270 41 91</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>"Names''UA" , вул. Chervonogvardiyska street, 1C</div>\r\nProspekt mall (2-nd floor), tel. +38 (044) 220 36 73</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>"Polo Garage", Lunacharskogo street, 4</div>\r\nKomod mall, tel. +38 (044) 585 70 57</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>"ViloNNa", Moskovskiy avenue, 23</div>\r\nGorodok mall (2-nd floor), tel. +38 (044) 224 50 93, +38 (067) 273 67 42</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>', 'en'),
+(2, 1, 'Киев', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>"Mod House", пр-т Героев Сталинграда, 10А, тел.+38 (044) 581 21 97</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>"ALDI"-ул.Заболотного,37</div>\r\nТРЦ АртМолл. 1-й этаж бутиковой галереи, тел. +38 (097) 393 29 27</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>"GALLERY 48", ул.Антоновича,48, тел.+38 (073) 484 84 03</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>"ФІОЛЕТ", ул. Малышко, 3</div>\r\nТЦ "Кубик" (4-й этаж), тел. +38 (098) 653 55 55</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>"Buro 38 August", ул. Б.Васильковская, 13/1, тел. +38 (067) 483 34 08</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>Showroom Burba, ул. Пушкинская, 8, тел.+38 (095) 270 41 91</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>"Names''UA" , ул. Красногвардейская, 1В</div>\r\nТРЦ "Проспект" (2-й этаж), тел. +38 (044) 220 36 73</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>"Polo Garage", ул. Луначарского, 4</div>\r\nТРЦ "Комод", тел. +38 (044) 585 70 57</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>"ViloNNa", пр-т Московский, 23</div>\r\nТРЦ "Городок" (2-й этаж), тел. +38 (044) 224 50 93, +38 (067) 273 67 42</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>', 'ru'),
+(3, 1, 'Київ', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>"Mod House", пр-т Героїв Сталінграду, 10А, тел.+38 (044) 581 21 97</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>"ALDI"-вул.Заболотнього,37</div>\r\nТРЦ АртМолл. 1-й поверх бутикової галереї, тел. +38 (097) 393 29 27</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>"GALLERY 48", вул.Антоновича,48, тел.+38 (073) 484 84 03</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>"ФІОЛЕТ", вул. Малишко, 3</div>\r\nТЦ "Кубик" (4-й поверх), тел. +38 (098) 653 55 55</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>"Buro 38 August", вул. В.Васильківська, 13/1, тел. +38 (067) 483 34 08</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>Showroom Burba, вул. Пушкінська, 8, тел.+38 (095) 270 41 91</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>"Names''UA" , вул. Червоногвардійська, 1В</div>\r\nТРЦ "Проспект" (2-й поверх), тел. +38 (044) 220 36 73</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>"Polo Garage", вул. Луначарського, 4</div>\r\nТРЦ "Комод", тел. +38 (044) 585 70 57</td>\r\n</tr>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>"ViloNNa", пр-т Московський, 23</div>\r\nТРЦ "Городок" (2-й поверх), тел. +38 (044) 224 50 93, +38 (067) 273 67 42</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>', 'ua'),
+(4, 2, 'Dnepropetrovsk', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>"CROCUS", Gopner street,2, tel. +38 (056) 740 20 35</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>', 'en'),
+(5, 2, 'Днепропетровск', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>"CROCUS", ул.Гопнер,2, тел. +38 (056) 740 20 35</td>\r\n</tr>\r\n</tbody>\r\n</table>', 'ru'),
+(6, 2, 'Дніпропетровськ', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>"CROCUS", вул.Гопнер,2, тел. +38 (056) 740 20 35</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>', 'ua'),
+(7, 3, 'Odesa', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>Showroom Burba, Lanzheronivska street, 21, tel. +38 (068) 900 76 85</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>', 'en'),
+(8, 3, 'Одесса', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>Showroom Burba, ул.Ланжероновская, 21, тел. +38 (068) 900 76 85</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>', 'ru'),
+(9, 3, 'Одеса', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>Showroom Burba, вул.Ланжеронівська, 21, тел. +38 (068) 900 76 85</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>', 'ua'),
+(10, 4, 'Lviv', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>"DyZaynery.UA", Serbska street, 10, tel. +38 (068) 668 07 09, +38 (098) 127 34 55</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>', 'en'),
+(11, 4, 'Львов', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>"ДиZайнери.UA", ул. Сербская, 10, тел. +38 (068) 668 07 09, +38 (098) 127 34 55</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>', 'ru'),
+(12, 4, 'Львів', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>"ДиZайнери.UA", вул. Сербська, 10, тел. +38 (068) 668 07 09, +38 (098) 127 34 55</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>', 'ua'),
+(13, 5, 'Kherson', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>"ZEBRA", Gagarina street, 4, tel. +38 (099) 911 83 81</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>', 'en'),
+(14, 5, 'Херсон', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>"ЗЕБРА", ул.Гагарина, 4, тел. +38 (099) 911 83 81</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>', 'ru'),
+(15, 5, 'Херсон', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>"ЗЕБРА", вул.Гагаріна, 4, тел. +38 (099) 911 83 81</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>', 'ua'),
+(16, 6, 'Vinnytsia', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>"Fashion of Ukraine", Yunosti avenue, 43а</div>\r\nMagigrand mall, 2s. 2 f., tel. +38 (0432) 527 879, +38 (097) 293 64 33</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>', 'en'),
+(17, 6, 'Винница', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>"Fashion of Ukraine", пр-т Юности, 43а</div>\r\nТРК "Магигранд", 2к. 2 эт., тел. +38 (0432) 527 879, +38 (097) 293 64 33</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>', 'ru'),
+(18, 6, 'Вінниця', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>"Fashion of Ukraine", пр-т Юності, 43а</div>\r\nТРК "Магигранд", 2к. 2 п., тел. +38 (0432) 527 879, +38 (097) 293 64 33</td>\r\n</tr>\r\n</tbody>\r\n</table>', 'ua'),
+(19, 7, 'Rivne', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>"Zaldiz", Makarova street, 23</div>\r\nEkvator mall, tel. +38 (0362) 460 502, +38 (050) 435 16 41, +38 (098) 036 70 29</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>', 'en'),
+(20, 7, 'Ровно', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>"Zaldiz", ул. Макарова, 23</div>\r\nТРЦ "Экватор", тел. +38 (0362) 460 502, +38 (050) 435 16 41, +38 (098) 036 70 29</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>', 'ru'),
+(21, 7, 'Рівне', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>"Zaldiz", вул. Макарова, 23</div>\r\nТРЦ "Екватор", тел. +38 (0362) 460 502, +38 (050) 435 16 41, +38 (098) 036 70 29</td>\r\n</tr>\r\n</tbody>\r\n</table>', 'ua'),
+(22, 8, 'Lutsk', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>Gallery 1, Voli avenue, 42</div>\r\nGrand Volyn mall, boutique 5, tel. +38 (067) 332 24 20</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>', 'en'),
+(23, 8, 'Луцк', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>Gallery 1, пр-т Воли, 42</div>\r\nТЦ "Гранд Волынь", бутик 5, тел. +38 (067) 332 24 20</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>', 'ru'),
+(24, 8, 'Луцьк', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>\r\n<div>Gallery 1, пр-т Волі, 42</div>\r\nТЦ "Гранд Волинь", бутик 5, тел. +38 (067) 332 24 20</td>\r\n</tr>\r\n</tbody>\r\n</table>', 'ua'),
+(25, 9, 'Kirovograd', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>Plasa mall, 1-st floor shop "NATALI", tel. +38 (095) 723 03 87</td>\r\n</tr>\r\n</tbody>\r\n</table>', 'en'),
+(26, 9, 'Кировоград', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>ТЦ "Плаза", 1-й этаж м-н "НАТАЛИ", тел. +38 (095) 723 03 87</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>', 'ru'),
+(27, 9, 'Кіровоград', '<table>\r\n<tbody>\r\n<tr>\r\n<td>&nbsp;</td>\r\n<td>ТЦ "Плаза", 1-й поверх м-н "НАТАЛІ", тел. +38 (095) 723 03 87</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>', 'ua');
 
 -- --------------------------------------------------------
 

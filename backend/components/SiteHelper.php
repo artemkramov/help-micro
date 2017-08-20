@@ -298,6 +298,14 @@ class SiteHelper extends \yii\base\Component
                  ['label' => Module::t('Users'), 'icon' => 'fa fa-user', 'url' => ['/users/users/index']],
              ]
             ],
+            ['label' => Module::t('Shop'), 'icon' => 'fa fa-product-hunt', 'url' => '#',
+             'items' => [
+                 ['label' => Module::t('Categories'), 'url' => ['/products/categories/index'], 'icon' => 'fa fa-circle'],
+                 ['label' => Module::t('Products'), 'url' => ['/products/products/index'], 'icon' => 'fa fa-circle'],
+                 ['label' => Module::t('Characteristic groups'), 'url' => ['/products/characteristic-groups/index'], 'icon' => 'fa fa-circle'],
+                 ['label' => Module::t('Characteristics'), 'url' => ['/products/characteristics/index'], 'icon' => 'fa fa-circle'],
+             ]
+            ],
             ['label' => Module::t('Content'), 'icon' => 'fa fa-navicon', 'url' => '#',
              'items' => [
                  ['label' => Module::t('Posts'), 'url' => ['/content/posts/index'], 'icon' => 'fa fa-list'],

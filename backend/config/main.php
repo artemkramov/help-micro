@@ -60,6 +60,9 @@ return [
         ],
         'content'   => [
             'class' => 'common\modules\content\Module',
+        ],
+        'products'   => [
+            'class' => 'backend\modules\products\Module',
         ]
 
     ],

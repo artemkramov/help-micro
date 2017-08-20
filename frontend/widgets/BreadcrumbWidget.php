@@ -157,7 +157,7 @@ class BreadcrumbWidget extends Widget
         }
         $list = [
             [
-                'title' => Module::t('Shop'),
+                'title' => Module::t('Production'),
                 'url'   => FrontendHelper::formLink('/shop'),
                 'isUrl' => true
             ]

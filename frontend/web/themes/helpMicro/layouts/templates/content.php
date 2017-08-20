@@ -5,10 +5,8 @@
  */
 
 ?>
-<main role="main">
-    <!-- section -->
-    <section>
+<section>
+    <div class="container">
         <?= $content ?>
-    </section>
-    <!-- /section -->
-</main>
+    </div>
+</section>

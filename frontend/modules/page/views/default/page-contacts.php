@@ -14,6 +14,18 @@ echo \frontend\components\SeoHelper::setTitle($this, [
 ?>
 
 <section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <? echo \frontend\widgets\BreadcrumbWidget::widget([
+                    'model' => $post,
+                    'type'  => 'page'
+                ]);?>
+            </div>
+        </div>
+
+    </div>
+
     <div class="center">
         <h1><?= $post->title ?></h1>
         <p class="lead"><?= Module::t('Contact page address') ?></p>

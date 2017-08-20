@@ -20,6 +20,9 @@ return [
         'website' => [
             'class' => 'frontend\modules\website\Module',
         ],
+        'shop'    => [
+            'class' => 'frontend\modules\shop\Module',
+        ],
     ],
     'components'          => [
         'user'         => [
@@ -72,6 +75,19 @@ return [
                 [
                     'pattern' => '/basket/<action>',
                     'route'   => 'shop/basket/<action>'
+                ],
+                [
+                    'pattern' => 'sitemap.xml',
+                    'route'   => 'website/default/generate-sitemap',
+                ],
+                [
+                    'pattern'      => '/product-category/<alias:[a-zA-Z0-9-\/]+>',
+                    'route'        => 'shop/categories/view',
+                    'encodeParams' => false,
+                ],
+                [
+                    'pattern' => '/product/<alias:[a-zA-Z0-9-]+>',
+                    'route'   => 'shop/products/view',
                 ],
                 '/<url:[a-zA-Z0-9-]+>' => 'page/default/show',
             ]
