@@ -237,7 +237,7 @@ class BreadcrumbWidget extends Widget
             default:
                 $productUrl = $product->getUrl();
                 $list = $this->getListCategory($category);
-                array_pop($list);
+//                array_pop($list);
         }
         $list[] = [
             'title' => $product->title,

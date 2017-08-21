@@ -13,7 +13,7 @@
     ],
     'options'      => [
         'tag'   => 'div',
-        'class' => 'products clearfix',
+        'class' => 'products clearfix row',
         'id'    => 'products'
     ],
     'itemView'     => '_list',

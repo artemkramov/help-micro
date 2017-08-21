@@ -24,8 +24,11 @@ class FrontendAsset extends AssetBundle
     public $css = [
         'css/bootstrap.min.css',
         'css/font-awesome.min.css',
+        'css/swiper.min.css',
         'css/animate.min.css',
         'css/prettyPhoto.css',
+        'css/colorbox.css',
+        'css/magnify.css',
         'css/main.css',
         'css/responsive.css',
         'css/flags.css',
@@ -37,8 +40,12 @@ class FrontendAsset extends AssetBundle
         'js/lib/jquery.prettyPhoto.js',
         'js/lib/jquery.isotope.min.js',
         'js/lib/wow.min.js',
+        'js/lib/jquery.elevatezoom.js',
+        'js/lib/jquery.colorbox-min.js',
+        'js/lib/swiper.jquery.min.js',
         'js/lib/main.js',
-        'js/App.js'
+        'js/App.js',
+        'js/Product.js'
     ];
 
     public function init()

@@ -51,23 +51,14 @@ class ProductsController extends Controller
             $previewMode = false;
         }
         $product = Product::getProductByAlias($alias, $previewMode);
-        $sizes = $product->getProductSizesDropdown();
-        $productForm = new ProductForm();
-        $productForm->product = $product->id;
-        $productForm->count = 1;
         $settings = Setting::find()->one();
 
         $product->getClosestCategory();
 
-        $preOrderForm = new PreOrder();
-        $preOrderForm->product_id = $product->id;
 
         return $this->render('view', [
             'product'      => $product,
-            'sizes'        => $sizes,
-            'productForm'  => $productForm,
-            'settings'     => $settings,
-            'preOrderForm' => $preOrderForm
+            'settings'     => $settings
         ]);
     }
 

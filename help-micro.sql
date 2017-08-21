@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 20, 2017 at 04:27 PM
+-- Generation Time: Aug 21, 2017 at 06:41 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.5.38
 
@@ -291,15 +291,16 @@ CREATE TABLE IF NOT EXISTS `category` (
   `image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `category`
 --
 
 INSERT INTO `category` (`id`, `created_at`, `updated_at`, `sort`, `parent_id`, `level`, `alias`, `enabled`, `is_deleted`, `image`) VALUES
-(12, 1503222963, 1503232142, 0, NULL, 0, 'fiscal-registers', 1, 0, '/uploads/categories/images/3c15fe63-e89e-48f5-a215-3c54372bc445/2.jpg'),
-(13, 1503223002, 1503233897, 1, NULL, 0, 'cash-registers', 1, 0, '/uploads/categories/images/1583ce6e-daa4-488b-be28-9e23b576dee7/1.jpeg');
+(12, 1503222963, 1503321337, 1, NULL, 0, 'fiscal-registers', 1, 0, '/uploads/categories/images/3c15fe63-e89e-48f5-a215-3c54372bc445/2.jpg'),
+(13, 1503223002, 1503321337, 0, NULL, 0, 'cash-registers', 1, 0, '/uploads/categories/images/1583ce6e-daa4-488b-be28-9e23b576dee7/1.jpeg'),
+(14, 1503321306, 1503322737, 2, NULL, 0, 'computer-cash-systems', 1, 0, '/uploads/categories/images/020643ba-2c39-4167-9c37-10e2e1cb2897/1.jpeg');
 
 -- --------------------------------------------------------
 
@@ -314,7 +315,7 @@ CREATE TABLE IF NOT EXISTS `categorylang` (
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=39 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=42 ;
 
 --
 -- Dumping data for table `categorylang`
@@ -326,7 +327,10 @@ INSERT INTO `categorylang` (`id`, `language`, `category_id`, `title`, `descripti
 (35, 'ua', 12, 'Фіскальні реєстратори', ''),
 (36, 'en', 13, 'Cash registers', ''),
 (37, 'ru', 13, 'Кассовые аппараты', ''),
-(38, 'ua', 13, 'Касові апарати', '');
+(38, 'ua', 13, 'Касові апарати', ''),
+(39, 'en', 14, 'Computer-cash systems', ''),
+(40, 'ru', 14, 'Компьютерно-кассовые системы', ''),
+(41, 'ua', 14, 'Комп''ютерно-касові системи', '');
 
 -- --------------------------------------------------------
 
@@ -343,7 +347,7 @@ CREATE TABLE IF NOT EXISTS `characteristic` (
   `alias` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `alias` (`alias`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -360,7 +364,7 @@ CREATE TABLE IF NOT EXISTS `characteristiclang` (
   PRIMARY KEY (`id`),
   KEY `characteristic_group_id` (`characteristic_id`),
   KEY `characteristic_id` (`characteristic_id`,`language`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -375,7 +379,7 @@ CREATE TABLE IF NOT EXISTS `characteristic_group` (
   `alias` varchar(255) NOT NULL,
   `show_in_filter` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -391,7 +395,7 @@ CREATE TABLE IF NOT EXISTS `characteristic_grouplang` (
   PRIMARY KEY (`id`),
   KEY `characteristic_group_id` (`characteristic_group_id`),
   KEY `characteristic_group_id_2` (`characteristic_group_id`,`language`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -564,7 +568,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `is_new_tab` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `menu_type_id` (`menu_type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `menu`
@@ -573,14 +577,15 @@ CREATE TABLE IF NOT EXISTS `menu` (
 INSERT INTO `menu` (`id`, `created_at`, `updated_at`, `sort`, `parent_id`, `bean_type`, `bean_id`, `url`, `enabled`, `menu_type_id`, `image`, `is_direct`, `is_new_tab`) VALUES
 (1, 1503049918, 1503050171, 0, NULL, 'post', 1, NULL, 1, 1, NULL, 0, 0),
 (2, 1503049959, 1503145024, 1, NULL, 'post', 5, NULL, 1, 1, NULL, 0, 0),
-(3, 1503049991, 1503148716, 2, NULL, 'post', 6, NULL, 1, 1, NULL, 0, 0),
-(4, 1503050071, 1503069511, 3, NULL, 'post', 1, 'sadasd', 1, 1, NULL, 0, 0),
+(3, 1503049991, 1503318653, 2, NULL, 'post', 6, NULL, 0, 1, NULL, 0, 0),
+(4, 1503050071, 1503322449, 3, NULL, 'post', 1, 'shop', 1, 1, NULL, 0, 0),
 (5, 1503050130, 1503066051, 4, NULL, 'post', 4, NULL, 1, 1, NULL, 0, 0),
-(6, 1503050754, 1503050860, 0, 4, 'post', 1, NULL, 1, 1, NULL, 0, 0),
-(7, 1503050811, 1503050861, 1, 4, 'post', 1, NULL, 1, 1, NULL, 0, 0),
+(6, 1503050754, 1503326615, 1, 4, 'post', 1, 'product-category/fiscal-registers', 1, 1, NULL, 0, 0),
+(7, 1503050811, 1503322764, 0, 4, 'post', 1, 'product-category/cash-registers', 1, 1, NULL, 0, 0),
 (8, 1503053836, 1503054122, 0, NULL, 'post', 1, NULL, 1, 2, NULL, 0, 0),
 (9, 1503053871, 1503145036, 1, NULL, 'post', 5, NULL, 1, 2, NULL, 0, 0),
-(10, 1503053897, 1503066063, 2, NULL, 'post', 4, NULL, 1, 2, NULL, 0, 0);
+(10, 1503053897, 1503066063, 2, NULL, 'post', 4, NULL, 1, 2, NULL, 0, 0),
+(11, 1503322713, 1503323050, 2, 4, 'post', 1, 'product-category/computer-cash-systems', 1, 1, NULL, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -599,7 +604,7 @@ CREATE TABLE IF NOT EXISTS `menulang` (
   KEY `language` (`language`),
   KEY `menu_id` (`menu_id`),
   KEY `menu_id_2` (`menu_id`,`language`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
 
 --
 -- Dumping data for table `menulang`
@@ -621,12 +626,12 @@ INSERT INTO `menulang` (`id`, `menu_id`, `language`, `title`, `description`) VAL
 (13, 5, 'en', 'Contacts', ''),
 (14, 5, 'ru', 'Контакты', ''),
 (15, 5, 'ua', 'Контакти', ''),
-(16, 6, 'en', 'Fiscal printers', ''),
-(17, 6, 'ru', 'Фискальные принтеры', ''),
-(18, 6, 'ua', 'Фіскальні принтери', ''),
-(19, 7, 'en', 'Cash register', ''),
-(20, 7, 'ru', 'Кассовый аппарат', ''),
-(21, 7, 'ua', 'Касовий апарат', ''),
+(16, 6, 'en', 'Fiscal registers', ''),
+(17, 6, 'ru', 'Фискальные регистраторы', ''),
+(18, 6, 'ua', 'Фіскальні реєстратори', ''),
+(19, 7, 'en', 'Cash registers', ''),
+(20, 7, 'ru', 'Кассовые аппараты', ''),
+(21, 7, 'ua', 'Касові апарати', ''),
 (22, 8, 'en', 'Home', ''),
 (23, 8, 'ru', 'Главная', ''),
 (24, 8, 'ua', 'Головна', ''),
@@ -635,7 +640,10 @@ INSERT INTO `menulang` (`id`, `menu_id`, `language`, `title`, `description`) VAL
 (27, 9, 'ua', 'Про нас', ''),
 (28, 10, 'en', 'Contacts', ''),
 (29, 10, 'ru', 'Контакты', ''),
-(30, 10, 'ua', 'Контакти', '');
+(30, 10, 'ua', 'Контакти', ''),
+(31, 11, 'en', 'Computer-cash systems', ''),
+(32, 11, 'ru', 'Компьютерно-кассовые системы', ''),
+(33, 11, 'ua', 'Комп''ютерно-касові системи', '');
 
 -- --------------------------------------------------------
 
@@ -1089,9 +1097,9 @@ INSERT INTO `message` (`id`, `language`, `translation`) VALUES
 (612, 'en', NULL),
 (612, 'ru', NULL),
 (612, 'ua', NULL),
-(613, 'en', NULL),
-(613, 'ru', NULL),
-(613, 'ua', NULL),
+(613, 'en', ''),
+(613, 'ru', 'Описание'),
+(613, 'ua', 'Опис'),
 (614, 'en', NULL),
 (614, 'ru', NULL),
 (614, 'ua', NULL),
@@ -1805,9 +1813,9 @@ INSERT INTO `message` (`id`, `language`, `translation`) VALUES
 (840, 'ua', NULL),
 (841, 'en', ''),
 (841, 'ru', 'Процент, %'),
-(841, 'ua', 'Відсоток, %'),
-(842, 'en', '');
+(841, 'ua', 'Відсоток, %');
 INSERT INTO `message` (`id`, `language`, `translation`) VALUES
+(842, 'en', ''),
 (842, 'ru', 'Акции'),
 (842, 'ua', 'Акції'),
 (843, 'en', ''),
@@ -2134,9 +2142,9 @@ INSERT INTO `message` (`id`, `language`, `translation`) VALUES
 (950, 'en', ''),
 (950, 'ru', 'Многолетний опыт'),
 (950, 'ua', 'Багаторічний досвід'),
-(951, 'en', ''),
-(951, 'ru', 'Мы работаем на рынке больше 10 лет'),
-(951, 'ua', 'Ми працюємо на ринку більше 10 років'),
+(951, 'en', 'We work in the market more than 20 year'),
+(951, 'ru', 'Мы работаем на рынке больше 20 лет'),
+(951, 'ua', 'Ми працюємо на ринку більше 20 років'),
 (952, 'en', ''),
 (952, 'ru', 'Современный подход'),
 (952, 'ua', 'Сучасний підхід'),
@@ -2178,7 +2186,13 @@ INSERT INTO `message` (`id`, `language`, `translation`) VALUES
 (964, 'ua', 'Купити'),
 (965, 'en', NULL),
 (965, 'ru', NULL),
-(965, 'ua', NULL);
+(965, 'ua', NULL),
+(966, 'en', NULL),
+(966, 'ru', NULL),
+(966, 'ua', NULL),
+(967, 'en', ''),
+(967, 'ru', 'Полезные данные'),
+(967, 'ua', 'Корисні дані');
 
 -- --------------------------------------------------------
 
@@ -2396,7 +2410,7 @@ CREATE TABLE IF NOT EXISTS `product_characteristic` (
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`,`characteristic_id`),
   KEY `characteristic_id` (`characteristic_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3761 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2467,7 +2481,7 @@ CREATE TABLE IF NOT EXISTS `product_relation` (
   UNIQUE KEY `product_id` (`product_id`,`product_related_id`),
   KEY `product_id_2` (`product_id`),
   KEY `product_related_id` (`product_related_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB DEFAULT CHARSET=cp1251 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2485,7 +2499,7 @@ CREATE TABLE IF NOT EXISTS `product_variation` (
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`,`characteristic_id`),
   KEY `characteristic_id` (`characteristic_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=53 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2504,7 +2518,7 @@ CREATE TABLE IF NOT EXISTS `setting` (
 --
 
 INSERT INTO `setting` (`id`, `phone`) VALUES
-(1, '+ 38 (050) 984-34-32');
+(1, '+ 38 (044) 570-80-42');
 
 -- --------------------------------------------------------
 
@@ -2521,7 +2535,16 @@ CREATE TABLE IF NOT EXISTS `settinglang` (
   `product_delivery_description` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `setting_id` (`setting_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `settinglang`
+--
+
+INSERT INTO `settinglang` (`id`, `setting_id`, `language`, `table_size`, `seo_category_description`, `product_delivery_description`) VALUES
+(1, 1, 'en', '', '', ''),
+(2, 1, 'ru', '', '', ''),
+(3, 1, 'ua', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -2563,7 +2586,7 @@ CREATE TABLE IF NOT EXISTS `source_message` (
   `category` varchar(255) DEFAULT NULL,
   `message` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=966 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=968 ;
 
 --
 -- Dumping data for table `source_message`
@@ -3091,7 +3114,9 @@ INSERT INTO `source_message` (`id`, `category`, `message`) VALUES
 (962, 'common/modules/i18n', 'File'),
 (963, 'common/modules/i18n', 'Production'),
 (964, 'common/modules/i18n', 'Buy'),
-(965, 'common/modules/i18n', 'Buy link');
+(965, 'common/modules/i18n', 'Buy link'),
+(966, 'common/modules/i18n', 'Features'),
+(967, 'common/modules/i18n', 'Useful data');
 
 -- --------------------------------------------------------
 
