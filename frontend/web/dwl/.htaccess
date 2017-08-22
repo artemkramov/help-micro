@@ -1,0 +1,6 @@
+<FilesMatch "\.(dwl)$">
+<ifModule mod_headers.c>
+Header add Access-Control-Allow-Origin "*"
+Header set Content-Type "application/octet-stream"
+</ifModule>
+</FilesMatch>

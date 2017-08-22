@@ -1,0 +1,5 @@
+AuthGroupFile /dev/null
+AuthType Basic
+AuthUserFile /home/helpco/domains/help-micro.kiev.ua/.htpasswd/public_html/dwl/upload/.htpasswd
+AuthName "Private Area"
+require valid-user

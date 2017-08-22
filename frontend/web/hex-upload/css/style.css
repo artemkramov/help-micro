@@ -1,0 +1,30 @@
+body {
+	background: #eee;
+}
+.title {
+	text-align: center;
+}
+.file-loader .progress {
+    width: 100%;
+}
+body.loading .preloader, body.uploading .file-loader {
+    display: flex;
+}
+.preloader, .file-loader {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+#progress-title {
+    color: #FFF;
+    display: block;
+}
+.progress-wrapper {
+    width: 50%;
+}
