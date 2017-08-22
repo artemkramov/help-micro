@@ -103,6 +103,10 @@ $galleryData = $product->getGalleryData();
                     </ul>
                     <div class="swiper-next-button swiper-next-button-main swiper-button fa fa-chevron-right"></div>
                 </div>
+                <div class="product-zoom">
+                    <button class="btn btn-primary btn-product-image-zoom"><i
+                            class="fa fa-search-plus"></i> <?= Module::t('Zoom') ?></button>
+                </div>
             </div>
 
         </div>
@@ -118,9 +122,12 @@ $galleryData = $product->getGalleryData();
     <!-- DETAILS -->
     <div class="product-card-details">
         <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#description"><?= Module::t('Description') ?></a></li>
-            <li><a data-toggle="tab" href="#features"><?= Module::t('Characteristics') ?></a></li>
-            <li><a data-toggle="tab" href="#useful-data"><?= Module::t('Useful data') ?></a></li>
+            <li class="active"><a data-toggle="tab" href="#description"
+                                  class="scroll"><?= Module::t('Description') ?></a></li>
+            <li><a data-toggle="tab" href="#features" class="scroll"><?= Module::t('Characteristics') ?></a></li>
+            <? if (!empty($product->files)): ?>
+                <li><a data-toggle="tab" href="#useful-data" class="scroll"><?= Module::t('Useful files') ?></a></li>
+            <? endif; ?>
         </ul>
 
         <div class="tab-content">
@@ -130,11 +137,15 @@ $galleryData = $product->getGalleryData();
             <div id="features" class="tab-pane fade">
                 <?= $product->content ?>
             </div>
-            <div id="useful-data" class="tab-pane fade">
-                <h3>Menu 2</h3>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                    totam rem aperiam.</p>
-            </div>
+            <? if (!empty($product->files)): ?>
+                <div id="useful-data" class="tab-pane fade">
+                    <? foreach ($product->files as $file): ?>
+                    <p>
+                        <?= $file->name ?> (<a href="<?= $file->file ?>" target="_blank"><?= Module::t('Download') ?></a>)
+                    </p>
+                    <? endforeach; ?>
+                </div>
+            <? endif; ?>
         </div>
     </div>
     <!-- END DETAILS -->

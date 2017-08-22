@@ -134,6 +134,14 @@ class BreadcrumbWidget extends Widget
     /**
      * @return array
      */
+    public function getListSearch()
+    {
+        return $this->getListCommon();
+    }
+
+    /**
+     * @return array
+     */
     public function getListCollection()
     {
         $list = [

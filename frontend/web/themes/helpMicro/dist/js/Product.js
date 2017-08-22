@@ -49,6 +49,12 @@ var Product = (function () {
     var btnModalContinueShopping = '.modal-content .btn-continue-shopping';
 
     /**
+     * Button to zoom in the picture
+     * @type {string}
+     */
+    var btnZoom = '.btn-product-image-zoom';
+
+    /**
      * Button for the pre-order
      * @type {string}
      */
@@ -87,7 +93,7 @@ var Product = (function () {
                         if ($('.thumbnail-wrapper').is(':visible')) {
                             $('.zoomContainer').remove();
                             setTimeout(function () {
-                                $('.swiper-slide-active .zoom').elevateZoom();
+                                // $('.swiper-slide-active .zoom').elevateZoom();
                             }, 0);
                         }
 
@@ -205,6 +211,21 @@ var Product = (function () {
                     return false;
                 });
 
+                $(document).on('click', btnZoom, function () {
+                    var image = $(".swiper-slide-active .zoom");
+                    $.colorbox({
+                        href: $(image).data('zoom-image'),
+                        maxHeight: '100%',
+                        maxWidth: '100%',
+                        onComplete: function () {
+                            // $('.cboxPhoto').elevateZoom({
+                            //     zoomType: "inner",
+                            //     // cursor: "crosshair"
+                            // });
+                        }
+                    })
+                });
+
             });
 
         },
@@ -231,7 +252,7 @@ var Product = (function () {
                 slidesPerView: slidesPerView,
             });
 
-            self.galleryDevelopmentModels = new  Swiper('.page-development-image-carousel', {
+            self.galleryDevelopmentModels = new Swiper('.page-development-image-carousel', {
                 // Navigation arrows
                 nextButton: '.swiper-next-button-like',
                 prevButton: '.swiper-prev-button-like',

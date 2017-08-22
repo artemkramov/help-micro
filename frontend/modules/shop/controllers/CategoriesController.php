@@ -34,6 +34,7 @@ class CategoriesController extends Controller
      */
     public function init()
     {
+        $this->enableCsrfValidation = false;
         \Yii::$app->params['template'] = 'content';
         parent::init();
     }

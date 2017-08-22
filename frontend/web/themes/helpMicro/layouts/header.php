@@ -4,6 +4,7 @@ use common\modules\i18n\Module;
 use common\models\Setting;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use frontend\components\FrontendHelper;
 
 /**
  * @var string $directoryAsset
@@ -23,7 +24,8 @@ use yii\helpers\Url;
                     <div class="social">
                         <div class="js-language">
                             <form method="post" id="footer-select-language" action="<?= \frontend\components\FrontendHelper::formLink('/website/default/change-language') ?>">
-                                <?= Html::hiddenInput('pathInfo', Yii::$app->request->pathInfo) ?>
+                                <?= Html::hiddenInput('pathInfo', Yii::$app->request->pathInfo . (empty(Yii::$app->request->queryString) ? '' : '?' . Yii::$app->request->queryString)) ?>
+                                <?= Html::hiddenInput('params', Yii::$app->request->queryString) ?>
                                 <a href="#" class="overlay-link-language"><?= $currentLanguage->name ?> <i class="icon-language flag flag-<?= $currentLanguage->url ?>"></i></a>
                                 <?= $this->render('chunks/language', [
                                     'currentLanguage' => $currentLanguage,
@@ -34,8 +36,8 @@ use yii\helpers\Url;
                             </form>
                         </div>
                         <div class="search">
-                            <form role="form">
-                                <input type="text" class="search-form" autocomplete="off"
+                            <form role="form" action="<?= FrontendHelper::formLink('/search') ?>">
+                                <input type="text" class="search-form" autocomplete="off" name="keywords"
                                        placeholder="<?= Module::t('Search') ?>">
                                 <i class="fa fa-search"></i>
                             </form>

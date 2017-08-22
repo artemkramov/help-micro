@@ -295,6 +295,29 @@
 
 }
 
+@media (max-width: 768px) {
+
+  .container-title, .container-details, .container-imagery {
+    width: 100%;
+    float: none;
+  }
+
+  .product-buy-block {
+    margin-bottom: 30px;
+  }
+
+  .thumbnail-wrapper {
+    display: none;
+  }
+
+  .main-carousel-wrapper {
+    float: none;
+    width: 100%;
+    margin-left: 0;
+  }
+
+}
+
 /* XS Portrait */
 @media (max-width: 480px) {
 

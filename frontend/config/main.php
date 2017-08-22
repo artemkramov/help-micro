@@ -77,6 +77,10 @@ return [
                     'route'   => 'shop/basket/<action>'
                 ],
                 [
+                    'pattern' => '/search',
+                    'route'   => 'shop/categories/search'
+                ],
+                [
                     'pattern' => 'sitemap.xml',
                     'route'   => 'website/default/generate-sitemap',
                 ],

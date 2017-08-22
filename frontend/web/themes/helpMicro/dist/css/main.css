@@ -3049,3 +3049,20 @@ li.swiper-slide-active .thumbnail-image {
   background: #FFF;
   border-left: 2px solid #c52d2f;
 }
+
+.product-zoom {
+    text-align: center;
+}
+
+li[data-menu="4"] > a {
+  border-bottom: 2px solid #c52d2f;
+  font-weight: bold;
+}
+
+.not-visible {
+  visibility: hidden;
+}
+
+.btn-uppercase {
+  text-transform: uppercase;
+}
