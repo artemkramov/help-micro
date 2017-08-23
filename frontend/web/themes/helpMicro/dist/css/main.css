@@ -3006,6 +3006,12 @@ li.swiper-slide-active .thumbnail-image {
   border-top: 1px solid #ddd;
 }
 
+.product-buy-block.empty-description {
+  margin-top: 0px;
+  border-top: none;
+  padding-top: 0px;
+}
+
 .product-buy-block .btn {
   min-width: 240px;
   max-width: 100%;

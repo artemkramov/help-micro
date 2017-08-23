@@ -53,7 +53,7 @@ $galleryData = $product->getGalleryData();
             ]);
             ?>
             <h2 class="product-short-description"><?= $product->short_description ?></h2>
-            <div class="product-buy-block">
+            <div class="product-buy-block <?= empty($product->short_description) ? 'empty-description' : '' ?>">
                 <a href="<?= $product->buy_link ?>" class="btn btn-success btn-lg" target="_blank">
                     <i class="fa fa-shopping-cart"></i> <?= Module::t('Buy') ?>
                 </a>
@@ -122,26 +122,30 @@ $galleryData = $product->getGalleryData();
     <!-- DETAILS -->
     <div class="product-card-details">
         <ul class="nav nav-tabs">
+            <? if (!empty($product->editor_notes)): ?>
             <li class="active"><a data-toggle="tab" href="#description"
                                   class="scroll"><?= Module::t('Description') ?></a></li>
-            <li><a data-toggle="tab" href="#features" class="scroll"><?= Module::t('Characteristics') ?></a></li>
+            <? endif; ?>
+            <li class="<?= empty($product->editor_notes) ? 'active' : '' ?>"><a data-toggle="tab" href="#features" class="scroll"><?= Module::t('Characteristics') ?></a></li>
             <? if (!empty($product->files)): ?>
                 <li><a data-toggle="tab" href="#useful-data" class="scroll"><?= Module::t('Useful files') ?></a></li>
             <? endif; ?>
         </ul>
 
         <div class="tab-content">
+            <? if (!empty($product->editor_notes)): ?>
             <div id="description" class="tab-pane fade in active">
                 <?= $product->editor_notes ?>
             </div>
-            <div id="features" class="tab-pane fade">
+            <? endif; ?>
+            <div id="features" class="tab-pane fade <?= empty($product->editor_notes) ? 'in active' : '' ?>">
                 <?= $product->content ?>
             </div>
             <? if (!empty($product->files)): ?>
                 <div id="useful-data" class="tab-pane fade">
                     <? foreach ($product->files as $file): ?>
                     <p>
-                        <?= $file->name ?> (<a href="<?= $file->file ?>" target="_blank"><?= Module::t('Download') ?></a>)
+                        <?= Module::t($file->name) ?> (<a href="<?= $file->file ?>" target="_blank"><?= Module::t('Download') ?></a>)
                     </p>
                     <? endforeach; ?>
                 </div>

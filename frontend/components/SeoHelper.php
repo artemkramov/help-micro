@@ -160,7 +160,7 @@ class SeoHelper
         $description = $product->title . ' ' . trim(str_replace(PHP_EOL, '', preg_replace('#<[^>]+>#', ' ', $product->content)));
         $categoryList = $product->getCategoriesList();
         $keywords = $product->title . ', ' . strip_tags($product->short_description) . ', ' . $categoryList;
-        $title = $product->title . ', ' . $product->vendor_code . ' : ' . \Yii::$app->name;
+        $title = $product->title . ' : ' . \Yii::$app->name;
         $viewData->registerMetaTag([
             'description' => $description,
             'keywords'    => mb_strtolower($keywords, 'utf-8'),

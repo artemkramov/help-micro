@@ -528,8 +528,8 @@ class Product extends Bean
                     $cardPath = $uploadFolder['card'] . $baseName . "." . $file->extension;
                     $isSuccess = $file->saveAs($path);
                     if ($isSuccess) {
-                        Image::thumbnail($path, 400, 600)->save($thumbPath, ['quality' => 100]);
-                        Image::thumbnail($path, 390, 585)->save($cardPath, ['quality' => 100]);
+                        Image::thumbnail($path, 600, 600)->save($thumbPath, ['quality' => 100]);
+                        Image::thumbnail($path, 590, 785)->save($cardPath, ['quality' => 100]);
                         $bean->image = $relativePath;
                     }
                     $counter++;
