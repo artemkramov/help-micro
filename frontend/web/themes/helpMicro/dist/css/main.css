@@ -2898,6 +2898,7 @@ shortcodes page css
 .item.list-group-item img
 {
   float: left;
+  margin-right: 20px;
 }
 .item.list-group-item:after
 {
