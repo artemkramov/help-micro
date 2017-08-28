@@ -62,10 +62,12 @@ class Sitemap
      */
     public function render()
     {
+        $urlStore = [];
         $dom = new \DOMDocument('1.0', 'utf-8');
         $urlset = $dom->createElement('urlset');
         $urlset->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
         foreach ($this->items as $item) {
+            $isEmpty = true;
             $url = $dom->createElement('url');
             foreach ($item as $key => $value) {
                 if ($key == 'alternate') {
@@ -79,12 +81,19 @@ class Sitemap
 
                 }
                 else {
+                    if (!in_array($value, $urlStore) && $key == 'loc') {
+                        $isEmpty = false;
+                        $urlStore[] = $value;
+                    }
                     $elem = $dom->createElement($key);
                     $elem->appendChild($dom->createTextNode($value));
                     $url->appendChild($elem);
+
                 }
             }
-            $urlset->appendChild($url);
+            if (!$isEmpty) {
+                $urlset->appendChild($url);
+            }
         }
         $dom->appendChild($urlset);
         return $dom->saveXML();

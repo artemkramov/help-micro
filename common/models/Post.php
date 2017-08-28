@@ -273,13 +273,6 @@ class Post extends Bean
             'items' => $categoryTree,
         ];
 
-        /**
-         * Load collections data
-         */
-        $response['data'][] = [
-            'title' => Module::t('Collections'),
-            'items' => Characteristic::getCollectionMenu(null),
-        ];
 
         /**
          * Load shop data
@@ -315,24 +308,7 @@ class Post extends Bean
             'items' => $menuTree,
         ];
 
-        /**
-         * Load catalog data
-         */
-        $catalogs = Magazine::find()->all();
-        $catalogCollection = [];
-        foreach ($catalogs as $catalog) {
-            /**
-             * @var Magazine $catalog
-             */
-            $catalogCollection[] = [
-                'title' => $catalog->title,
-                'url'   => $catalog->getUrl()
-            ];
-        }
-        $response['data'][] = [
-            'title' => Module::t('Product catalog'),
-            'items' => $catalogCollection,
-        ];
+
         return $response;
     }
 
