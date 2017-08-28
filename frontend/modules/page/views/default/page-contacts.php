@@ -76,7 +76,7 @@ echo \frontend\components\SeoHelper::setTitle($this, [
 <script>
 
     function initMap() {
-        var uluru = {lat: 50.395830, lng: 30.626140};
+        var uluru = {lat: 50.403129, lng: 30.633483};
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 17,
             center: uluru,

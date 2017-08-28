@@ -139,11 +139,9 @@ $directoryAsset = Yii::$app->assetManager->getPublishedUrl(Yii::$app->params['th
 
         <div class="partners">
             <ul>
-                <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="<?= $directoryAsset ?>/images/partners/partner1.png"></a></li>
-                <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" src="<?= $directoryAsset ?>/images/partners/partner2.png"></a></li>
-                <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" src="<?= $directoryAsset ?>/images/partners/partner3.png"></a></li>
-                <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" src="<?= $directoryAsset ?>/images/partners/partner4.png"></a></li>
-                <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1500ms" src="<?= $directoryAsset ?>/images/partners/partner5.png"></a></li>
+                <li> <a href="https://gera.com.ua" target="_blank"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="<?= $directoryAsset ?>/images/partners/partner1.png"></a></li>
+                <li> <a href="http://www.ipos-print.com" target="_blank"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" src="<?= $directoryAsset ?>/images/partners/partner2.jpg"></a></li>
+                <li> <a href="http://www.elektronmash.kiev.ua" target="_blank"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" src="<?= $directoryAsset ?>/images/partners/partner3.gif"></a></li>
             </ul>
         </div>
     </div><!--/.container-->

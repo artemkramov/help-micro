@@ -1069,18 +1069,13 @@ a.accordion-toggle  i{
 }
 
 #partner {
-  background: url(../images/partners/partner_bg.png) 50% 50% no-repeat;
+  background: #f2f2f2;
   background-size: cover;
 }
 
 #partner {
   color: #fff;
   text-align: center;
-}
-
-#partner h2, 
-#partner h3 {
-  color: #fff;
 }
 
 .partners ul {
@@ -1092,7 +1087,12 @@ a.accordion-toggle  i{
 .partners ul li{
   display: inline-block;
   float: left;
-  width: 20%;
+  width: 33.333333333333333%;
+}
+
+.partners ul li img {
+  max-width: 90%;
+  display: inline-block;
 }
 
 #conatcat-info{
