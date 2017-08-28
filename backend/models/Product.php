@@ -1230,5 +1230,20 @@ class Product extends Bean
         return null;
     }
 
+    /**
+     * @param $number
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public static function getLastProducts($number)
+    {
+        return self::find()
+            ->where([
+                'enabled' => self::STATUS_ENABLED
+            ])
+            ->orderBy(['created_at' => SORT_DESC])
+            ->limit($number)
+            ->all();
+    }
+
 
 }

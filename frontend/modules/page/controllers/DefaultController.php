@@ -3,6 +3,7 @@
 namespace frontend\modules\page\controllers;
 
 use backend\models\Category;
+use backend\models\Product;
 use common\components\Mailer;
 use common\models\Post;
 use common\models\User;
@@ -89,6 +90,22 @@ class DefaultController extends Controller
             'post'        => $post,
             'extraData'   => $extraData,
             'contactForm' => $contactFormModel,
+        ]);
+    }
+
+    /**
+     * @param $view
+     * @param $post
+     * @param $extraData
+     * @return string
+     */
+    public function handlerHome($view, $post, $extraData)
+    {
+        $lastProducts = Product::getLastProducts(3);
+        return $this->render($view, [
+            'post'      => $post,
+            'extraData' => $extraData,
+            'novelties' => $lastProducts,
         ]);
     }
 

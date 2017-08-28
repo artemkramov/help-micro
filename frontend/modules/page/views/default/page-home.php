@@ -2,6 +2,7 @@
 
 /**
  * @var \common\models\Post $post
+ * @var \backend\models\Product[] $novelties
  */
 
 use common\modules\i18n\Module;
@@ -108,44 +109,21 @@ $directoryAsset = Yii::$app->assetManager->getPublishedUrl(Yii::$app->params['th
         </div>
 
         <div class="row">
+            <? foreach ($novelties as $novelty): ?>
             <div class="col-xs-12 col-sm-4 col-md-4">
                 <div class="recent-work-wrap">
-                    <img class="img-responsive" src="<?= $directoryAsset ?>/images/novelties/new3.jpg" alt="">
+                    <img class="img-responsive" src="<?= $novelty->getDefaultImage() ?>" alt="">
                     <div class="overlay">
                         <div class="recent-work-inner">
-                            <h3><a href="#">MG-V545T</a> </h3>
-                            <p class="lead">Text Text Text</p>
-                            <a class="preview" href=""><i class="fa fa-eye"></i> <?=  Module::t('View') ?></a>
+                            <h3><a href="<?= $novelty->getUrl() ?>"><?= $novelty->title ?></a> </h3>
+                            <p class="lead"><?= $novelty->short_description ?></p>
+                            <a class="preview" href="<?= $novelty->getUrl() ?>"><i class="fa fa-eye"></i> <?=  Module::t('View') ?></a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-xs-12 col-sm-4 col-md-4">
-                <div class="recent-work-wrap">
-                    <img class="img-responsive" src="<?= $directoryAsset ?>/images/novelties/new3.jpg" alt="">
-                    <div class="overlay">
-                        <div class="recent-work-inner">
-                            <h3><a href="#">MG-V545T.02</a></h3>
-                            <p class="lead">Text Text Text</p>
-                            <a class="preview" href=""><i class="fa fa-eye"></i> <?=  Module::t('View') ?></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-4 col-md-4">
-                <div class="recent-work-wrap">
-                    <img class="img-responsive" src="<?= $directoryAsset ?>/images/novelties/new3.jpg" alt="">
-                    <div class="overlay">
-                        <div class="recent-work-inner">
-                            <h3><a href="#">МІКРО ХМ </a></h3>
-                            <p class="lead">Text Text Text</p>
-                            <a class="preview" href=""><i class="fa fa-eye"></i> <?=  Module::t('View') ?></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <? endforeach; ?>
 
         </div><!--/.row-->
     </div><!--/.container-->

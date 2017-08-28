@@ -706,10 +706,12 @@ main > section {
 
 .recent-work-wrap {
   position: relative;
+  text-align: center;
 }
 
-.recent-work-wrap img{
-  width: 100%;
+.recent-work-wrap img {
+  max-height: 350px;
+  display: inline-block;
 }
 
 .recent-work-wrap .recent-work-inner{
@@ -746,6 +748,7 @@ main > section {
   -o-transition: opacity 500ms;
   transition: opacity 500ms;  
   padding: 30px;
+  text-align: left;
 }
 
 .recent-work-wrap .overlay .preview {
