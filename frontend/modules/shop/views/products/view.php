@@ -95,8 +95,10 @@ $galleryData = $product->getGalleryData();
                         <? foreach ($galleryData['main'] as $counter => $image): ?>
                             <li class="swiper-slide">
                                 <div>
-                                    <img src="<?= $image ?>" class="product-image zoom"
-                                         data-zoom-image="<?= $galleryData['large'][$counter] ?>"/>
+                                    <a class="gallery" href="<?= $galleryData['large'][$counter] ?>">
+                                        <img src="<?= $image ?>" class="product-image zoom"
+                                             data-zoom-image="<?= $galleryData['large'][$counter] ?>"/>
+                                    </a>
                                 </div>
                             </li>
                         <? endforeach; ?>
@@ -123,10 +125,12 @@ $galleryData = $product->getGalleryData();
     <div class="product-card-details">
         <ul class="nav nav-tabs">
             <? if (!empty($product->editor_notes)): ?>
-            <li class="active"><a data-toggle="tab" href="#description"
-                                  class="scroll"><?= Module::t('Description') ?></a></li>
+                <li class="active"><a data-toggle="tab" href="#description"
+                                      class="scroll"><?= Module::t('Description') ?></a></li>
             <? endif; ?>
-            <li class="<?= empty($product->editor_notes) ? 'active' : '' ?>"><a data-toggle="tab" href="#features" class="scroll"><?= Module::t('Characteristics') ?></a></li>
+            <li class="<?= empty($product->editor_notes) ? 'active' : '' ?>"><a data-toggle="tab" href="#features"
+                                                                                class="scroll"><?= Module::t('Characteristics') ?></a>
+            </li>
             <? if (!empty($product->files)): ?>
                 <li><a data-toggle="tab" href="#useful-data" class="scroll"><?= Module::t('Useful files') ?></a></li>
             <? endif; ?>
@@ -134,9 +138,9 @@ $galleryData = $product->getGalleryData();
 
         <div class="tab-content">
             <? if (!empty($product->editor_notes)): ?>
-            <div id="description" class="tab-pane fade in active">
-                <?= $product->editor_notes ?>
-            </div>
+                <div id="description" class="tab-pane fade in active">
+                    <?= $product->editor_notes ?>
+                </div>
             <? endif; ?>
             <div id="features" class="tab-pane fade <?= empty($product->editor_notes) ? 'in active' : '' ?>">
                 <?= $product->content ?>
@@ -144,9 +148,10 @@ $galleryData = $product->getGalleryData();
             <? if (!empty($product->files)): ?>
                 <div id="useful-data" class="tab-pane fade">
                     <? foreach ($product->files as $file): ?>
-                    <p>
-                        <?= Module::t($file->name) ?> (<a href="<?= $file->file ?>" target="_blank"><?= Module::t('Download') ?></a>)
-                    </p>
+                        <p>
+                            <?= Module::t($file->name) ?> (<a href="<?= $file->file ?>"
+                                                              target="_blank"><?= Module::t('Download') ?></a>)
+                        </p>
                     <? endforeach; ?>
                 </div>
             <? endif; ?>

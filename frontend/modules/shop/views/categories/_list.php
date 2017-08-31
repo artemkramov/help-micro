@@ -15,13 +15,15 @@ $frontImage = $model->getFrontImage();
 
 <div class="item col-sm-4 col-lg-4">
     <div class="thumbnail">
-        <img src="<?= $model->getDefaultImage() ?>" alt="" class="default-image"/>
+        <a href="<?= $model->getUrl() ?>">
+            <img src="<?= $model->getDefaultImage() ?>" alt="" class="default-image"/>
+        </a>
         <div class="caption">
             <h4 class="group inner list-group-item-heading"><?= $model->title ?></h4>
             <?= $model->short_description ?>
             <p>
                 <a class="btn btn-success" href="<?= $model->buy_link ?>"
-                  target="_blank"><?= Module::t('Buy') ?></a>
+                   target="_blank"><?= Module::t('Buy') ?></a>
                 <a class="btn btn-danger" href="<?= $model->getUrl() ?>">
                     <?= Module::t('More') ?></a>
             </p>

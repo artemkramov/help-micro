@@ -226,6 +226,11 @@ var Product = (function () {
                     })
                 });
 
+                $("a.gallery").colorbox({
+                    maxHeight: '100%',
+                    maxWidth: '100%'
+                });
+
             });
 
         },

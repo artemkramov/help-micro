@@ -29,6 +29,12 @@ $directoryAsset = Yii::$app->assetManager->getPublishedUrl(Yii::$app->params['th
             <li data-target="#carousel-slider" data-slide-to="0" class="active"></li>
             <li data-target="#carousel-slider" data-slide-to="1"></li>
             <li data-target="#carousel-slider" data-slide-to="2"></li>
+            <li data-target="#carousel-slider" data-slide-to="3"></li>
+            <li data-target="#carousel-slider" data-slide-to="4"></li>
+            <li data-target="#carousel-slider" data-slide-to="5"></li>
+            <li data-target="#carousel-slider" data-slide-to="6"></li>
+            <li data-target="#carousel-slider" data-slide-to="7"></li>
+            <li data-target="#carousel-slider" data-slide-to="8"></li>
         </ol>
 
         <div class="carousel-inner">
@@ -36,10 +42,25 @@ $directoryAsset = Yii::$app->assetManager->getPublishedUrl(Yii::$app->params['th
                 <img src="<?= $directoryAsset ?>/images/about-us/slider1.jpeg" class="img-responsive" alt="">
             </div>
             <div class="item">
-                <img src="<?= $directoryAsset ?>/images/about-us/slider2.jpg" class="img-responsive" alt="">
+                <img src="<?= $directoryAsset ?>/images/about-us/slider2.png" class="img-responsive" alt="">
             </div>
             <div class="item">
-                <img src="<?= $directoryAsset ?>/images/about-us/slider3.jpg" class="img-responsive" alt="">
+                <img src="<?= $directoryAsset ?>/images/about-us/slider3.jpeg" class="img-responsive" alt="">
+            </div>
+            <div class="item">
+                <img src="<?= $directoryAsset ?>/images/about-us/slider4.png" class="img-responsive" alt="">
+            </div>
+            <div class="item">
+                <img src="<?= $directoryAsset ?>/images/about-us/slider5.jpeg" class="img-responsive" alt="">
+            </div>
+            <div class="item">
+                <img src="<?= $directoryAsset ?>/images/about-us/slider6.jpg" class="img-responsive" alt="">
+            </div>
+            <div class="item">
+                <img src="<?= $directoryAsset ?>/images/about-us/slider7.jpg" class="img-responsive" alt="">
+            </div>
+            <div class="item">
+                <img src="<?= $directoryAsset ?>/images/about-us/slider8.jpg" class="img-responsive" alt="">
             </div>
         </div>
 

@@ -80,6 +80,7 @@ class DefaultController extends Controller
      */
     public function handlerContacts($view, $post, $extraData)
     {
+        $this->enableCsrfValidation = false;
         $contactFormModel = new ContactForm();
         if (\Yii::$app->request->post() && $contactFormModel->load(\Yii::$app->request->post()) && $contactFormModel->validate()) {
             $contactFormModel->sendEmail();

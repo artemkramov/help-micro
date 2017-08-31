@@ -2799,7 +2799,7 @@ shortcodes page css
   margin: 0 auto;
 }
 
-.thumbnail img {
+.thumbnail a>img {
   height: 200px;
 }
 
@@ -3076,3 +3076,4 @@ li[data-menu="4"] > a {
 .btn-uppercase {
   text-transform: uppercase;
 }
+
