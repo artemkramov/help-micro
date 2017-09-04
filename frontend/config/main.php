@@ -85,6 +85,10 @@ return [
                     'route'   => 'website/default/generate-sitemap',
                 ],
                 [
+                    'pattern' => '/product/action/<action>',
+                    'route'   => 'shop/products/<action>',
+                ],
+                [
                     'pattern'      => '/product-category/<alias:[a-zA-Z0-9-\/]+>',
                     'route'        => 'shop/categories/view',
                     'encodeParams' => false,

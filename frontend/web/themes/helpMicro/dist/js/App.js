@@ -24,30 +24,23 @@ var App = (function () {
             } else {
                 $alert.find(".modal-header").hide();
             }
-            $alert.find(".modal-body").empty().append(message);
-            $($alert).removeClass('out');
-            $($alert).show();
+            $alert.find(".modal-body").html(message);
+            console.log('test');
+            $($alert).modal();
             $($alert).unbind("hide");
-            $($alert).find('.close').bind('click', function () {
-                App.hideModal();
-            });
             if ($.isFunction(callback))
                 $($alert).bind("hide", callback);
 
             if (autoCloseTimeout && typeof autoCloseTimeout == "number")
                 setTimeout(function () {
-                    $($alert).hide();
+                    $($alert).modal("hide");
                 }, autoCloseTimeout);
         },
         /**
          * Hide all modal windows
          */
         hideModal: function () {
-            $('.modal').addClass('out');
-            setTimeout(function () {
-                $('.modal').hide();
-            }, 400);
-            // $(".modal").hide();
+            $(".modal").hide();
         },
         /**
          * Shows confirm message with Yes/No.
@@ -161,6 +154,30 @@ var App = (function () {
              */
             $('#list').click(function(event){event.preventDefault();$('#products .item').addClass('list-group-item');});
             $('#grid').click(function(event){event.preventDefault();$('#products .item').removeClass('list-group-item');$('#products .item').addClass('grid-group-item');});
+
+            /**
+             * Buy link
+             */
+            $(document).on('click', '.btn-buy-link', function () {
+                var productID = $(this).data('item');
+                App.sendAjax({
+                    url: siteUrl + '/product/action/get-buy-links',
+                    type: 'get',
+                    dataType: 'json',
+                    data: {
+                        id: productID
+                    },
+                    success: function (response) {
+                        var template = _.template($('#buy-links').html());
+                        var listHTML = template({
+                           links: response
+                        });
+                        self.alert(listHTML, App.getTranslation('Buy in our partners'));
+                    }
+                }, false);
+
+                return false;
+            });
 
 
         },

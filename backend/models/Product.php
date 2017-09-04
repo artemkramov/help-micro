@@ -50,6 +50,7 @@ use yii\web\UploadedFile;
  * @property ProductVariation[] $variations
  * @property ProductGallery[] $images
  * @property ProductFile[] $files
+ * @property ProductLink[] $links
  */
 class Product extends Bean
 {
@@ -164,6 +165,13 @@ class Product extends Bean
         ])->orderBy('sort');
     }
 
+    public function getLinks()
+    {
+        return $this->hasMany(ProductLink::className(), [
+            'product_id' => 'id'
+        ]);
+    }
+
     /**
      * @inheritdoc
      */
@@ -183,6 +191,7 @@ class Product extends Bean
             ['variations', 'validateRelatedBeans', 'skipOnEmpty' => false, 'skipOnError' => false, 'params' => ['beanRelatedField' => 'product_id', 'beanClass' => ProductVariation::className()]],
             ['images', 'validateRelatedBeans', 'skipOnEmpty' => false, 'skipOnError' => false, 'params' => ['beanRelatedField' => 'product_id', 'beanClass' => ProductGallery::className()]],
             ['files', 'validateRelatedBeans', 'skipOnEmpty' => false, 'skipOnError' => false, 'params' => ['beanRelatedField' => 'product_id', 'beanClass' => ProductFile::className()]],
+            ['links', 'validateRelatedBeans', 'skipOnEmpty' => false, 'skipOnError' => false, 'params' => ['beanRelatedField' => 'product_id', 'beanClass' => ProductLink::className()]],
         ];
     }
 
@@ -326,6 +335,8 @@ class Product extends Bean
         if ($this->type == 'simple' || !array_key_exists('variations', $postData['Product'])) {
             ProductVariation::deleteAll(['product_id' => $this->id]);
         }
+        $linkData = array_key_exists('links', $postData['Product']) ? $postData['Product']['links'] : [];
+        $this->setLinks($linkData, true);
         if ($insert) {
             $variationData = array_key_exists('variations', $postData['Product']) ? $postData['Product']['variations'] : [];
             $this->setVariations($variationData);
@@ -379,6 +390,25 @@ class Product extends Bean
             }
         }
 
+    }
+
+    /**
+     * @param array $postData
+     * @param bool $isSafe
+     */
+    public function setLinks($postData, $isSafe = false)
+    {
+        if ($isSafe) {
+            ProductLink::deleteAll(['product_id' => $this->id]);
+            $data = $this->bundleMultipleBean(ProductLink::className(), $postData);
+            foreach ($data['items'] as $bean) {
+                /**
+                 * @var ProductLink $bean
+                 */
+                $bean->product_id = $this->id;
+                $bean->save();
+            }
+        }
     }
 
     /**

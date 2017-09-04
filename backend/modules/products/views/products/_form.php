@@ -111,6 +111,13 @@ use yii\widgets\ActiveForm;
     ])->label(false);
     ?>
 
+    <?php
+    echo $form->field($model, 'links')->widget(\backend\widgets\multiple_bean\MultipleBean::className(), [
+        'title' => \common\modules\i18n\Module::t('Links'),
+        'min'   => 0
+    ])->label(false);
+    ?>
+
     <div class="row">
         <div class="col-sm-6">
             <?= $form->field($model, 'price')->textInput() ?>

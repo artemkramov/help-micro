@@ -16,6 +16,7 @@ use backend\models\KitProduct;
 use backend\models\Product;
 use backend\models\ProductFile;
 use backend\models\ProductGallery;
+use backend\models\ProductLink;
 use backend\models\ProductVariation;
 use backend\models\SliderItem;
 use common\models\Address;
@@ -184,6 +185,32 @@ class MultipleBeanHelper
         }
         $viewPath = "@backend/modules/products/views/files/view";
         $attributes = (new ProductFile())->getAttributes();
+        $attributesData = [];
+        foreach ($attributes as $attribute => $value) {
+            $attributesData[$attribute] = [
+                'id'   => self::formIdAttribute($attribute, $params['attribute'], $params['modelClass'], $params['counter']),
+                'name' => self::formName($attribute, $params['attribute'], $params['modelClass'], $params['counter'])
+            ];
+        }
+        return \Yii::$app->controller->renderPartial($viewPath, ArrayHelper::merge([
+            'model'          => $model,
+            'attributesData' => $attributesData,
+        ], $params));
+    }
+
+    /**
+     * Generate buy links for the product
+     * @param null $model
+     * @param array $params
+     * @return string
+     */
+    public function bindLinks($model = null, $params = [])
+    {
+        if (!isset($model)) {
+            $model = new ProductLink();
+        }
+        $viewPath = "@backend/modules/products/views/links/view";
+        $attributes = (new ProductLink())->getAttributes();
         $attributesData = [];
         foreach ($attributes as $attribute => $value) {
             $attributesData[$attribute] = [

@@ -70,6 +70,7 @@ use frontend\components\FrontendHelper;
     <!-- MODAL WINDOW -->
     <div class="">
         <?= $this->render('chunks/modal') ?>
+        <?= $this->render('chunks/buy-links') ?>
     </div>
     <!-- END MODAL WINDOW -->
 

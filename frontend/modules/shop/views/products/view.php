@@ -54,7 +54,7 @@ $galleryData = $product->getGalleryData();
             ?>
             <h2 class="product-short-description"><?= $product->short_description ?></h2>
             <div class="product-buy-block <?= empty($product->short_description) ? 'empty-description' : '' ?>">
-                <a href="<?= $product->buy_link ?>" class="btn btn-success btn-lg" target="_blank">
+                <a href="<?= $product->buy_link ?>" class="btn btn-success btn-lg btn-buy-link" data-item="<?= $product->id ?>" target="_blank">
                     <i class="fa fa-shopping-cart"></i> <?= Module::t('Buy') ?>
                 </a>
             </div>

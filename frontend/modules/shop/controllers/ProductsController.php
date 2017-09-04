@@ -110,4 +110,18 @@ class ProductsController extends Controller
         }
     }
 
+    /**
+     * @param $id
+     * @return \backend\models\ProductLink[]
+     */
+    public function actionGetBuyLinks($id)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        /**
+         * @var Product $product
+         */
+        $product = Product::getProductByID($id);
+        return $product->links;
+    }
+
 }

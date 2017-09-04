@@ -22,7 +22,7 @@ $frontImage = $model->getFrontImage();
             <h4 class="group inner list-group-item-heading"><?= $model->title ?></h4>
             <?= $model->short_description ?>
             <p>
-                <a class="btn btn-success" href="<?= $model->buy_link ?>"
+                <a class="btn btn-success btn-buy-link" data-item="<?= $model->id ?>" href="#"
                    target="_blank"><?= Module::t('Buy') ?></a>
                 <a class="btn btn-danger" href="<?= $model->getUrl() ?>">
                     <?= Module::t('More') ?></a>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 31, 2017 at 03:23 PM
+-- Generation Time: Sep 04, 2017 at 03:55 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.5.38
 
@@ -2236,7 +2236,13 @@ INSERT INTO `message` (`id`, `language`, `translation`) VALUES
 (978, 'ua', 'Драйвер для USB-з''єднання'),
 (979, 'en', ''),
 (979, 'ru', 'Сертификат соответствия'),
-(979, 'ua', 'Сертифікат відповідності');
+(979, 'ua', 'Сертифікат відповідності'),
+(980, 'en', ''),
+(980, 'ru', 'Ссылки'),
+(980, 'ua', 'Посилання'),
+(981, 'en', 'References for device purchase'),
+(981, 'ru', 'Ссылки для покупки аппарата'),
+(981, 'ua', 'Посилання для покупки апарату');
 
 -- --------------------------------------------------------
 
@@ -2364,14 +2370,14 @@ CREATE TABLE IF NOT EXISTS `product` (
 --
 
 INSERT INTO `product` (`id`, `created_at`, `updated_at`, `enabled`, `vendor_code`, `sort`, `price`, `in_stock`, `alias`, `type`, `currency_id`, `video`, `is_new`, `image_color`, `buy_link`) VALUES
-(114, 1503223302, 1503668495, 1, 'MG-N707TS', NULL, 1200, NULL, 'MG-N707TS', 'simple', 1, NULL, 0, NULL, 'https://gera.com.ua/oborudovanie/fiskalnye-registratory/fiskalnyy-registrator-mg-n707ts/'),
-(115, 1503478714, 1503483580, 1, 'MG-T787TL', NULL, 11, NULL, 'MG-T787TL', 'simple', 1, NULL, 0, NULL, 'https://gera.com.ua/oborudovanie/fiskalnye-registratory/fiskalnyy-registrator-mg-t787tl/'),
-(116, 1503482892, 1503483880, 1, 'MG-P777TL', NULL, 1, NULL, 'MG-P777TL', 'simple', 1, NULL, 0, NULL, 'https://gera.com.ua/oborudovanie/fiskalnye-registratory/fiskalnyy-registrator-mg-p777tl/'),
-(117, 1503598501, 1503604654, 1, 'MG-V545T', NULL, 1, NULL, 'MG-V545T', 'simple', 1, NULL, 0, NULL, 'https://gera.com.ua/oborudovanie/kassovye-apparaty/mg-v545t/'),
-(118, 1503603864, 1504184977, 1, 'MG-V545T.02', NULL, 11, NULL, 'MG-V545T-02', 'simple', 1, NULL, 0, NULL, 'https://gera.com.ua/oborudovanie/kassovye-apparaty/mg-v545t.02/'),
-(119, 1503666237, 1503668944, 1, 'MIKRO.XM', NULL, 1, NULL, 'MIKRO-HM', 'simple', 1, NULL, 0, NULL, 'http://www.ipos-print.com/products/6/23/'),
-(120, 1503669677, 1503741509, 1, 'VAMP-MICRO', NULL, 1, NULL, 'VAMP-MICRO', 'simple', 1, NULL, 0, NULL, 'http://ts2.com.ua/ua/katalog/portativnye-kassovye-apparaty/kassovyj-apparat-vamp-mikro'),
-(121, 1503742395, 1503747209, 1, 'I.Pos.XM', NULL, 1200, NULL, 'I-Pos-XM', 'simple', 1, NULL, 0, NULL, 'http://www.artsoft.ua/s.php?id=821&page=fp');
+(114, 1503223302, 1504529843, 1, 'MG-N707TS', NULL, 1200, NULL, 'MG-N707TS', 'simple', 1, NULL, 0, NULL, 'https://gera.com.ua/oborudovanie/fiskalnye-registratory/fiskalnyy-registrator-mg-n707ts/'),
+(115, 1503478714, 1504530025, 1, 'MG-T787TL', NULL, 11, NULL, 'MG-T787TL', 'simple', 1, NULL, 0, NULL, 'https://gera.com.ua/oborudovanie/fiskalnye-registratory/fiskalnyy-registrator-mg-t787tl/'),
+(116, 1503482892, 1504530003, 1, 'MG-P777TL', NULL, 1, NULL, 'MG-P777TL', 'simple', 1, NULL, 0, NULL, 'https://gera.com.ua/oborudovanie/fiskalnye-registratory/fiskalnyy-registrator-mg-p777tl/'),
+(117, 1503598501, 1504530054, 1, 'MG-V545T', NULL, 1, NULL, 'MG-V545T', 'simple', 1, NULL, 0, NULL, 'https://gera.com.ua/oborudovanie/kassovye-apparaty/mg-v545t/'),
+(118, 1503603864, 1504530105, 1, 'MG-V545T.02', NULL, 11, NULL, 'MG-V545T-02', 'simple', 1, NULL, 0, NULL, 'https://gera.com.ua/oborudovanie/kassovye-apparaty/mg-v545t.02/'),
+(119, 1503666237, 1504530179, 1, 'MIKRO.XM', NULL, 1, NULL, 'MIKRO-HM', 'simple', 1, NULL, 0, NULL, 'http://www.ipos-print.com/products/6/23/'),
+(120, 1503669677, 1504530314, 1, 'VAMP-MICRO', NULL, 1, NULL, 'VAMP-MICRO', 'simple', 1, NULL, 0, NULL, 'http://ts2.com.ua/ua/katalog/portativnye-kassovye-apparaty/kassovyj-apparat-vamp-mikro'),
+(121, 1503742395, 1504530381, 1, 'I.Pos.XM', NULL, 1200, NULL, 'I-Pos-XM', 'simple', 1, NULL, 0, NULL, 'http://www.artsoft.ua/s.php?id=821&page=fp');
 
 -- --------------------------------------------------------
 
@@ -2486,30 +2492,26 @@ CREATE TABLE IF NOT EXISTS `product_file` (
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=97 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=136 ;
 
 --
 -- Dumping data for table `product_file`
 --
 
 INSERT INTO `product_file` (`id`, `file`, `product_id`, `sort`, `name`) VALUES
-(63, '/uploads/products/115/file/Gera_MG_N707TS_HTTP_v25.epf', 115, 1, 'Processing under 1C via HTTP protocol'),
-(64, '/uploads/products/115/file/Ole_driver_MGT808TL.rar', 115, 2, 'Universal driver for 1C Enterprise'),
-(65, '/uploads/products/116/file/Gera_MG_N707TS_HTTP_v25.epf', 116, 1, 'Processing under 1C via HTTP protocol'),
-(66, '/uploads/products/116/file/Ole_driver_MGT808TL.rar', 116, 2, 'Universal driver for 1C Enterprise'),
-(73, '/uploads/products/117/file/RNDIS1850.zip', 117, 1, 'Driver for Windows'),
-(74, '/uploads/products/117/file/Instrukciya_obnovleniya_WEB-interfeysa_dlya_MG_N707TS_MG-V545T_MG-V545T02fab4.pdf', 117, 2, 'Instruction for web-interface update'),
-(75, '/uploads/products/117/file/545-Json349f.pdf', 117, 3, 'List of commands and description of communication protocols with external devices'),
-(85, '/uploads/products/114/file/RNDIS9624.zip', 114, 1, 'Driver for Windows'),
-(86, '/uploads/products/114/file/Update-web-guide.pdf', 114, 2, 'Instruction for web-interface update'),
-(87, '/uploads/products/114/file/Protokol_JSON_MG_N707TS203f.pdf', 114, 3, 'List of commands and description of communication protocols with external devices'),
-(88, '/uploads/products/120/file/User-manual.pdf', 120, 1, 'User manual'),
-(89, '/uploads/products/120/file/vamp_driver.rar', 120, 2, 'Driver for USB connection'),
-(90, '/uploads/products/120/file/Cert.pdf', 120, 3, 'Certificate of conformity'),
-(93, '/uploads/products/121/file/iPosXM_.pdf', 121, 1, 'User manual'),
-(94, '/uploads/products/118/file/RNDIS1850.zip', 118, 1, 'Driver for Windows'),
-(95, '/uploads/products/118/file/Instrukciya_obnovleniya_WEB-interfeysa_dlya_MG_N707TS_MG-V545T_MG-V545T02fab4.pdf', 118, 2, 'Instruction for web-interface update'),
-(96, '/uploads/products/118/file/545-Json349f.pdf', 118, 3, 'List of commands and description of communication protocols with external devices');
+(112, '/uploads/products/114/file/RNDIS9624.zip', 114, 1, 'Driver for Windows'),
+(113, '/uploads/products/114/file/Update-web-guide.pdf', 114, 2, 'Instruction for web-interface update'),
+(114, '/uploads/products/114/file/Protokol_JSON_MG_N707TS203f.pdf', 114, 3, 'List of commands and description of communication protocols with external devices'),
+(123, '/uploads/products/117/file/RNDIS1850.zip', 117, 1, 'Driver for Windows'),
+(124, '/uploads/products/117/file/Instrukciya_obnovleniya_WEB-interfeysa_dlya_MG_N707TS_MG-V545T_MG-V545T02fab4.pdf', 117, 2, 'Instruction for web-interface update'),
+(125, '/uploads/products/117/file/545-Json349f.pdf', 117, 3, 'List of commands and description of communication protocols with external devices'),
+(126, '/uploads/products/118/file/RNDIS1850.zip', 118, 1, 'Driver for Windows'),
+(127, '/uploads/products/118/file/Instrukciya_obnovleniya_WEB-interfeysa_dlya_MG_N707TS_MG-V545T_MG-V545T02fab4.pdf', 118, 2, 'Instruction for web-interface update'),
+(128, '/uploads/products/118/file/545-Json349f.pdf', 118, 3, 'List of commands and description of communication protocols with external devices'),
+(132, '/uploads/products/120/file/User-manual.pdf', 120, 1, 'User manual'),
+(133, '/uploads/products/120/file/vamp_driver.rar', 120, 2, 'Driver for USB connection'),
+(134, '/uploads/products/120/file/Cert.pdf', 120, 3, 'Certificate of conformity'),
+(135, '/uploads/products/121/file/iPosXM_.pdf', 121, 1, 'User manual');
 
 -- --------------------------------------------------------
 
@@ -2524,32 +2526,61 @@ CREATE TABLE IF NOT EXISTS `product_gallery` (
   `sort` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1839 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1879 ;
 
 --
 -- Dumping data for table `product_gallery`
 --
 
 INSERT INTO `product_gallery` (`id`, `image`, `product_id`, `sort`) VALUES
-(1676, '/uploads/products/115/1.png', 115, NULL),
-(1677, '/uploads/products/116/1.png', 116, NULL),
-(1731, '/uploads/products/117/1.jpeg', 117, NULL),
-(1732, '/uploads/products/117/2.png', 117, NULL),
-(1733, '/uploads/products/117/3.png', 117, NULL),
-(1734, '/uploads/products/117/4.png', 117, NULL),
-(1771, '/uploads/products/114/1.jpeg', 114, 1),
-(1772, '/uploads/products/114/2.jpg', 114, 2),
-(1781, '/uploads/products/119/1.jpg', 119, 1),
-(1782, '/uploads/products/119/2.jpg', 119, 2),
-(1783, '/uploads/products/119/3.jpg', 119, 3),
-(1784, '/uploads/products/119/4.jpg', 119, 4),
-(1825, '/uploads/products/120/1.jpg', 120, 1),
-(1826, '/uploads/products/120/2.jpg', 120, 2),
-(1827, '/uploads/products/120/3.jpg', 120, 3),
-(1828, '/uploads/products/120/4.jpg', 120, 4),
-(1829, '/uploads/products/120/5.jpg', 120, 5),
-(1837, '/uploads/products/121/1.jpg', 121, 1),
-(1838, '/uploads/products/118/1.jpeg', 118, NULL);
+(1852, '/uploads/products/114/1.jpeg', 114, 1),
+(1853, '/uploads/products/114/2.jpg', 114, 2),
+(1858, '/uploads/products/116/1.png', 116, NULL),
+(1859, '/uploads/products/115/1.png', 115, NULL),
+(1860, '/uploads/products/117/1.jpeg', 117, NULL),
+(1861, '/uploads/products/117/2.png', 117, NULL),
+(1862, '/uploads/products/117/3.png', 117, NULL),
+(1863, '/uploads/products/117/4.png', 117, NULL),
+(1864, '/uploads/products/118/1.jpeg', 118, NULL),
+(1865, '/uploads/products/119/1.jpg', 119, 1),
+(1866, '/uploads/products/119/2.jpg', 119, 2),
+(1867, '/uploads/products/119/3.jpg', 119, 3),
+(1873, '/uploads/products/120/1.jpg', 120, 1),
+(1874, '/uploads/products/120/2.jpg', 120, 2),
+(1875, '/uploads/products/120/3.jpg', 120, 3),
+(1876, '/uploads/products/120/4.jpg', 120, 4),
+(1877, '/uploads/products/120/5.jpg', 120, 5),
+(1878, '/uploads/products/121/1.jpg', 121, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_link`
+--
+
+CREATE TABLE IF NOT EXISTS `product_link` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `link` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `product_id` (`product_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+
+--
+-- Dumping data for table `product_link`
+--
+
+INSERT INTO `product_link` (`id`, `product_id`, `title`, `link`) VALUES
+(5, 114, 'GERA', 'https://gera.com.ua/oborudovanie/fiskalnye-registratory/fiskalnyy-registrator-mg-n707ts/'),
+(9, 116, 'GERA', 'https://gera.com.ua/oborudovanie/fiskalnye-registratory/fiskalnyy-registrator-mg-p777tl/'),
+(10, 115, 'GERA', 'https://gera.com.ua/oborudovanie/fiskalnye-registratory/fiskalnyy-registrator-mg-t787tl/'),
+(11, 117, 'GERA', 'https://gera.com.ua/oborudovanie/kassovye-apparaty/mg-v545t/'),
+(12, 118, 'GERA', 'https://gera.com.ua/oborudovanie/kassovye-apparaty/mg-v545t.02/'),
+(13, 119, 'POS Technology', 'http://www.ipos-print.com/products/6/23/'),
+(15, 120, 'Техносервис-2', 'http://ts2.com.ua/ua/katalog/portativnye-kassovye-apparaty/kassovyj-apparat-vamp-mikro'),
+(16, 120, 'СТЦ - Исток', 'https://www.stc-istok.com.ua/kassovye-apparaty/1100-vamp-mikro.html'),
+(17, 121, 'Artsoft', 'http://www.artsoft.ua/s.php?id=821&page=fp');
 
 -- --------------------------------------------------------
 
@@ -2670,7 +2701,7 @@ CREATE TABLE IF NOT EXISTS `source_message` (
   `category` varchar(255) DEFAULT NULL,
   `message` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=980 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=982 ;
 
 --
 -- Dumping data for table `source_message`
@@ -3212,7 +3243,9 @@ INSERT INTO `source_message` (`id`, `category`, `message`) VALUES
 (976, 'common/modules/i18n', 'Universal driver for 1C Enterprise'),
 (977, 'common/modules/i18n', 'User manual'),
 (978, 'common/modules/i18n', 'Driver for USB connection'),
-(979, 'common/modules/i18n', 'Certificate of conformity');
+(979, 'common/modules/i18n', 'Certificate of conformity'),
+(980, 'common/modules/i18n', 'Links'),
+(981, 'javascript', 'Buy in our partners');
 
 -- --------------------------------------------------------
 
@@ -3350,6 +3383,12 @@ INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_res
 --
 ALTER TABLE `email_templatelang`
   ADD CONSTRAINT `email_templatelang_ibfk_1` FOREIGN KEY (`email_template_id`) REFERENCES `email_template` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `product_link`
+--
+ALTER TABLE `product_link`
+  ADD CONSTRAINT `product_link_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
