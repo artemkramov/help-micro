@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 04, 2017 at 03:55 PM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 5.5.38
+-- Хост: 127.0.0.1
+-- Время создания: Сен 20 2017 г., 09:46
+-- Версия сервера: 10.1.16-MariaDB
+-- Версия PHP: 5.5.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,27 +14,25 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
 
 --
--- Database: `help-micro`
+-- База данных: `help-micro`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `auth_assignment`
+-- Структура таблицы `auth_assignment`
 --
 
-CREATE TABLE IF NOT EXISTS `auth_assignment` (
+CREATE TABLE `auth_assignment` (
   `item_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `user_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` int(11) DEFAULT NULL,
-  PRIMARY KEY (`item_name`,`user_id`)
+  `created_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `auth_assignment`
+-- Дамп данных таблицы `auth_assignment`
 --
 
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
@@ -69,10 +67,10 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `auth_item`
+-- Структура таблицы `auth_item`
 --
 
-CREATE TABLE IF NOT EXISTS `auth_item` (
+CREATE TABLE `auth_item` (
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `type` int(11) NOT NULL,
   `description` text COLLATE utf8_unicode_ci,
@@ -80,14 +78,11 @@ CREATE TABLE IF NOT EXISTS `auth_item` (
   `data` text COLLATE utf8_unicode_ci,
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
-  `parent_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`name`),
-  KEY `rule_name` (`rule_name`),
-  KEY `idx-auth_item-type` (`type`)
+  `parent_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `auth_item`
+-- Дамп данных таблицы `auth_item`
 --
 
 INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`, `parent_id`) VALUES
@@ -135,18 +130,16 @@ INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `cr
 -- --------------------------------------------------------
 
 --
--- Table structure for table `auth_item_child`
+-- Структура таблицы `auth_item_child`
 --
 
-CREATE TABLE IF NOT EXISTS `auth_item_child` (
+CREATE TABLE `auth_item_child` (
   `parent` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `child` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`parent`,`child`),
-  KEY `child` (`child`)
+  `child` varchar(64) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `auth_item_child`
+-- Дамп данных таблицы `auth_item_child`
 --
 
 INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
@@ -189,19 +182,18 @@ INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `auth_rule`
+-- Структура таблицы `auth_rule`
 --
 
-CREATE TABLE IF NOT EXISTS `auth_rule` (
+CREATE TABLE `auth_rule` (
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `data` text COLLATE utf8_unicode_ci,
   `created_at` int(11) DEFAULT NULL,
-  `updated_at` int(11) DEFAULT NULL,
-  PRIMARY KEY (`name`)
+  `updated_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `auth_rule`
+-- Дамп данных таблицы `auth_rule`
 --
 
 INSERT INTO `auth_rule` (`name`, `data`, `created_at`, `updated_at`) VALUES
@@ -212,74 +204,69 @@ INSERT INTO `auth_rule` (`name`, `data`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `blog_category`
+-- Структура таблицы `blog_category`
 --
 
-CREATE TABLE IF NOT EXISTS `blog_category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `blog_category` (
+  `id` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL,
-  `alias` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=cp1251 AUTO_INCREMENT=1 ;
+  `alias` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `blog_categorylang`
+-- Структура таблицы `blog_categorylang`
 --
 
-CREATE TABLE IF NOT EXISTS `blog_categorylang` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `blog_categorylang` (
+  `id` int(11) NOT NULL,
   `blog_category_id` int(11) NOT NULL,
   `language` varchar(10) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=cp1251 AUTO_INCREMENT=1 ;
+  `title` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `blog_post`
+-- Структура таблицы `blog_post`
 --
 
-CREATE TABLE IF NOT EXISTS `blog_post` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `blog_post` (
+  `id` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL,
   `blog_category_id` int(11) DEFAULT NULL,
   `image` varchar(255) NOT NULL,
   `alias` varchar(255) NOT NULL,
   `enabled` tinyint(1) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `blog_category_id` (`blog_category_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=cp1251 AUTO_INCREMENT=1 ;
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `blog_postlang`
+-- Структура таблицы `blog_postlang`
 --
 
-CREATE TABLE IF NOT EXISTS `blog_postlang` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `blog_postlang` (
+  `id` int(11) NOT NULL,
   `blog_post_id` int(11) NOT NULL,
   `language` varchar(10) NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` text NOT NULL,
-  `short_description` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=cp1251 AUTO_INCREMENT=1 ;
+  `short_description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
+-- Структура таблицы `category`
 --
 
-CREATE TABLE IF NOT EXISTS `category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL,
   `sort` int(11) DEFAULT NULL,
@@ -288,13 +275,11 @@ CREATE TABLE IF NOT EXISTS `category` (
   `alias` varchar(255) NOT NULL,
   `enabled` tinyint(1) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
-  `image` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+  `image` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `category`
+-- Дамп данных таблицы `category`
 --
 
 INSERT INTO `category` (`id`, `created_at`, `updated_at`, `sort`, `parent_id`, `level`, `alias`, `enabled`, `is_deleted`, `image`) VALUES
@@ -305,20 +290,19 @@ INSERT INTO `category` (`id`, `created_at`, `updated_at`, `sort`, `parent_id`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categorylang`
+-- Структура таблицы `categorylang`
 --
 
-CREATE TABLE IF NOT EXISTS `categorylang` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `categorylang` (
+  `id` int(11) NOT NULL,
   `language` varchar(2) NOT NULL,
   `category_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=42 ;
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `categorylang`
+-- Дамп данных таблицы `categorylang`
 --
 
 INSERT INTO `categorylang` (`id`, `language`, `category_id`, `title`, `description`) VALUES
@@ -335,76 +319,67 @@ INSERT INTO `categorylang` (`id`, `language`, `category_id`, `title`, `descripti
 -- --------------------------------------------------------
 
 --
--- Table structure for table `characteristic`
+-- Структура таблицы `characteristic`
 --
 
-CREATE TABLE IF NOT EXISTS `characteristic` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `characteristic` (
+  `id` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL,
   `characteristic_group_id` int(11) NOT NULL,
   `sort` int(11) DEFAULT NULL,
-  `alias` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `alias` (`alias`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `alias` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `characteristiclang`
+-- Структура таблицы `characteristiclang`
 --
 
-CREATE TABLE IF NOT EXISTS `characteristiclang` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `characteristiclang` (
+  `id` int(11) NOT NULL,
   `characteristic_id` int(11) NOT NULL,
   `language` varchar(5) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `description` text,
-  PRIMARY KEY (`id`),
-  KEY `characteristic_group_id` (`characteristic_id`),
-  KEY `characteristic_id` (`characteristic_id`,`language`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `description` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `characteristic_group`
+-- Структура таблицы `characteristic_group`
 --
 
-CREATE TABLE IF NOT EXISTS `characteristic_group` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `characteristic_group` (
+  `id` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL,
   `alias` varchar(255) NOT NULL,
-  `show_in_filter` tinyint(4) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `show_in_filter` tinyint(4) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `characteristic_grouplang`
+-- Структура таблицы `characteristic_grouplang`
 --
 
-CREATE TABLE IF NOT EXISTS `characteristic_grouplang` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `characteristic_grouplang` (
+  `id` int(11) NOT NULL,
   `characteristic_group_id` int(11) NOT NULL,
   `language` varchar(5) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `characteristic_group_id` (`characteristic_group_id`),
-  KEY `characteristic_group_id_2` (`characteristic_group_id`,`language`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `title` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comment`
+-- Структура таблицы `comment`
 --
 
-CREATE TABLE IF NOT EXISTS `comment` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `comment` (
+  `id` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL,
   `text` text NOT NULL,
@@ -413,15 +388,11 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `level` int(11) DEFAULT NULL,
   `enabled` tinyint(1) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL,
-  `video_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  KEY `parent_id` (`parent_id`),
-  KEY `video_id` (`video_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
+  `video_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `comment`
+-- Дамп данных таблицы `comment`
 --
 
 INSERT INTO `comment` (`id`, `created_at`, `updated_at`, `text`, `user_id`, `parent_id`, `level`, `enabled`, `is_deleted`, `video_id`) VALUES
@@ -437,21 +408,20 @@ INSERT INTO `comment` (`id`, `created_at`, `updated_at`, `text`, `user_id`, `par
 -- --------------------------------------------------------
 
 --
--- Table structure for table `currency`
+-- Структура таблицы `currency`
 --
 
-CREATE TABLE IF NOT EXISTS `currency` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `currency` (
+  `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `iso_4217` varchar(10) NOT NULL,
   `sign` varchar(10) NOT NULL,
   `is_default` tinyint(1) NOT NULL,
-  `show_after_price` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  `show_after_price` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `currency`
+-- Дамп данных таблицы `currency`
 --
 
 INSERT INTO `currency` (`id`, `name`, `iso_4217`, `sign`, `is_default`, `show_after_price`) VALUES
@@ -461,22 +431,21 @@ INSERT INTO `currency` (`id`, `name`, `iso_4217`, `sign`, `is_default`, `show_af
 -- --------------------------------------------------------
 
 --
--- Table structure for table `email_template`
+-- Структура таблицы `email_template`
 --
 
-CREATE TABLE IF NOT EXISTS `email_template` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `email_template` (
+  `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `enabled` tinyint(1) NOT NULL,
   `receivers` text,
   `alias` varchar(255) NOT NULL,
-  `for_customer` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+  `for_customer` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `email_template`
+-- Дамп данных таблицы `email_template`
 --
 
 INSERT INTO `email_template` (`id`, `name`, `description`, `enabled`, `receivers`, `alias`, `for_customer`) VALUES
@@ -485,20 +454,18 @@ INSERT INTO `email_template` (`id`, `name`, `description`, `enabled`, `receivers
 -- --------------------------------------------------------
 
 --
--- Table structure for table `email_templatelang`
+-- Структура таблицы `email_templatelang`
 --
 
-CREATE TABLE IF NOT EXISTS `email_templatelang` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `email_templatelang` (
+  `id` int(11) NOT NULL,
   `email_template_id` int(11) NOT NULL,
   `subject` varchar(255) NOT NULL,
-  `language` varchar(10) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `email_template_id` (`email_template_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+  `language` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `email_templatelang`
+-- Дамп данных таблицы `email_templatelang`
 --
 
 INSERT INTO `email_templatelang` (`id`, `email_template_id`, `subject`, `language`) VALUES
@@ -509,36 +476,34 @@ INSERT INTO `email_templatelang` (`id`, `email_template_id`, `subject`, `languag
 -- --------------------------------------------------------
 
 --
--- Table structure for table `job`
+-- Структура таблицы `job`
 --
 
-CREATE TABLE IF NOT EXISTS `job` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `job` (
+  `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `method` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `method` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `lang`
+-- Структура таблицы `lang`
 --
 
-CREATE TABLE IF NOT EXISTS `lang` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `lang` (
+  `id` int(11) NOT NULL,
   `url` varchar(255) NOT NULL,
   `local` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `default` smallint(6) NOT NULL DEFAULT '0',
   `date_update` int(11) NOT NULL,
   `date_create` int(11) NOT NULL,
-  `currency_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+  `currency_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `lang`
+-- Дамп данных таблицы `lang`
 --
 
 INSERT INTO `lang` (`id`, `url`, `local`, `name`, `default`, `date_update`, `date_create`, `currency_id`) VALUES
@@ -549,11 +514,11 @@ INSERT INTO `lang` (`id`, `url`, `local`, `name`, `default`, `date_update`, `dat
 -- --------------------------------------------------------
 
 --
--- Table structure for table `menu`
+-- Структура таблицы `menu`
 --
 
-CREATE TABLE IF NOT EXISTS `menu` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `menu` (
+  `id` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL,
   `sort` int(11) DEFAULT '0',
@@ -565,13 +530,11 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `menu_type_id` int(11) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `is_direct` tinyint(1) NOT NULL DEFAULT '0',
-  `is_new_tab` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `menu_type_id` (`menu_type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+  `is_new_tab` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `menu`
+-- Дамп данных таблицы `menu`
 --
 
 INSERT INTO `menu` (`id`, `created_at`, `updated_at`, `sort`, `parent_id`, `bean_type`, `bean_id`, `url`, `enabled`, `menu_type_id`, `image`, `is_direct`, `is_new_tab`) VALUES
@@ -592,24 +555,19 @@ INSERT INTO `menu` (`id`, `created_at`, `updated_at`, `sort`, `parent_id`, `bean
 -- --------------------------------------------------------
 
 --
--- Table structure for table `menulang`
+-- Структура таблицы `menulang`
 --
 
-CREATE TABLE IF NOT EXISTS `menulang` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `menulang` (
+  `id` int(11) NOT NULL,
   `menu_id` int(11) NOT NULL,
   `language` varchar(6) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `description` text,
-  PRIMARY KEY (`id`),
-  KEY `post_id` (`menu_id`),
-  KEY `language` (`language`),
-  KEY `menu_id` (`menu_id`),
-  KEY `menu_id_2` (`menu_id`,`language`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=40 ;
+  `description` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `menulang`
+-- Дамп данных таблицы `menulang`
 --
 
 INSERT INTO `menulang` (`id`, `menu_id`, `language`, `title`, `description`) VALUES
@@ -656,18 +614,17 @@ INSERT INTO `menulang` (`id`, `menu_id`, `language`, `title`, `description`) VAL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `menu_type`
+-- Структура таблицы `menu_type`
 --
 
-CREATE TABLE IF NOT EXISTS `menu_type` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `menu_type` (
+  `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `alias` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  `alias` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `menu_type`
+-- Дамп данных таблицы `menu_type`
 --
 
 INSERT INTO `menu_type` (`id`, `name`, `alias`) VALUES
@@ -677,18 +634,17 @@ INSERT INTO `menu_type` (`id`, `name`, `alias`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `message`
+-- Структура таблицы `message`
 --
 
-CREATE TABLE IF NOT EXISTS `message` (
+CREATE TABLE `message` (
   `id` int(11) NOT NULL DEFAULT '0',
   `language` varchar(255) NOT NULL DEFAULT '',
-  `translation` text,
-  PRIMARY KEY (`id`,`language`)
+  `translation` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `message`
+-- Дамп данных таблицы `message`
 --
 
 INSERT INTO `message` (`id`, `language`, `translation`) VALUES
@@ -1821,8 +1777,7 @@ INSERT INTO `message` (`id`, `language`, `translation`) VALUES
 (840, 'ua', NULL),
 (841, 'en', ''),
 (841, 'ru', 'Процент, %'),
-(841, 'ua', 'Відсоток, %');
-INSERT INTO `message` (`id`, `language`, `translation`) VALUES
+(841, 'ua', 'Відсоток, %'),
 (842, 'en', ''),
 (842, 'ru', 'Акции'),
 (842, 'ua', 'Акції'),
@@ -2247,17 +2202,16 @@ INSERT INTO `message` (`id`, `language`, `translation`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migration`
+-- Структура таблицы `migration`
 --
 
-CREATE TABLE IF NOT EXISTS `migration` (
+CREATE TABLE `migration` (
   `version` varchar(180) NOT NULL,
-  `apply_time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`version`)
+  `apply_time` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `migration`
+-- Дамп данных таблицы `migration`
 --
 
 INSERT INTO `migration` (`version`, `apply_time`) VALUES
@@ -2271,22 +2225,21 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `post`
+-- Структура таблицы `post`
 --
 
-CREATE TABLE IF NOT EXISTS `post` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `post` (
+  `id` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL,
   `enabled` tinyint(1) NOT NULL DEFAULT '1',
   `alias` varchar(255) NOT NULL,
   `template` varchar(20) NOT NULL,
-  `default` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+  `default` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `post`
+-- Дамп данных таблицы `post`
 --
 
 INSERT INTO `post` (`id`, `created_at`, `updated_at`, `enabled`, `alias`, `template`, `default`) VALUES
@@ -2300,23 +2253,19 @@ INSERT INTO `post` (`id`, `created_at`, `updated_at`, `enabled`, `alias`, `templ
 -- --------------------------------------------------------
 
 --
--- Table structure for table `postlang`
+-- Структура таблицы `postlang`
 --
 
-CREATE TABLE IF NOT EXISTS `postlang` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `postlang` (
+  `id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
   `language` varchar(6) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `content` text NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `post_id` (`post_id`),
-  KEY `language` (`language`),
-  KEY `post_id_2` (`post_id`,`language`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
+  `content` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `postlang`
+-- Дамп данных таблицы `postlang`
 --
 
 INSERT INTO `postlang` (`id`, `post_id`, `language`, `title`, `content`) VALUES
@@ -2342,11 +2291,11 @@ INSERT INTO `postlang` (`id`, `post_id`, `language`, `title`, `content`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product`
+-- Структура таблицы `product`
 --
 
-CREATE TABLE IF NOT EXISTS `product` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `product` (
+  `id` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL,
   `enabled` int(11) NOT NULL,
@@ -2360,13 +2309,11 @@ CREATE TABLE IF NOT EXISTS `product` (
   `video` varchar(255) DEFAULT NULL,
   `is_new` tinyint(1) NOT NULL,
   `image_color` varchar(255) DEFAULT NULL,
-  `buy_link` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `alias` (`alias`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=122 ;
+  `buy_link` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `product`
+-- Дамп данных таблицы `product`
 --
 
 INSERT INTO `product` (`id`, `created_at`, `updated_at`, `enabled`, `vendor_code`, `sort`, `price`, `in_stock`, `alias`, `type`, `currency_id`, `video`, `is_new`, `image_color`, `buy_link`) VALUES
@@ -2382,11 +2329,11 @@ INSERT INTO `product` (`id`, `created_at`, `updated_at`, `enabled`, `vendor_code
 -- --------------------------------------------------------
 
 --
--- Table structure for table `productlang`
+-- Структура таблицы `productlang`
 --
 
-CREATE TABLE IF NOT EXISTS `productlang` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `productlang` (
+  `id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `language` varchar(5) NOT NULL,
   `title` varchar(255) NOT NULL,
@@ -2395,15 +2342,11 @@ CREATE TABLE IF NOT EXISTS `productlang` (
   `content` text NOT NULL,
   `short_description` text,
   `table_size` text NOT NULL,
-  `search_text` text,
-  PRIMARY KEY (`id`),
-  KEY `product_id` (`product_id`),
-  KEY `product_id_2` (`product_id`,`language`),
-  FULLTEXT KEY `search_text` (`search_text`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=379 ;
+  `search_text` text
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `productlang`
+-- Дамп данных таблицы `productlang`
 --
 
 INSERT INTO `productlang` (`id`, `product_id`, `language`, `title`, `size_fit`, `editor_notes`, `content`, `short_description`, `table_size`, `search_text`) VALUES
@@ -2414,21 +2357,20 @@ INSERT INTO `productlang` (`id`, `product_id`, `language`, `title`, `size_fit`, 
 (365, 117, 'ru', 'MG-V545T', '', '<p>Кассовый аппарат MG-V545T &mdash; это портативное электронное контрольно-кассовое устройство для учета наличного и безналичного расчета с покупателем при проведении расчетных операций (продаж) и выдачи чека за приобретенные товары/услуги.</p>\r\n<p>Разработан специально для среднего и малого бизнеса, чтобы совмещать все функции фискальных расчетных регистраторов с высокой мобильностью и отличной ценой. Рекомендуется использовать в магазинах, киосках, на рынках, в ломбардах, в аптеках, кафе и ресторанах и других местах коммерческой деятельности.</p>\r\n<p>Уникальной особенностью работы кассового аппарата MG-V545T есть возможность работы с ним удаленно по WEB интерфейсу через HTTP протокол. Это единственный сертифицированный аппарат на территории Украины, обладающий таким функционалом. Больше не нужно ездить по всей сети магазинов для внесения данных или изменения базы товаров, это можно делать удаленно.</p>\r\n<p>Кассовый аппарат имеет две модификации (разница в интерфейсах).</p>\r\n<p>MG-V545T обладает интерфейсами RJ12-6x6 (разветвитель на 2 COM порта RS-232) и USB-B, позволяющие подключать весы, платежные терминалы, сканеры штрих-кода, USB-клавиатуру;</p>\r\n<p>Кассовый аппарат отличается надежностью, соответствует современным стандартам, сертифицирован государственной комиссией и внесен в государственный реестр аппаратов расчетных операций от 09.07.2015 № 485 Государственной фискальной службой Украины.</p>\r\n<p>В кассовом аппарате MG-V545T реализована функция контрольной ленты в электронной форме (КЛЭФ), что позволяет мгновенно передавать отчеты о продажах в Государственную фискальную службу Украины, в форме пакетных данных.</p>\r\n<p>Кассовый аппарат MG-V545T обладает клавиатурой для управления аппаратом и введения информации. Клавиатура насчитывает 30-ть клавиш, 12 из которых служат для ввода текста и цифр, а остальные &mdash; функциональные клавиши.</p>\r\n<p>Основные преимущества:</p>\r\n<ul>\r\n<li>соответствует законодательным требованиям от 2015 года;</li>\r\n<li>контрольная лента в электронной форме (КЛЭФ);</li>\r\n<li>обладает WEB интерфейсом для удаленной работы через HTTP протокол, который позволяет удаленно программировать:<br />\r\n<ul>\r\n<li>базу товаров в ручном режиме или импортировать ее из файла *.csv</li>\r\n</ul>\r\n<ul>\r\n<li>шапку чека (атрибуты налогоплательщика, налоговый номер, фискальный номер)</li>\r\n</ul>\r\n<ul>\r\n<li>налоговые ставки</li>\r\n</ul>\r\n<ul>\r\n<li>весовые штрих-коды</li>\r\n</ul>\r\n<ul>\r\n<li>рекламные сообщения</li>\r\n</ul>\r\n<ul>\r\n<li>название отделов в магазине</li>\r\n</ul>\r\n<ul>\r\n<li>название групп товаров</li>\r\n</ul>\r\n<ul>\r\n<li>скидки и наценки</li>\r\n<li>другие дополнительные настройки</li>\r\n</ul>\r\n</li>\r\n<li>печать логотипов и рекламных сообщений в чеке;</li>\r\n<li>скорость печати чека до 60 миллиметров в секунду;</li>\r\n<li>быстрая замена кассовой ленты;</li>\r\n<li>интерфейсы для подключения к ПК, денежному ящику, сканеру штрих-кода, платежного банковского терминала;</li>\r\n<li>передача данных в фискальную службу через интернет.</li>\r\n</ul>', '<table class="table table-striped">\r\n<tbody>\r\n<tr>\r\n<td>Аккумулятор:</td>\r\n<td>Li-Ion, 2000 мAч</td>\r\n</tr>\r\n<tr>\r\n<td>Индикатор покупателя:</td>\r\n<td>Нет</td>\r\n</tr>\r\n<tr>\r\n<td>Каналы доступа в интернет:</td>\r\n<td>опция: 1 x GSM/GPRS; 1 x Wi-Fi</td>\r\n</tr>\r\n<tr>\r\n<td>Количество X отчетов:</td>\r\n<td>12321</td>\r\n</tr>\r\n<tr>\r\n<td>Количество Z отчетов:</td>\r\n<td>12321</td>\r\n</tr>\r\n<tr>\r\n<td>Количество кассиров:</td>\r\n<td>16</td>\r\n</tr>\r\n<tr>\r\n<td>Количество клавиш:</td>\r\n<td>30 клавиш</td>\r\n</tr>\r\n<tr>\r\n<td>Количество отделов:</td>\r\n<td>15</td>\r\n</tr>\r\n<tr>\r\n<td>Количество символов в названии товара:</td>\r\n<td>32</td>\r\n</tr>\r\n<tr>\r\n<td>Количество символов в строке:</td>\r\n<td>32</td>\r\n</tr>\r\n<tr>\r\n<td>Количество товаров:</td>\r\n<td>20000</td>\r\n</tr>\r\n<tr>\r\n<td>Комплект поставки:</td>\r\n<td>Кас. аппарат, блок питания, рук-во польз., паспорт</td>\r\n</tr>\r\n<tr>\r\n<td>Контрольная лента:</td>\r\n<td>КЛЭФ</td>\r\n</tr>\r\n<tr>\r\n<td>Максимальное количество видов оплаты:</td>\r\n<td>Наличность, карта, кредит, чек</td>\r\n</tr>\r\n<tr>\r\n<td>Модель принтера:</td>\r\n<td>Принтер Seiko LTP01 - 245-02 (Япония)</td>\r\n</tr>\r\n<tr>\r\n<td>Налоговые группы с положительным итогом:</td>\r\n<td>5 + 1</td>\r\n</tr>\r\n<tr>\r\n<td>Подключаемые устройства:</td>\r\n<td>Сканер, весы, ПК, платежный терминал</td>\r\n</tr>\r\n<tr>\r\n<td>Тип дисплея:</td>\r\n<td>Жидкокристалический 128х64 (графический)</td>\r\n</tr>\r\n<tr>\r\n<td>Цвет:</td>\r\n<td>Белый</td>\r\n</tr>\r\n<tr>\r\n<td>Ширина бумаги:</td>\r\n<td>57,5 мм</td>\r\n</tr>\r\n<tr>\r\n<td>Скорость печати:</td>\r\n<td>до 60 мм/сек</td>\r\n</tr>\r\n<tr>\r\n<td>Интерфейсы подключения:</td>\r\n<td>2xRS-232 (1 спареный x RJ-12(6P6C)), 1xUSB (тип В)</td>\r\n</tr>\r\n<tr>\r\n<td>Макс. диаметр рулона:</td>\r\n<td>до 40 мм</td>\r\n</tr>\r\n<tr>\r\n<td>Наличие автообрезчика:</td>\r\n<td>Нет</td>\r\n</tr>\r\n<tr>\r\n<td>Источник питания:</td>\r\n<td>220 В, 50 Гц; адаптер 9 В,1 А</td>\r\n</tr>\r\n<tr>\r\n<td>Рабочая температура:</td>\r\n<td>+5&deg;C &hellip; +40&deg;C</td>\r\n</tr>\r\n<tr>\r\n<td>Влажность:</td>\r\n<td>от 40% до 85%</td>\r\n</tr>\r\n<tr>\r\n<td>Габаритные размеры:</td>\r\n<td>290 x 135 x 80 мм</td>\r\n</tr>\r\n<tr>\r\n<td>Вес:</td>\r\n<td>0,81 кг</td>\r\n</tr>\r\n</tbody>\r\n</table>', '<p class="group inner list-group-item-text">Кассовый аппарат MG-V545T &mdash; это портативное электронное контрольно-кассовое устройство для учета наличного и безналичного расчета с покупателем при проведении расчетных операций (продаж) и выдачи чека за приобретенные товары/услуги.</p>', '', 'КАССОВЫЕ АППАРАТЫ MG-V545T  АККУМУЛЯТОР: LI-ION, 2000 МAЧ ИНДИКАТОР ПОКУПАТЕЛЯ: НЕТ КАНАЛЫ ДОСТУПА В ИНТЕРНЕТ: ОПЦИЯ: 1 X GSM/GPRS; WI-FI КОЛИЧЕСТВО X ОТЧЕТОВ: 12321 Z КАССИРОВ: 16 КЛАВИШ: 30 КЛАВИШ ОТДЕЛОВ: 15 СИМВОЛОВ НАЗВАНИИ ТОВАРА: 32 СТРОКЕ: ТОВАРОВ: 20000 КОМПЛЕКТ ПОСТАВКИ: КАС. АППАРАТ, БЛОК ПИТАНИЯ, РУК-ВО ПОЛЬЗ., ПАСПОРТ КОНТРОЛЬНАЯ ЛЕНТА: КЛЭФ МАКСИМАЛЬНОЕ КОЛИЧЕСТВО ВИДОВ ОПЛАТЫ: НАЛИЧНОСТЬ, КАРТА, КРЕДИТ, ЧЕК МОДЕЛЬ ПРИНТЕРА: ПРИНТЕР SEIKO LTP01 - 245-02 (ЯПОНИЯ) НАЛОГОВЫЕ ГРУППЫ С ПОЛОЖИТЕЛЬНЫМ ИТОГОМ: 5 + ПОДКЛЮЧАЕМЫЕ УСТРОЙСТВА: СКАНЕР, ВЕСЫ, ПК, ПЛАТЕЖНЫЙ ТЕРМИНАЛ ТИП ДИСПЛЕЯ: ЖИДКОКРИСТАЛИЧЕСКИЙ 128Х64 (ГРАФИЧЕСКИЙ) ЦВЕТ: БЕЛЫЙ ШИРИНА БУМАГИ: 57,5 ММ СКОРОСТЬ ПЕЧАТИ: ДО 60 ММ/СЕК ИНТЕРФЕЙСЫ ПОДКЛЮЧЕНИЯ: 2XRS-232'),
 (366, 117, 'ua', 'MG-V545T', '', '<p>Касовий апарат MG-V545T &mdash; це портативний електронний контрольно-касовий пристрій для обліку готівкового і безготівкового розрахунку з покупцем при проведенні розрахункових операцій (продажу) та видачі чеку за придбані товари / послуги.</p>\r\n<p>Розроблений спеціально для середнього і малого бізнесу, щоб поєднувати всі функції фіскальних розрахункових реєстраторів з високою мобільністю і відмінною ціною. Рекомендується використовувати в магазинах, кіосках, на ринках, в ломбардах, в аптеках, кафе і ресторанах та інших місцях комерційної діяльності.</p>\r\n<p>Унікальною особливістю роботи касового апарату MG-V545T є можливість роботи з ним віддалено по WEB інтерфейсу через HTTP-протокол. Це єдиний сертифікований апарат на території України, що володіє таким функціоналом. Більше не потрібно їздити по всій мережі магазинів для внесення даних або зміни бази товарів, це можна робити віддалено.</p>\r\n<p>Касовий апарат має дві модифікації (різниця в інтерфейсах).</p>\r\n<p>MG-V545T має інтерфейси RJ12-6x6 (розгалужувач на 2 COM-порти RS-232) і USB-B, що дозволяють підключати ваги, платіжні термінали, сканери штрих-коду, USB-клавіатуру.</p>\r\n<p>Касовий апарат відрізняється надійністю, відповідає сучасним стандартам, сертифікований державною комісією і внесений до державного реєстру апаратів розрахункових операцій від 09.07.2015 № 485 Державною фіскальною службою України.</p>\r\n<p>В касовому апараті MG-V545T реалізована функція контрольної стрічки в електронній формі (КЛЕФ), що дозволяє миттєво передавати звіти про продажі в Державну фіскальну службу України у формі пакетних даних.</p>\r\n<p>Касовий апарат MG-V545T має клавіатуру для керування апаратом і введення інформації. Клавіатура налічує 30-ть клавіш, 12 з яких служать для введення тексту і цифр, а інші &mdash; функціональні клавіші.</p>\r\n<p>Основні переваги: ​​</p>\r\n<ul>\r\n<li>відповідає законодавчим вимогам від 2015 року;</li>\r\n<li>контрольну стрічку в електронній формі (КЛЕФ);</li>\r\n<li>містить WEB-інтерфейс для віддаленої роботи через HTTP-протокол, який дозволяє віддалено програмувати: <br />\r\n<ul>\r\n<li>базу товарів в ручному режимі або імпортувати її з файлу * .csv</li>\r\n<li>шапку чека (атрибути платника податків, податковий номер, фіскальний номер)</li>\r\n<li>податкові ставки</li>\r\n<li>вагові штрих-коди</li>\r\n<li>рекламні повідомлення</li>\r\n<li>назва відділів в магазині</li>\r\n<li>назва груп товарів</li>\r\n<li>знижки і націнки</li>\r\n<li>інші додаткові налаштування</li>\r\n</ul>\r\n</li>\r\n<li>друк логотипів і рекламних повідомлень в чеку;</li>\r\n<li>швидкість друку чека до 60 міліметрів в секунду;</li>\r\n<li>швидка заміна касової стрічки;</li>\r\n<li>інтерфейси для підключення до ПК, грошового ящика, сканера штрих-коду, платіжного банківського терміналу;</li>\r\n<li>передача даних до фіскальної служби через інтернет.</li>\r\n</ul>', '<table class="table table-striped">\r\n<tbody>\r\n<tr>\r\n<td>Акумулятор:</td>\r\n<td>Li-Ion, 2000 мAч</td>\r\n</tr>\r\n<tr>\r\n<td>Індикатор покупця:</td>\r\n<td>Ні</td>\r\n</tr>\r\n<tr>\r\n<td>Канали доступу в інтернет:</td>\r\n<td>опція: 1 x GSM/GPRS; 1 x Wi-Fi</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість X звітів:</td>\r\n<td>12321</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість Z звітів:</td>\r\n<td>12321</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість касирів:</td>\r\n<td>16</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість клавіш:</td>\r\n<td>30 клавіш</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість відділів:</td>\r\n<td>15</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість символів в назві товару:</td>\r\n<td>32</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість символів в рядку:</td>\r\n<td>32</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість товарів:</td>\r\n<td>20000</td>\r\n</tr>\r\n<tr>\r\n<td>Комплект поставки:</td>\r\n<td>Кас. апарат, блок живлення, керівництво користувача, паспорт</td>\r\n</tr>\r\n<tr>\r\n<td>Контрольна стрічка:</td>\r\n<td>КСЕФ</td>\r\n</tr>\r\n<tr>\r\n<td>Максимальна кількість видів оплати:</td>\r\n<td>Готівка, карта, кредит, чек</td>\r\n</tr>\r\n<tr>\r\n<td>Модель принтера:</td>\r\n<td>Принтер Seiko LTP01 - 245-02 (Японія)</td>\r\n</tr>\r\n<tr>\r\n<td>Податкові групи з позитивним підсумком:</td>\r\n<td>5 + 1</td>\r\n</tr>\r\n<tr>\r\n<td>Пристрої, що підключаються:</td>\r\n<td>Сканер, ваги, ПК, платіжний термінал</td>\r\n</tr>\r\n<tr>\r\n<td>Тип дисплею:</td>\r\n<td>Рідкокристалічний 128х64 (графічний)</td>\r\n</tr>\r\n<tr>\r\n<td>Колір:</td>\r\n<td>Білий</td>\r\n</tr>\r\n<tr>\r\n<td>Ширина паперу:</td>\r\n<td>57,5 мм</td>\r\n</tr>\r\n<tr>\r\n<td>Швидкість друку:</td>\r\n<td>до 60 мм/сек</td>\r\n</tr>\r\n<tr>\r\n<td>Інтерфейси підключення:</td>\r\n<td>2xRS-232 (1 спарений x RJ-12(6P6C)), 1xUSB (тип В)</td>\r\n</tr>\r\n<tr>\r\n<td>Макс. діаметр рулону:</td>\r\n<td>до 40 мм</td>\r\n</tr>\r\n<tr>\r\n<td>Наявність автообрізувальника:</td>\r\n<td>Ні</td>\r\n</tr>\r\n<tr>\r\n<td>Джерело живлення:</td>\r\n<td>220 В, 50 Гц; адаптер 9 В,1 А</td>\r\n</tr>\r\n<tr>\r\n<td>Робоча температура:</td>\r\n<td>+5&deg;C &hellip; +40&deg;C</td>\r\n</tr>\r\n<tr>\r\n<td>Вологість:</td>\r\n<td>від 40% до 85%</td>\r\n</tr>\r\n<tr>\r\n<td>Габаритні розміри:</td>\r\n<td>290 x 135 x 80 мм</td>\r\n</tr>\r\n<tr>\r\n<td>Вага:</td>\r\n<td>0,81 кг</td>\r\n</tr>\r\n</tbody>\r\n</table>', '<p class="group inner list-group-item-text">Касовий апарат MG-V545T &mdash; це портативний електронний контрольно-касовий пристрій для обліку готівкового і безготівкового розрахунку з покупцем при проведенні розрахункових операцій (продажу) та видачі чека за придбані товари / послуги.</p>', '', 'КАСОВІ АПАРАТИ MG-V545T  АКУМУЛЯТОР: LI-ION, 2000 МAЧ ІНДИКАТОР ПОКУПЦЯ: НІ КАНАЛИ ДОСТУПУ В ІНТЕРНЕТ: ОПЦІЯ: 1 X GSM/GPRS; WI-FI КІЛЬКІСТЬ X ЗВІТІВ: 12321 Z КАСИРІВ: 16 КЛАВІШ: 30 КЛАВІШ ВІДДІЛІВ: 15 СИМВОЛІВ НАЗВІ ТОВАРУ: 32 РЯДКУ: ТОВАРІВ: 20000 КОМПЛЕКТ ПОСТАВКИ: КАС. АПАРАТ, БЛОК ЖИВЛЕННЯ, КЕРІВНИЦТВО КОРИСТУВАЧА, ПАСПОРТ КОНТРОЛЬНА СТРІЧКА: КСЕФ МАКСИМАЛЬНА КІЛЬКІСТЬ ВИДІВ ОПЛАТИ: ГОТІВКА, КАРТА, КРЕДИТ, ЧЕК МОДЕЛЬ ПРИНТЕРА: ПРИНТЕР SEIKO LTP01 - 245-02 (ЯПОНІЯ) ПОДАТКОВІ ГРУПИ З ПОЗИТИВНИМ ПІДСУМКОМ: 5 + ПРИСТРОЇ, ЩО ПІДКЛЮЧАЮТЬСЯ: СКАНЕР, ВАГИ, ПК, ПЛАТІЖНИЙ ТЕРМІНАЛ ТИП ДИСПЛЕЮ: РІДКОКРИСТАЛІЧНИЙ 128Х64 (ГРАФІЧНИЙ) КОЛІР: БІЛИЙ ШИРИНА ПАПЕРУ: 57,5 ММ ШВИДКІСТЬ ДРУКУ: ДО 60 ММ/СЕК ІНТЕРФЕЙСИ ПІДКЛЮЧЕННЯ:'),
 (358, 115, 'en', 'MG T787TL', '', '', '<table class="table table-striped">\r\n<tbody>\r\n<tr>\r\n<td>Number of cashiers:</td>\r\n<td>32</td>\r\n</tr>\r\n<tr>\r\n<td>Number of characters in the product name:</td>\r\n<td>85</td>\r\n</tr>\r\n<tr>\r\n<td>Number of goods:</td>\r\n<td>8000</td>\r\n</tr>\r\n<tr>\r\n<td>Printer model:</td>\r\n<td>Toshiba TRST-A00.01.UA</td>\r\n</tr>\r\n<tr>\r\n<td>Tax groups with negative total:</td>\r\n<td>6</td>\r\n</tr>\r\n<tr>\r\n<td>Tax groups with a positive result:</td>\r\n<td>6</td>\r\n</tr>\r\n<tr>\r\n<td>Power supply:</td>\r\n<td>24 V, 2,5 A</td>\r\n</tr>\r\n<tr>\r\n<td>Monitor type:</td>\r\n<td>Liquid crystal / fluorescent</td>\r\n</tr>\r\n<tr>\r\n<td>Paper width:</td>\r\n<td>57,5 or 80,00</td>\r\n</tr>\r\n<tr>\r\n<td>Print type:</td>\r\n<td>Thermal printing</td>\r\n</tr>\r\n<tr>\r\n<td>Print speed:</td>\r\n<td>200</td>\r\n</tr>\r\n<tr>\r\n<td>Interfaces of connection:</td>\r\n<td>RS-232 (RJ45), USB-В (RNDIS), RJ12 (24V)</td>\r\n</tr>\r\n<tr>\r\n<td>Max. roll diameter:</td>\r\n<td>76</td>\r\n</tr>\r\n<tr>\r\n<td>Presence of an auto-cutter:</td>\r\n<td>Yes</td>\r\n</tr>\r\n<tr>\r\n<td>Working temperature:</td>\r\n<td>+5&deg;C &hellip; +40&deg;C</td>\r\n</tr>\r\n<tr>\r\n<td>Humidity:</td>\r\n<td>from 40 to 80% at a temperature of +25&deg;С</td>\r\n</tr>\r\n<tr>\r\n<td>Dimensions:</td>\r\n<td>150 х 185 х 142</td>\r\n</tr>\r\n<tr>\r\n<td>Weight:</td>\r\n<td>1,8 kg</td>\r\n</tr>\r\n</tbody>\r\n</table>', '', '', 'FISCAL REGISTERS MG T787TL  NUMBER OF CASHIERS: 32 CHARACTERS IN THE PRODUCT NAME: 85 GOODS: 8000 PRINTER MODEL: TOSHIBA TRST-A00.01.UA TAX GROUPS WITH NEGATIVE TOTAL: 6 A POSITIVE RESULT: POWER SUPPLY: 24 V, 2,5 A MONITOR TYPE: LIQUID CRYSTAL / FLUORESCENT PAPER WIDTH: 57,5 OR 80,00 PRINT THERMAL PRINTING SPEED: 200 INTERFACES CONNECTION: RS-232 (RJ45), USB-В (RNDIS), RJ12 (24V) MAX. ROLL DIAMETER: 76 PRESENCE AN AUTO-CUTTER: YES WORKING TEMPERATURE: +5&DEG;C &HELLIP; +40&DEG;C HUMIDITY: FROM 40 TO 80% AT TEMPERATURE +25&DEG;С DIMENSIONS: 150 Х 185 142 WEIGHT: 1,8 KG'),
-(359, 115, 'ru', 'MG T787TL', '', '', '<table class="table table-striped">\r\n<tbody>\r\n<tr>\r\n<td>Количество кассиров:</td>\r\n<td>32</td>\r\n</tr>\r\n<tr>\r\n<td>Количество символов в названии товара:</td>\r\n<td>85</td>\r\n</tr>\r\n<tr>\r\n<td>Количество товаров:</td>\r\n<td>8000</td>\r\n</tr>\r\n<tr>\r\n<td>Модель принтера:</td>\r\n<td>Toshiba TRST-A00.01.UA</td>\r\n</tr>\r\n<tr>\r\n<td>Налоговые группы с отрицательным итогом:</td>\r\n<td>6</td>\r\n</tr>\r\n<tr>\r\n<td>Налоговые группы с положительным итогом:</td>\r\n<td>6</td>\r\n</tr>\r\n<tr>\r\n<td>Питание:</td>\r\n<td>24 В, 2,5 А</td>\r\n</tr>\r\n<tr>\r\n<td>Тип дисплея:</td>\r\n<td>жидкокристаллический / люминесцентный</td>\r\n</tr>\r\n<tr>\r\n<td>Ширина бумаги:</td>\r\n<td>57,5 или 80,00</td>\r\n</tr>\r\n<tr>\r\n<td>Тип печати:</td>\r\n<td>Термопечать</td>\r\n</tr>\r\n<tr>\r\n<td>Скорость печати:</td>\r\n<td>200</td>\r\n</tr>\r\n<tr>\r\n<td>Интерфейсы подключения:</td>\r\n<td>RS-232 (RJ45), USB-В (RNDIS), RJ12 (24В)</td>\r\n</tr>\r\n<tr>\r\n<td>Макс. диаметр рулона:</td>\r\n<td>76</td>\r\n</tr>\r\n<tr>\r\n<td>Наличие автообрезчика:</td>\r\n<td>Да</td>\r\n</tr>\r\n<tr>\r\n<td>Рабочая температура:</td>\r\n<td>+5&deg;C &hellip; +40&deg;C</td>\r\n</tr>\r\n<tr>\r\n<td>Влажность:</td>\r\n<td>от 40 до 80% при температуре +25&deg;С</td>\r\n</tr>\r\n<tr>\r\n<td>Габаритные размеры:</td>\r\n<td>150 х 185 х 142</td>\r\n</tr>\r\n<tr>\r\n<td>Вес:</td>\r\n<td>1,8 кг</td>\r\n</tr>\r\n</tbody>\r\n</table>', '', '', 'ФИСКАЛЬНЫЕ РЕГИСТРАТОРЫ MG T787TL  КОЛИЧЕСТВО КАССИРОВ: 32 СИМВОЛОВ В НАЗВАНИИ ТОВАРА: 85 ТОВАРОВ: 8000 МОДЕЛЬ ПРИНТЕРА: TOSHIBA TRST-A00.01.UA НАЛОГОВЫЕ ГРУППЫ С ОТРИЦАТЕЛЬНЫМ ИТОГОМ: 6 ПОЛОЖИТЕЛЬНЫМ ПИТАНИЕ: 24 В, 2,5 А ТИП ДИСПЛЕЯ: ЖИДКОКРИСТАЛЛИЧЕСКИЙ / ЛЮМИНЕСЦЕНТНЫЙ ШИРИНА БУМАГИ: 57,5 ИЛИ 80,00 ПЕЧАТИ: ТЕРМОПЕЧАТЬ СКОРОСТЬ 200 ИНТЕРФЕЙСЫ ПОДКЛЮЧЕНИЯ: RS-232 (RJ45), USB-В (RNDIS), RJ12 (24В) МАКС. ДИАМЕТР РУЛОНА: 76 НАЛИЧИЕ АВТООБРЕЗЧИКА: ДА РАБОЧАЯ ТЕМПЕРАТУРА: +5&DEG;C &HELLIP; +40&DEG;C ВЛАЖНОСТЬ: ОТ 40 ДО 80% ПРИ ТЕМПЕРАТУРЕ +25&DEG;С ГАБАРИТНЫЕ РАЗМЕРЫ: 150 Х 185 142 ВЕС: 1,8 КГ');
-INSERT INTO `productlang` (`id`, `product_id`, `language`, `title`, `size_fit`, `editor_notes`, `content`, `short_description`, `table_size`, `search_text`) VALUES
+(359, 115, 'ru', 'MG T787TL', '', '', '<table class="table table-striped">\r\n<tbody>\r\n<tr>\r\n<td>Количество кассиров:</td>\r\n<td>32</td>\r\n</tr>\r\n<tr>\r\n<td>Количество символов в названии товара:</td>\r\n<td>85</td>\r\n</tr>\r\n<tr>\r\n<td>Количество товаров:</td>\r\n<td>8000</td>\r\n</tr>\r\n<tr>\r\n<td>Модель принтера:</td>\r\n<td>Toshiba TRST-A00.01.UA</td>\r\n</tr>\r\n<tr>\r\n<td>Налоговые группы с отрицательным итогом:</td>\r\n<td>6</td>\r\n</tr>\r\n<tr>\r\n<td>Налоговые группы с положительным итогом:</td>\r\n<td>6</td>\r\n</tr>\r\n<tr>\r\n<td>Питание:</td>\r\n<td>24 В, 2,5 А</td>\r\n</tr>\r\n<tr>\r\n<td>Тип дисплея:</td>\r\n<td>жидкокристаллический / люминесцентный</td>\r\n</tr>\r\n<tr>\r\n<td>Ширина бумаги:</td>\r\n<td>57,5 или 80,00</td>\r\n</tr>\r\n<tr>\r\n<td>Тип печати:</td>\r\n<td>Термопечать</td>\r\n</tr>\r\n<tr>\r\n<td>Скорость печати:</td>\r\n<td>200</td>\r\n</tr>\r\n<tr>\r\n<td>Интерфейсы подключения:</td>\r\n<td>RS-232 (RJ45), USB-В (RNDIS), RJ12 (24В)</td>\r\n</tr>\r\n<tr>\r\n<td>Макс. диаметр рулона:</td>\r\n<td>76</td>\r\n</tr>\r\n<tr>\r\n<td>Наличие автообрезчика:</td>\r\n<td>Да</td>\r\n</tr>\r\n<tr>\r\n<td>Рабочая температура:</td>\r\n<td>+5&deg;C &hellip; +40&deg;C</td>\r\n</tr>\r\n<tr>\r\n<td>Влажность:</td>\r\n<td>от 40 до 80% при температуре +25&deg;С</td>\r\n</tr>\r\n<tr>\r\n<td>Габаритные размеры:</td>\r\n<td>150 х 185 х 142</td>\r\n</tr>\r\n<tr>\r\n<td>Вес:</td>\r\n<td>1,8 кг</td>\r\n</tr>\r\n</tbody>\r\n</table>', '', '', 'ФИСКАЛЬНЫЕ РЕГИСТРАТОРЫ MG T787TL  КОЛИЧЕСТВО КАССИРОВ: 32 СИМВОЛОВ В НАЗВАНИИ ТОВАРА: 85 ТОВАРОВ: 8000 МОДЕЛЬ ПРИНТЕРА: TOSHIBA TRST-A00.01.UA НАЛОГОВЫЕ ГРУППЫ С ОТРИЦАТЕЛЬНЫМ ИТОГОМ: 6 ПОЛОЖИТЕЛЬНЫМ ПИТАНИЕ: 24 В, 2,5 А ТИП ДИСПЛЕЯ: ЖИДКОКРИСТАЛЛИЧЕСКИЙ / ЛЮМИНЕСЦЕНТНЫЙ ШИРИНА БУМАГИ: 57,5 ИЛИ 80,00 ПЕЧАТИ: ТЕРМОПЕЧАТЬ СКОРОСТЬ 200 ИНТЕРФЕЙСЫ ПОДКЛЮЧЕНИЯ: RS-232 (RJ45), USB-В (RNDIS), RJ12 (24В) МАКС. ДИАМЕТР РУЛОНА: 76 НАЛИЧИЕ АВТООБРЕЗЧИКА: ДА РАБОЧАЯ ТЕМПЕРАТУРА: +5&DEG;C &HELLIP; +40&DEG;C ВЛАЖНОСТЬ: ОТ 40 ДО 80% ПРИ ТЕМПЕРАТУРЕ +25&DEG;С ГАБАРИТНЫЕ РАЗМЕРЫ: 150 Х 185 142 ВЕС: 1,8 КГ'),
 (360, 115, 'ua', 'MG T787TL', '', '', '<table class="table table-striped">\r\n<tbody>\r\n<tr>\r\n<td>Кількість касирів:</td>\r\n<td>32</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість символів в назві товару:</td>\r\n<td>85</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість товарів:</td>\r\n<td>8000</td>\r\n</tr>\r\n<tr>\r\n<td>Модель принтеру:</td>\r\n<td>Toshiba TRST-A00.01.UA</td>\r\n</tr>\r\n<tr>\r\n<td>Податкові групи з негативним підсумком:</td>\r\n<td>6</td>\r\n</tr>\r\n<tr>\r\n<td>Податкові групи з позитивним підсумком:</td>\r\n<td>6</td>\r\n</tr>\r\n<tr>\r\n<td>Живлення:</td>\r\n<td>24 В, 2,5 А</td>\r\n</tr>\r\n<tr>\r\n<td>Тип дисплея:</td>\r\n<td>рідкокристалічний / люмінесцентний</td>\r\n</tr>\r\n<tr>\r\n<td>Ширина паперу:</td>\r\n<td>57,5 или 80,00</td>\r\n</tr>\r\n<tr>\r\n<td>Тип друку:</td>\r\n<td>Термодрук</td>\r\n</tr>\r\n<tr>\r\n<td>Швидкість друку:</td>\r\n<td>200</td>\r\n</tr>\r\n<tr>\r\n<td>Інтерфейси підключення:</td>\r\n<td>RS-232 (RJ45), USB-В (RNDIS), RJ12 (24В)</td>\r\n</tr>\r\n<tr>\r\n<td>Макс. діаметр рулону:</td>\r\n<td>76</td>\r\n</tr>\r\n<tr>\r\n<td>Наявність автообрізувальника:</td>\r\n<td>Так</td>\r\n</tr>\r\n<tr>\r\n<td>Робоча температура:</td>\r\n<td>+5&deg;C &hellip; +40&deg;C</td>\r\n</tr>\r\n<tr>\r\n<td>Вологість:</td>\r\n<td>від 40 до 80% за температури +25&deg;С</td>\r\n</tr>\r\n<tr>\r\n<td>Габаритні розміри:</td>\r\n<td>150 х 185 х 142</td>\r\n</tr>\r\n<tr>\r\n<td>Вага:</td>\r\n<td>1,8 кг</td>\r\n</tr>\r\n</tbody>\r\n</table>', '', '', 'ФІСКАЛЬНІ РЕЄСТРАТОРИ MG T787TL  КІЛЬКІСТЬ КАСИРІВ: 32 СИМВОЛІВ В НАЗВІ ТОВАРУ: 85 ТОВАРІВ: 8000 МОДЕЛЬ ПРИНТЕРУ: TOSHIBA TRST-A00.01.UA ПОДАТКОВІ ГРУПИ З НЕГАТИВНИМ ПІДСУМКОМ: 6 ПОЗИТИВНИМ ЖИВЛЕННЯ: 24 В, 2,5 А ТИП ДИСПЛЕЯ: РІДКОКРИСТАЛІЧНИЙ / ЛЮМІНЕСЦЕНТНИЙ ШИРИНА ПАПЕРУ: 57,5 ИЛИ 80,00 ДРУКУ: ТЕРМОДРУК ШВИДКІСТЬ 200 ІНТЕРФЕЙСИ ПІДКЛЮЧЕННЯ: RS-232 (RJ45), USB-В (RNDIS), RJ12 (24В) МАКС. ДІАМЕТР РУЛОНУ: 76 НАЯВНІСТЬ АВТООБРІЗУВАЛЬНИКА: ТАК РОБОЧА ТЕМПЕРАТУРА: +5&DEG;C &HELLIP; +40&DEG;C ВОЛОГІСТЬ: ВІД 40 ДО 80% ЗА ТЕМПЕРАТУРИ +25&DEG;С ГАБАРИТНІ РОЗМІРИ: 150 Х 185 142 ВАГА: 1,8 КГ'),
 (361, 116, 'en', 'MG-P777TL', '', '', '<table class="table table-striped">\r\n<tbody>\r\n<tr>\r\n<td>Number of cashiers:</td>\r\n<td>36</td>\r\n</tr>\r\n<tr>\r\n<td>Number of characters in the product name:</td>\r\n<td>85</td>\r\n</tr>\r\n<tr>\r\n<td>Number of characters per line:</td>\r\n<td>36</td>\r\n</tr>\r\n<tr>\r\n<td>Number of goods:</td>\r\n<td>From 8000</td>\r\n</tr>\r\n<tr>\r\n<td>Printer model:</td>\r\n<td>Seiko CAPD247E-E</td>\r\n</tr>\r\n<tr>\r\n<td>Tax groups with negative total:</td>\r\n<td>6</td>\r\n</tr>\r\n<tr>\r\n<td>Tax groups with a positive result:</td>\r\n<td>6</td>\r\n</tr>\r\n<tr>\r\n<td>Power supply:</td>\r\n<td>24 V, 2,5 A</td>\r\n</tr>\r\n<tr>\r\n<td>Monitor type:</td>\r\n<td>Liquid crystal / fluorescent</td>\r\n</tr>\r\n<tr>\r\n<td>Paper width:</td>\r\n<td>57,5</td>\r\n</tr>\r\n<tr>\r\n<td>Print type:</td>\r\n<td>Thermal printing</td>\r\n</tr>\r\n<tr>\r\n<td>Print speed:</td>\r\n<td>200</td>\r\n</tr>\r\n<tr>\r\n<td>Interfaces of connection:</td>\r\n<td>RS-232 (RJ45), USB-В (RNDIS), RJ12 (24V)</td>\r\n</tr>\r\n<tr>\r\n<td>Max. roll diameter:</td>\r\n<td>76</td>\r\n</tr>\r\n<tr>\r\n<td>Presence of an auto-cutter:</td>\r\n<td>Yes</td>\r\n</tr>\r\n<tr>\r\n<td>Working temperature:</td>\r\n<td>+5&deg;C &hellip; +40&deg;C</td>\r\n</tr>\r\n<tr>\r\n<td>Humidity:</td>\r\n<td>from 40 to 80% at a temperature of +25&deg;С</td>\r\n</tr>\r\n<tr>\r\n<td>Dimensions:</td>\r\n<td>125 х 171 х 140</td>\r\n</tr>\r\n<tr>\r\n<td>Weight:</td>\r\n<td>1,5 kg</td>\r\n</tr>\r\n</tbody>\r\n</table>', '', '', 'FISCAL REGISTERS MG-P777TL  NUMBER OF CASHIERS: 36 CHARACTERS IN THE PRODUCT NAME: 85 PER LINE: GOODS: FROM 8000 PRINTER MODEL: SEIKO CAPD247E-E TAX GROUPS WITH NEGATIVE TOTAL: 6 A POSITIVE RESULT: POWER SUPPLY: 24 V, 2,5 A MONITOR TYPE: LIQUID CRYSTAL / FLUORESCENT PAPER WIDTH: 57,5 PRINT THERMAL PRINTING SPEED: 200 INTERFACES CONNECTION: RS-232 (RJ45), USB-В (RNDIS), RJ12 (24V) MAX. ROLL DIAMETER: 76 PRESENCE AN AUTO-CUTTER: YES WORKING TEMPERATURE: +5&DEG;C &HELLIP; +40&DEG;C HUMIDITY: FROM 40 TO 80% AT TEMPERATURE +25&DEG;С DIMENSIONS: 125 Х 171 140 WEIGHT: 1,5 KG'),
 (362, 116, 'ru', 'MG-P777TL', '', '', '<table class="table table-striped">\r\n<tbody>\r\n<tr>\r\n<td>Количество кассиров:</td>\r\n<td>36</td>\r\n</tr>\r\n<tr>\r\n<td>Количество символов в названии товара:</td>\r\n<td>85</td>\r\n</tr>\r\n<tr>\r\n<td>Количество символов в строке:</td>\r\n<td>36</td>\r\n</tr>\r\n<tr>\r\n<td>Количество товаров:</td>\r\n<td>Не менее 8000</td>\r\n</tr>\r\n<tr>\r\n<td>Модель принтера:</td>\r\n<td>Seiko CAPD247E-E</td>\r\n</tr>\r\n<tr>\r\n<td>Налоговые группы с отрицательным итогом:</td>\r\n<td>6</td>\r\n</tr>\r\n<tr>\r\n<td>Налоговые группы с положительным итогом:</td>\r\n<td>6</td>\r\n</tr>\r\n<tr>\r\n<td>Питание:</td>\r\n<td>24 В, 2,5 А</td>\r\n</tr>\r\n<tr>\r\n<td>Тип дисплея:</td>\r\n<td>жидкокристаллический / люминесцентный</td>\r\n</tr>\r\n<tr>\r\n<td>Ширина бумаги:</td>\r\n<td>57,5</td>\r\n</tr>\r\n<tr>\r\n<td>Тип печати:</td>\r\n<td>Термопечать</td>\r\n</tr>\r\n<tr>\r\n<td>Скорость печати:</td>\r\n<td>200</td>\r\n</tr>\r\n<tr>\r\n<td>Интерфейсы подключения:</td>\r\n<td>RS-232 (RJ45), USB-В (RNDIS), RJ12 (24В)</td>\r\n</tr>\r\n<tr>\r\n<td>Макс. диаметр рулона:</td>\r\n<td>76</td>\r\n</tr>\r\n<tr>\r\n<td>Наличие автообрезчика:</td>\r\n<td>Да</td>\r\n</tr>\r\n<tr>\r\n<td>Рабочая температура:</td>\r\n<td>+5&deg;C &hellip; +40&deg;C</td>\r\n</tr>\r\n<tr>\r\n<td>Влажность:</td>\r\n<td>от 40 до 80% при температуре +25&deg;С</td>\r\n</tr>\r\n<tr>\r\n<td>Габаритные размеры:</td>\r\n<td>125 х 171 х 140</td>\r\n</tr>\r\n<tr>\r\n<td>Вес:</td>\r\n<td>1,5 кг</td>\r\n</tr>\r\n</tbody>\r\n</table>', '', '', 'ФИСКАЛЬНЫЕ РЕГИСТРАТОРЫ MG-P777TL  КОЛИЧЕСТВО КАССИРОВ: 36 СИМВОЛОВ В НАЗВАНИИ ТОВАРА: 85 СТРОКЕ: ТОВАРОВ: НЕ МЕНЕЕ 8000 МОДЕЛЬ ПРИНТЕРА: SEIKO CAPD247E-E НАЛОГОВЫЕ ГРУППЫ С ОТРИЦАТЕЛЬНЫМ ИТОГОМ: 6 ПОЛОЖИТЕЛЬНЫМ ПИТАНИЕ: 24 В, 2,5 А ТИП ДИСПЛЕЯ: ЖИДКОКРИСТАЛЛИЧЕСКИЙ / ЛЮМИНЕСЦЕНТНЫЙ ШИРИНА БУМАГИ: 57,5 ПЕЧАТИ: ТЕРМОПЕЧАТЬ СКОРОСТЬ 200 ИНТЕРФЕЙСЫ ПОДКЛЮЧЕНИЯ: RS-232 (RJ45), USB-В (RNDIS), RJ12 (24В) МАКС. ДИАМЕТР РУЛОНА: 76 НАЛИЧИЕ АВТООБРЕЗЧИКА: ДА РАБОЧАЯ ТЕМПЕРАТУРА: +5&DEG;C &HELLIP; +40&DEG;C ВЛАЖНОСТЬ: ОТ 40 ДО 80% ПРИ ТЕМПЕРАТУРЕ +25&DEG;С ГАБАРИТНЫЕ РАЗМЕРЫ: 125 Х 171 140 ВЕС: 1,5 КГ'),
 (363, 116, 'ua', 'MG-P777TL', '', '', '<table class="table table-striped">\r\n<tbody>\r\n<tr>\r\n<td>Кількість касирів:</td>\r\n<td>36</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість символів в назві товару:</td>\r\n<td>85</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість символів в рядку:</td>\r\n<td>36</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість товарів:</td>\r\n<td>Не менше 8000</td>\r\n</tr>\r\n<tr>\r\n<td>Модель принтеру:</td>\r\n<td>Seiko CAPD247E-E</td>\r\n</tr>\r\n<tr>\r\n<td>Податкові групи з негативним підсумком:</td>\r\n<td>6</td>\r\n</tr>\r\n<tr>\r\n<td>Податкові групи з позитивним підсумком:</td>\r\n<td>6</td>\r\n</tr>\r\n<tr>\r\n<td>Живлення:</td>\r\n<td>24 В, 2,5 А</td>\r\n</tr>\r\n<tr>\r\n<td>Тип дисплея:</td>\r\n<td>рідкокристалічний / люмінесцентний</td>\r\n</tr>\r\n<tr>\r\n<td>Ширина паперу:</td>\r\n<td>57,5</td>\r\n</tr>\r\n<tr>\r\n<td>Тип друку:</td>\r\n<td>Термодрук</td>\r\n</tr>\r\n<tr>\r\n<td>Швидкість друку:</td>\r\n<td>200</td>\r\n</tr>\r\n<tr>\r\n<td>Інтерфейси підключення:</td>\r\n<td>RS-232 (RJ45), USB-В (RNDIS), RJ12 (24В)</td>\r\n</tr>\r\n<tr>\r\n<td>Макс. діаметр рулону:</td>\r\n<td>76</td>\r\n</tr>\r\n<tr>\r\n<td>Наявність автообрізувальника:</td>\r\n<td>Так</td>\r\n</tr>\r\n<tr>\r\n<td>Робоча температура:</td>\r\n<td>+5&deg;C &hellip; +40&deg;C</td>\r\n</tr>\r\n<tr>\r\n<td>Вологість:</td>\r\n<td>від 40 до 80% за температури +25&deg;С</td>\r\n</tr>\r\n<tr>\r\n<td>Габаритні розміри:</td>\r\n<td>125 х 171 х 140</td>\r\n</tr>\r\n<tr>\r\n<td>Вага:</td>\r\n<td>1,5 кг</td>\r\n</tr>\r\n</tbody>\r\n</table>', '', '', 'ФІСКАЛЬНІ РЕЄСТРАТОРИ MG-P777TL  КІЛЬКІСТЬ КАСИРІВ: 36 СИМВОЛІВ В НАЗВІ ТОВАРУ: 85 РЯДКУ: ТОВАРІВ: НЕ МЕНШЕ 8000 МОДЕЛЬ ПРИНТЕРУ: SEIKO CAPD247E-E ПОДАТКОВІ ГРУПИ З НЕГАТИВНИМ ПІДСУМКОМ: 6 ПОЗИТИВНИМ ЖИВЛЕННЯ: 24 В, 2,5 А ТИП ДИСПЛЕЯ: РІДКОКРИСТАЛІЧНИЙ / ЛЮМІНЕСЦЕНТНИЙ ШИРИНА ПАПЕРУ: 57,5 ДРУКУ: ТЕРМОДРУК ШВИДКІСТЬ 200 ІНТЕРФЕЙСИ ПІДКЛЮЧЕННЯ: RS-232 (RJ45), USB-В (RNDIS), RJ12 (24В) МАКС. ДІАМЕТР РУЛОНУ: 76 НАЯВНІСТЬ АВТООБРІЗУВАЛЬНИКА: ТАК РОБОЧА ТЕМПЕРАТУРА: +5&DEG;C &HELLIP; +40&DEG;C ВОЛОГІСТЬ: ВІД 40 ДО 80% ЗА ТЕМПЕРАТУРИ +25&DEG;С ГАБАРИТНІ РОЗМІРИ: 125 Х 171 140 ВАГА: 1,5 КГ'),
-(367, 118, 'en', 'MG-V545T.02', '', '', '<table class="table table-striped">\r\n<tbody>\r\n<tr>\r\n<td>Battery:</td>\r\n<td>Li-Ion, 2000 mAh</td>\r\n</tr>\r\n<tr>\r\n<td>Buyer indicator:</td>\r\n<td>No</td>\r\n</tr>\r\n<tr>\r\n<td>Channels of access to the Internet:</td>\r\n<td>1xEthernet (RJ-45); option: 1xGSM/GPRS; 1xWi-Fi</td>\r\n</tr>\r\n<tr>\r\n<td>Number of X reports:</td>\r\n<td>12321</td>\r\n</tr>\r\n<tr>\r\n<td>Number of Z reports:</td>\r\n<td>12321</td>\r\n</tr>\r\n<tr>\r\n<td>Number of cashiers:</td>\r\n<td>16</td>\r\n</tr>\r\n<tr>\r\n<td>Number of keys:</td>\r\n<td>30 keys</td>\r\n</tr>\r\n<tr>\r\n<td>Number of departments:</td>\r\n<td>15</td>\r\n</tr>\r\n<tr>\r\n<td>Number of characters in the product name:</td>\r\n<td>32</td>\r\n</tr>\r\n<tr>\r\n<td>Number of characters per line:</td>\r\n<td>32</td>\r\n</tr>\r\n<tr>\r\n<td>Number of goods:</td>\r\n<td>20000</td>\r\n</tr>\r\n<tr>\r\n<td>Contents of delivery:</td>\r\n<td>Cash register, power supply, user manual, passport</td>\r\n</tr>\r\n<tr>\r\n<td>Control tape:</td>\r\n<td>Control tape in the electronic form</td>\r\n</tr>\r\n<tr>\r\n<td>Maximum number of payment types:</td>\r\n<td>Cash, card, credit, check</td>\r\n</tr>\r\n<tr>\r\n<td>Printer model:</td>\r\n<td>Printer Seiko LTP01 - 245-02 (Japan)</td>\r\n</tr>\r\n<tr>\r\n<td>Tax groups with a positive result:</td>\r\n<td>5 + 1</td>\r\n</tr>\r\n<tr>\r\n<td>Tax groups with a negative result:</td>\r\n<td>5 + 1</td>\r\n</tr>\r\n<tr>\r\n<td>Connectable devices:</td>\r\n<td>Scanner, scales, PC, payment terminal</td>\r\n</tr>\r\n<tr>\r\n<td>Display type:</td>\r\n<td>Liquid crystal 128x64 (graphic)</td>\r\n</tr>\r\n<tr>\r\n<td>Colour:</td>\r\n<td>White</td>\r\n</tr>\r\n<tr>\r\n<td>Paper width:</td>\r\n<td>57,5 mm</td>\r\n</tr>\r\n<tr>\r\n<td>Print speed:</td>\r\n<td>Up to 60 mm/s</td>\r\n</tr>\r\n<tr>\r\n<td>Interfaces of connection:</td>\r\n<td>2xRS-232, 2xUSB (type В and A), 1xMicro-jack 2,5 mm</td>\r\n</tr>\r\n<tr>\r\n<td>Connecting the safe:</td>\r\n<td>Yes</td>\r\n</tr>\r\n<tr>\r\n<td>Max. roll diameter:</td>\r\n<td>Up to 40 mm</td>\r\n</tr>\r\n<tr>\r\n<td>Presence of an auto-cutter:</td>\r\n<td>No</td>\r\n</tr>\r\n<tr>\r\n<td>Source of power:</td>\r\n<td>220 V, 50 Hz; adapter 9 V,1 A</td>\r\n</tr>\r\n<tr>\r\n<td>Working temperature:</td>\r\n<td>+5&deg;C &hellip; +40&deg;C</td>\r\n</tr>\r\n<tr>\r\n<td>Humidity:</td>\r\n<td>from 40% to 85%</td>\r\n</tr>\r\n<tr>\r\n<td>Dimensions:</td>\r\n<td>290 x 135 x 80 mm</td>\r\n</tr>\r\n<tr>\r\n<td>Weight:</td>\r\n<td>0,81 kg</td>\r\n</tr>\r\n</tbody>\r\n</table>', '', '', 'CASH REGISTERS MG-V545T.02  BATTERY: LI-ION, 2000 MAH BUYER INDICATOR: NO CHANNELS OF ACCESS TO THE INTERNET: 1XETHERNET (RJ-45); OPTION: 1XGSM/GPRS; 1XWI-FI NUMBER X REPORTS: 12321 Z CASHIERS: 16 KEYS: 30 KEYS DEPARTMENTS: 15 CHARACTERS IN PRODUCT NAME: 32 PER LINE: GOODS: 20000 CONTENTS DELIVERY: REGISTER, POWER SUPPLY, USER MANUAL, PASSPORT CONTROL TAPE: TAPE ELECTRONIC FORM MAXIMUM NUMBER PAYMENT TYPES: CASH, CARD, CREDIT, CHECK PRINTER MODEL: SEIKO LTP01 - 245-02 (JAPAN) TAX GROUPS WITH A POSITIVE RESULT: 5 + 1 NEGATIVE CONNECTABLE DEVICES: SCANNER, SCALES, PC, TERMINAL DISPLAY TYPE: LIQUID CRYSTAL 128X64 (GRAPHIC) COLOUR: WHITE PAPER WIDTH: 57,5 MM PRINT'),
+(367, 118, 'en', 'MG-V545T.02', '', '', '<table class="table table-striped">\r\n<tbody>\r\n<tr>\r\n<td>Battery:</td>\r\n<td>Li-Ion, 2000 mAh</td>\r\n</tr>\r\n<tr>\r\n<td>Buyer indicator:</td>\r\n<td>No</td>\r\n</tr>\r\n<tr>\r\n<td>Channels of access to the Internet:</td>\r\n<td>1xEthernet (RJ-45); option: 1xGSM/GPRS; 1xWi-Fi</td>\r\n</tr>\r\n<tr>\r\n<td>Number of X reports:</td>\r\n<td>12321</td>\r\n</tr>\r\n<tr>\r\n<td>Number of Z reports:</td>\r\n<td>12321</td>\r\n</tr>\r\n<tr>\r\n<td>Number of cashiers:</td>\r\n<td>16</td>\r\n</tr>\r\n<tr>\r\n<td>Number of keys:</td>\r\n<td>30 keys</td>\r\n</tr>\r\n<tr>\r\n<td>Number of departments:</td>\r\n<td>15</td>\r\n</tr>\r\n<tr>\r\n<td>Number of characters in the product name:</td>\r\n<td>32</td>\r\n</tr>\r\n<tr>\r\n<td>Number of characters per line:</td>\r\n<td>32</td>\r\n</tr>\r\n<tr>\r\n<td>Number of goods:</td>\r\n<td>20000</td>\r\n</tr>\r\n<tr>\r\n<td>Contents of delivery:</td>\r\n<td>Cash register, power supply, user manual, passport</td>\r\n</tr>\r\n<tr>\r\n<td>Control tape:</td>\r\n<td>Control tape in the electronic form</td>\r\n</tr>\r\n<tr>\r\n<td>Maximum number of payment types:</td>\r\n<td>Cash, card, credit, check</td>\r\n</tr>\r\n<tr>\r\n<td>Printer model:</td>\r\n<td>Printer Seiko LTP01 - 245-02 (Japan)</td>\r\n</tr>\r\n<tr>\r\n<td>Tax groups with a positive result:</td>\r\n<td>5 + 1</td>\r\n</tr>\r\n<tr>\r\n<td>Tax groups with a negative result:</td>\r\n<td>5 + 1</td>\r\n</tr>\r\n<tr>\r\n<td>Connectable devices:</td>\r\n<td>Scanner, scales, PC, payment terminal</td>\r\n</tr>\r\n<tr>\r\n<td>Display type:</td>\r\n<td>Liquid crystal 128x64 (graphic)</td>\r\n</tr>\r\n<tr>\r\n<td>Colour:</td>\r\n<td>White</td>\r\n</tr>\r\n<tr>\r\n<td>Paper width:</td>\r\n<td>57,5 mm</td>\r\n</tr>\r\n<tr>\r\n<td>Print speed:</td>\r\n<td>Up to 60 mm/s</td>\r\n</tr>\r\n<tr>\r\n<td>Interfaces of connection:</td>\r\n<td>2xRS-232, 2xUSB (type В and A), 1xMicro-jack 2,5 mm</td>\r\n</tr>\r\n<tr>\r\n<td>Connecting the safe:</td>\r\n<td>Yes</td>\r\n</tr>\r\n<tr>\r\n<td>Max. roll diameter:</td>\r\n<td>Up to 40 mm</td>\r\n</tr>\r\n<tr>\r\n<td>Presence of an auto-cutter:</td>\r\n<td>No</td>\r\n</tr>\r\n<tr>\r\n<td>Source of power:</td>\r\n<td>220 V, 50 Hz; adapter 9 V,1 A</td>\r\n</tr>\r\n<tr>\r\n<td>Working temperature:</td>\r\n<td>+5&deg;C &hellip; +40&deg;C</td>\r\n</tr>\r\n<tr>\r\n<td>Humidity:</td>\r\n<td>from 40% to 85%</td>\r\n</tr>\r\n<tr>\r\n<td>Dimensions:</td>\r\n<td>290 x 135 x 80 mm</td>\r\n</tr>\r\n<tr>\r\n<td>Weight:</td>\r\n<td>0,81 kg</td>\r\n</tr>\r\n</tbody>\r\n</table>', '', '', 'CASH REGISTERS MG-V545T.02  BATTERY: LI-ION, 2000 MAH BUYER INDICATOR: NO CHANNELS OF ACCESS TO THE INTERNET: 1XETHERNET (RJ-45); OPTION: 1XGSM/GPRS; 1XWI-FI NUMBER X REPORTS: 12321 Z CASHIERS: 16 KEYS: 30 KEYS DEPARTMENTS: 15 CHARACTERS IN PRODUCT NAME: 32 PER LINE: GOODS: 20000 CONTENTS DELIVERY: REGISTER, POWER SUPPLY, USER MANUAL, PASSPORT CONTROL TAPE: TAPE ELECTRONIC FORM MAXIMUM NUMBER PAYMENT TYPES: CASH, CARD, CREDIT, CHECK PRINTER MODEL: SEIKO LTP01 - 245-02 (JAPAN) TAX GROUPS WITH A POSITIVE RESULT: 5 + 1 NEGATIVE CONNECTABLE DEVICES: SCANNER, SCALES, PC, TERMINAL DISPLAY TYPE: LIQUID CRYSTAL 128X64 (GRAPHIC) COLOUR: WHITE PAPER WIDTH: 57,5 MM PRINT');
+INSERT INTO `productlang` (`id`, `product_id`, `language`, `title`, `size_fit`, `editor_notes`, `content`, `short_description`, `table_size`, `search_text`) VALUES
 (368, 118, 'ru', 'MG-V545T.02', '', '', '<table class="table table-striped">\r\n<tbody>\r\n<tr>\r\n<td>Аккумулятор:</td>\r\n<td>Li-Ion, 2000 мAч</td>\r\n</tr>\r\n<tr>\r\n<td>Индикатор покупателя:</td>\r\n<td>Нет</td>\r\n</tr>\r\n<tr>\r\n<td>Каналы доступа в интернет:</td>\r\n<td>1xEthernet (RJ-45); опция: 1xGSM/GPRS; 1xWi-Fi</td>\r\n</tr>\r\n<tr>\r\n<td>Количество X отчетов:</td>\r\n<td>12321</td>\r\n</tr>\r\n<tr>\r\n<td>Количество Z отчетов:</td>\r\n<td>12321</td>\r\n</tr>\r\n<tr>\r\n<td>Количество кассиров:</td>\r\n<td>16</td>\r\n</tr>\r\n<tr>\r\n<td>Количество клавиш:</td>\r\n<td>30 клавиш</td>\r\n</tr>\r\n<tr>\r\n<td>Количество отделов:</td>\r\n<td>15</td>\r\n</tr>\r\n<tr>\r\n<td>Количество символов в названии товара:</td>\r\n<td>32</td>\r\n</tr>\r\n<tr>\r\n<td>Количество символов в строке:</td>\r\n<td>32</td>\r\n</tr>\r\n<tr>\r\n<td>Количество товаров:</td>\r\n<td>20000</td>\r\n</tr>\r\n<tr>\r\n<td>Комплект поставки:</td>\r\n<td>Кас. аппарат, блок питания, рук-во польз., паспорт</td>\r\n</tr>\r\n<tr>\r\n<td>Контрольная лента:</td>\r\n<td>КЛЭФ</td>\r\n</tr>\r\n<tr>\r\n<td>Максимальное количество видов оплаты:</td>\r\n<td>Наличность, карта, кредит, чек</td>\r\n</tr>\r\n<tr>\r\n<td>Модель принтера:</td>\r\n<td>Принтер Seiko LTP01 - 245-02 (Япония)</td>\r\n</tr>\r\n<tr>\r\n<td>Налоговые группы с положительным итогом:</td>\r\n<td>5 + 1</td>\r\n</tr>\r\n<tr>\r\n<td>Налоговые группы с отрицательным итогом:</td>\r\n<td>5 + 1</td>\r\n</tr>\r\n<tr>\r\n<td>Подключаемые устройства:</td>\r\n<td>Сканер, весы, ПК, платежный терминал</td>\r\n</tr>\r\n<tr>\r\n<td>Тип дисплея:</td>\r\n<td>Жидкокристалический 128х64 (графический)</td>\r\n</tr>\r\n<tr>\r\n<td>Цвет:</td>\r\n<td>Белый</td>\r\n</tr>\r\n<tr>\r\n<td>Ширина бумаги:</td>\r\n<td>57,5 мм</td>\r\n</tr>\r\n<tr>\r\n<td>Скорость печати:</td>\r\n<td>до 60 мм/сек</td>\r\n</tr>\r\n<tr>\r\n<td>Интерфейсы подключения:</td>\r\n<td>2xRS-232, 2xUSB (тип В и A), 1xMicro-jack 2,5 мм</td>\r\n</tr>\r\n<tr>\r\n<td>Подключение сейфа:</td>\r\n<td>Да</td>\r\n</tr>\r\n<tr>\r\n<td>Макс. диаметр рулона:</td>\r\n<td>до 40 мм</td>\r\n</tr>\r\n<tr>\r\n<td>Наличие автообрезчика:</td>\r\n<td>Нет</td>\r\n</tr>\r\n<tr>\r\n<td>Источник питания:</td>\r\n<td>220 В, 50 Гц; адаптер 9 В,1 А</td>\r\n</tr>\r\n<tr>\r\n<td>Рабочая температура:</td>\r\n<td>+5&deg;C &hellip; +40&deg;C</td>\r\n</tr>\r\n<tr>\r\n<td>Влажность:</td>\r\n<td>от 40% до 85%</td>\r\n</tr>\r\n<tr>\r\n<td>Габаритные размеры:</td>\r\n<td>290 x 135 x 80 мм</td>\r\n</tr>\r\n<tr>\r\n<td>Вес:</td>\r\n<td>0,81 кг</td>\r\n</tr>\r\n</tbody>\r\n</table>', '', '', 'КАССОВЫЕ АППАРАТЫ MG-V545T.02  АККУМУЛЯТОР: LI-ION, 2000 МAЧ ИНДИКАТОР ПОКУПАТЕЛЯ: НЕТ КАНАЛЫ ДОСТУПА В ИНТЕРНЕТ: 1XETHERNET (RJ-45); ОПЦИЯ: 1XGSM/GPRS; 1XWI-FI КОЛИЧЕСТВО X ОТЧЕТОВ: 12321 Z КАССИРОВ: 16 КЛАВИШ: 30 КЛАВИШ ОТДЕЛОВ: 15 СИМВОЛОВ НАЗВАНИИ ТОВАРА: 32 СТРОКЕ: ТОВАРОВ: 20000 КОМПЛЕКТ ПОСТАВКИ: КАС. АППАРАТ, БЛОК ПИТАНИЯ, РУК-ВО ПОЛЬЗ., ПАСПОРТ КОНТРОЛЬНАЯ ЛЕНТА: КЛЭФ МАКСИМАЛЬНОЕ КОЛИЧЕСТВО ВИДОВ ОПЛАТЫ: НАЛИЧНОСТЬ, КАРТА, КРЕДИТ, ЧЕК МОДЕЛЬ ПРИНТЕРА: ПРИНТЕР SEIKO LTP01 - 245-02 (ЯПОНИЯ) НАЛОГОВЫЕ ГРУППЫ С ПОЛОЖИТЕЛЬНЫМ ИТОГОМ: 5 + 1 ОТРИЦАТЕЛЬНЫМ ПОДКЛЮЧАЕМЫЕ УСТРОЙСТВА: СКАНЕР, ВЕСЫ, ПК, ПЛАТЕЖНЫЙ ТЕРМИНАЛ ТИП ДИСПЛЕЯ: ЖИДКОКРИСТАЛИЧЕСКИЙ 128Х64 (ГРАФИЧЕСКИЙ) ЦВЕТ: БЕЛЫЙ ШИРИНА БУМАГИ: 57,5 ММ СКОРОСТЬ ПЕЧАТИ: ДО 60 ММ/СЕК ИНТЕРФЕЙСЫ'),
 (369, 118, 'ua', 'MG-V545T.02', '', '', '<table class="table table-striped">\r\n<tbody>\r\n<tr>\r\n<td>Акумулятор:</td>\r\n<td>Li-Ion, 2000 мAч</td>\r\n</tr>\r\n<tr>\r\n<td>Індикатор покупця:</td>\r\n<td>Ні</td>\r\n</tr>\r\n<tr>\r\n<td>Канали доступу в інтернет:</td>\r\n<td>1xEthernet (RJ-45); опція: 1 x GSM/GPRS; 1 x Wi-Fi</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість X звітів:</td>\r\n<td>12321</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість Z звітів:</td>\r\n<td>12321</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість касирів:</td>\r\n<td>16</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість клавіш:</td>\r\n<td>30 клавіш</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість відділів:</td>\r\n<td>15</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість символів в назві товару:</td>\r\n<td>32</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість символів в рядку:</td>\r\n<td>32</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість товарів:</td>\r\n<td>20000</td>\r\n</tr>\r\n<tr>\r\n<td>Комплект поставки:</td>\r\n<td>Кас. апарат, блок живлення, керівництво користувача, паспорт</td>\r\n</tr>\r\n<tr>\r\n<td>Контрольна стрічка:</td>\r\n<td>КСЕФ</td>\r\n</tr>\r\n<tr>\r\n<td>Максимальна кількість видів оплати:</td>\r\n<td>Готівка, карта, кредит, чек</td>\r\n</tr>\r\n<tr>\r\n<td>Модель принтера:</td>\r\n<td>Принтер Seiko LTP01 - 245-02 (Японія)</td>\r\n</tr>\r\n<tr>\r\n<td>Податкові групи з позитивним підсумком:</td>\r\n<td>5 + 1</td>\r\n</tr>\r\n<tr>\r\n<td>Податкові групи з негативним підсумком:</td>\r\n<td>5 + 1</td>\r\n</tr>\r\n<tr>\r\n<td>Пристрої, що підключаються:</td>\r\n<td>Сканер, ваги, ПК, платіжний термінал</td>\r\n</tr>\r\n<tr>\r\n<td>Тип дисплею:</td>\r\n<td>Рідкокристалічний 128х64 (графічний)</td>\r\n</tr>\r\n<tr>\r\n<td>Колір:</td>\r\n<td>Білий</td>\r\n</tr>\r\n<tr>\r\n<td>Ширина паперу:</td>\r\n<td>57,5 мм</td>\r\n</tr>\r\n<tr>\r\n<td>Швидкість друку:</td>\r\n<td>до 60 мм/сек</td>\r\n</tr>\r\n<tr>\r\n<td>Інтерфейси підключення:</td>\r\n<td>2xRS-232, 2xUSB (тип В і A), 1xMicro-jack 2,5 мм</td>\r\n</tr>\r\n<tr>\r\n<td>Підключення сейфу:</td>\r\n<td>Так</td>\r\n</tr>\r\n<tr>\r\n<td>Макс. діаметр рулону:</td>\r\n<td>до 40 мм</td>\r\n</tr>\r\n<tr>\r\n<td>Наявність автообрізувальника:</td>\r\n<td>Ні</td>\r\n</tr>\r\n<tr>\r\n<td>Джерело живлення:</td>\r\n<td>220 В, 50 Гц; адаптер 9 В,1 А</td>\r\n</tr>\r\n<tr>\r\n<td>Робоча температура:</td>\r\n<td>+5&deg;C &hellip; +40&deg;C</td>\r\n</tr>\r\n<tr>\r\n<td>Вологість:</td>\r\n<td>від 40% до 85%</td>\r\n</tr>\r\n<tr>\r\n<td>Габаритні розміри:</td>\r\n<td>290 x 135 x 80 мм</td>\r\n</tr>\r\n<tr>\r\n<td>Вага:</td>\r\n<td>0,81 кг</td>\r\n</tr>\r\n</tbody>\r\n</table>', '', '', 'КАСОВІ АПАРАТИ MG-V545T.02  АКУМУЛЯТОР: LI-ION, 2000 МAЧ ІНДИКАТОР ПОКУПЦЯ: НІ КАНАЛИ ДОСТУПУ В ІНТЕРНЕТ: 1XETHERNET (RJ-45); ОПЦІЯ: 1 X GSM/GPRS; WI-FI КІЛЬКІСТЬ X ЗВІТІВ: 12321 Z КАСИРІВ: 16 КЛАВІШ: 30 КЛАВІШ ВІДДІЛІВ: 15 СИМВОЛІВ НАЗВІ ТОВАРУ: 32 РЯДКУ: ТОВАРІВ: 20000 КОМПЛЕКТ ПОСТАВКИ: КАС. АПАРАТ, БЛОК ЖИВЛЕННЯ, КЕРІВНИЦТВО КОРИСТУВАЧА, ПАСПОРТ КОНТРОЛЬНА СТРІЧКА: КСЕФ МАКСИМАЛЬНА КІЛЬКІСТЬ ВИДІВ ОПЛАТИ: ГОТІВКА, КАРТА, КРЕДИТ, ЧЕК МОДЕЛЬ ПРИНТЕРА: ПРИНТЕР SEIKO LTP01 - 245-02 (ЯПОНІЯ) ПОДАТКОВІ ГРУПИ З ПОЗИТИВНИМ ПІДСУМКОМ: 5 + НЕГАТИВНИМ ПРИСТРОЇ, ЩО ПІДКЛЮЧАЮТЬСЯ: СКАНЕР, ВАГИ, ПК, ПЛАТІЖНИЙ ТЕРМІНАЛ ТИП ДИСПЛЕЮ: РІДКОКРИСТАЛІЧНИЙ 128Х64 (ГРАФІЧНИЙ) КОЛІР: БІЛИЙ ШИРИНА ПАПЕРУ: 57,5 ММ ШВИДКІСТЬ ДРУКУ: ДО 60'),
 (372, 119, 'ua', 'MIKPO.XM', '', '<p>ЕККА МІКРО.ХМ призначений для автоматизації торгових операцій, надання та обліку послуг платежів і розрахунків, а також обліку та контролю фінансово-господарських операцій суб''єктів підприємницької діяльності.<br />МІКРО.ХМ має широкі функціональні можливості стаціонарних ЕККА.<br />У цьому апараті реалізована контрольна стрічка в електронній формі (КСЕФ). КСЕФ - це копії розрахункових документів і фіскальних звітних чеків, послідовно сформуваних ЕККА, які створені в електронній формі та зберігаються на вбудованому носії контрольної стрічки (картка ММС) у формі пакетів даних. <br /> ЕККА має можливість передачі електронних копій контрольно-звітної інформації бездротовими каналами зв''язку органам державної податкової служби (ДПС) за допомогою вбудованого GSM-модему відповідно до Наказу Міністерства фінансів України №1057 від 08.10.2012 р.<br />ЕККА має графічний індикатор, на якому відображаються числові значення операцій, які реєструються, довідкова та допоміжна інформація. Інформація відображається в два рядки, де видно поточний статус апарату та інша додаткова інформація.</p>', '<table class="table table-striped">\r\n<tbody>\r\n<tr>\r\n<td>Фіскальна версія:</td>\r\n<td>Так</td>\r\n</tr>\r\n<tr>\r\n<td>Модем для передачі даних:</td>\r\n<td>Так</td>\r\n</tr>\r\n<tr>\r\n<td>Максимальна швидкість друку, мм/с:</td>\r\n<td>75</td>\r\n</tr>\r\n<tr>\r\n<td>Обрізувач паперу:</td>\r\n<td>32</td>\r\n</tr>\r\n<tr>\r\n<td>Метод друку:</td>\r\n<td>термо</td>\r\n</tr>\r\n<tr>\r\n<td>Механізм для друку:</td>\r\n<td>2"</td>\r\n</tr>\r\n<tr>\r\n<td>Ресурс термоголовки, км:</td>\r\n<td>50</td>\r\n</tr>\r\n<tr>\r\n<td>Папір для друку:</td>\r\n<td>термо 0,054 - 0,091мм</td>\r\n</tr>\r\n<tr>\r\n<td>Ширина паперу, мм:</td>\r\n<td>57</td>\r\n</tr>\r\n<tr>\r\n<td>Максимальний діаметр рулону, мм:</td>\r\n<td>38</td>\r\n</tr>\r\n<tr>\r\n<td>Метод завантаження паперу:</td>\r\n<td>легкий</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість символів в рядку:</td>\r\n<td>32</td>\r\n</tr>\r\n<tr>\r\n<td>Інтерфейси:</td>\r\n<td>USB, 2xRS232, GPRS</td>\r\n</tr>\r\n<tr>\r\n<td>Бездротові інтерфейси:</td>\r\n<td>Wi-Fi - опція</td>\r\n</tr>\r\n<tr>\r\n<td>Датчики/індикатори:</td>\r\n<td>наявність паперу</td>\r\n</tr>\r\n<tr>\r\n<td>Тип акумулятору:</td>\r\n<td>Li-Ion</td>\r\n</tr>\r\n<tr>\r\n<td>Характеристики акумулятору:</td>\r\n<td>7,4V, 1800mAh</td>\r\n</tr>\r\n<tr>\r\n<td>Ємність акумулятору:</td>\r\n<td>13,32 Wh</td>\r\n</tr>\r\n<tr>\r\n<td>Джерело живлення:</td>\r\n<td>9V/1A</td>\r\n</tr>\r\n<tr>\r\n<td>Колір:</td>\r\n<td>Комбінований біло-чорний</td>\r\n</tr>\r\n<tr>\r\n<td>Ширина, мм:</td>\r\n<td>115</td>\r\n</tr>\r\n<tr>\r\n<td>Довжина, мм:</td>\r\n<td>235</td>\r\n</tr>\r\n<tr>\r\n<td>Висота, мм:</td>\r\n<td>80</td>\r\n</tr>\r\n<tr>\r\n<td>Вага, кг:</td>\r\n<td>0,500</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість товарів:</td>\r\n<td>15000</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість відділів:</td>\r\n<td>15</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість касирів:</td>\r\n<td>8</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість символів в назві товару:</td>\r\n<td>22</td>\r\n</tr>\r\n<tr>\r\n<td>Початкове повідомлення, рядків:</td>\r\n<td>5</td>\r\n</tr>\r\n<tr>\r\n<td>Заключне повідомлення, рядків:</td>\r\n<td>1</td>\r\n</tr>\r\n<tr>\r\n<td>Податкові групи з позитивним підсумком:</td>\r\n<td>4</td>\r\n</tr>\r\n<tr>\r\n<td>Податкові групи з негативним підсумком:</td>\r\n<td>4</td>\r\n</tr>\r\n<tr>\r\n<td>Робочі умови: - температура, &deg;С:</td>\r\n<td>-5 &hellip; +40</td>\r\n</tr>\r\n<tr>\r\n<td>Вологість,%, при +30 &deg;С:</td>\r\n<td>10 до 80 (без конденсату)</td>\r\n</tr>\r\n<tr>\r\n<td>Умови зберігання, &deg;С:</td>\r\n<td>-10 ...+50</td>\r\n</tr>\r\n</tbody>\r\n</table>', '<p class="group inner list-group-item-text">ЕККА МІКРО.ХМ призначений для автоматизації торгових операцій, надання та обліку послуг платежів і розрахунків, а також обліку та контролю фінансово-господарських операцій суб''єктів підприємницької діяльності.</p>', '', 'КАСОВІ АПАРАТИ MIKPO.XM  ФІСКАЛЬНА ВЕРСІЯ: ТАК МОДЕМ ДЛЯ ПЕРЕДАЧІ ДАНИХ: МАКСИМАЛЬНА ШВИДКІСТЬ ДРУКУ, ММ/С: 75 ОБРІЗУВАЧ ПАПЕРУ: 32 МЕТОД ДРУКУ: ТЕРМО МЕХАНІЗМ 2" РЕСУРС ТЕРМОГОЛОВКИ, КМ: 50 ПАПІР 0,054 - 0,091ММ ШИРИНА ПАПЕРУ, ММ: 57 МАКСИМАЛЬНИЙ ДІАМЕТР РУЛОНУ, 38 ЗАВАНТАЖЕННЯ ЛЕГКИЙ КІЛЬКІСТЬ СИМВОЛІВ В РЯДКУ: ІНТЕРФЕЙСИ: USB, 2XRS232, GPRS БЕЗДРОТОВІ ІНТЕРФЕЙСИ: WI-FI ОПЦІЯ ДАТЧИКИ/ІНДИКАТОРИ: НАЯВНІСТЬ ПАПЕРУ ТИП АКУМУЛЯТОРУ: LI-ION ХАРАКТЕРИСТИКИ 7,4V, 1800MAH ЄМНІСТЬ 13,32 WH ДЖЕРЕЛО ЖИВЛЕННЯ: 9V/1A КОЛІР: КОМБІНОВАНИЙ БІЛО-ЧОРНИЙ ШИРИНА, 115 ДОВЖИНА, 235 ВИСОТА, 80 ВАГА, КГ: 0,500 ТОВАРІВ: 15000 ВІДДІЛІВ: 15 КАСИРІВ: 8 НАЗВІ ТОВАРУ: 22 ПОЧАТКОВЕ ПОВІДОМЛЕННЯ, РЯДКІВ: 5 ЗАКЛЮЧНЕ 1 ПОДАТКОВІ ГРУПИ З ПОЗИТИВНИМ'),
 (370, 119, 'en', 'MIKRO.HM', '', '<p>MICRO.HM is intended for the automation of trading operations, rendering and accounting of payment and settlement services, as well as accounting and control of financial and economic operations of business entities. <br /> MICRO.HM has a wide functionality of stationary cash register. <br /> This device has a control tape in electronic form. It is a copy of accounting documents and fiscal accounting checks, consistently generated by the cash register, which are created in electronic form and stored on the built-in media of the control tape (MMC card) in the form of data packets. <br /> MICRO.HM has the ability to transmit electronic copies of control and accounting information by wireless communication channels to the state tax service authorities with the help of the built-in GSM modem in accordance with the Order of the Ministry of Finance of Ukraine No. 1057 of 08.10.2012. MICRO.HM has a graphic indicator, which displays the numerical values ​​operations are recorded, and the auxiliary reference information. The information is displayed in two lines where the current status of the device and other additional information are visible.</p>', '<table class="table table-striped">\r\n<tbody>\r\n<tr>\r\n<td>Fiscal version:</td>\r\n<td>Yes</td>\r\n</tr>\r\n<tr>\r\n<td>Modem for data transmission:</td>\r\n<td>Yes</td>\r\n</tr>\r\n<tr>\r\n<td>Maximum speed of printing, mm/s:</td>\r\n<td>75</td>\r\n</tr>\r\n<tr>\r\n<td>Paper cutter:</td>\r\n<td>32</td>\r\n</tr>\r\n<tr>\r\n<td>Printing method:</td>\r\n<td>thermo</td>\r\n</tr>\r\n<tr>\r\n<td>Printing mechanism:</td>\r\n<td>2"</td>\r\n</tr>\r\n<tr>\r\n<td>Thermal head resource, km:</td>\r\n<td>50</td>\r\n</tr>\r\n<tr>\r\n<td>Paper for printing:</td>\r\n<td>Thermo 0,054 - 0,091 mm</td>\r\n</tr>\r\n<tr>\r\n<td>Paper width, mm:</td>\r\n<td>57</td>\r\n</tr>\r\n<tr>\r\n<td>The maximum diameter of a roll, mm:</td>\r\n<td>38</td>\r\n</tr>\r\n<tr>\r\n<td>Method of paper loading:</td>\r\n<td>easy</td>\r\n</tr>\r\n<tr>\r\n<td>Number of characters per line:</td>\r\n<td>32</td>\r\n</tr>\r\n<tr>\r\n<td>Interfaces:</td>\r\n<td>USB, 2xRS232, GPRS</td>\r\n</tr>\r\n<tr>\r\n<td>Wireless interfaces:</td>\r\n<td>Wi-Fi - option</td>\r\n</tr>\r\n<tr>\r\n<td>Sensors/indicators:</td>\r\n<td>Availability of paper</td>\r\n</tr>\r\n<tr>\r\n<td>Battery type:</td>\r\n<td>Li-Ion</td>\r\n</tr>\r\n<tr>\r\n<td>Battery specifications:</td>\r\n<td>7,4V, 1800mAh</td>\r\n</tr>\r\n<tr>\r\n<td>Battery capacity:</td>\r\n<td>13,32 Wh</td>\r\n</tr>\r\n<tr>\r\n<td>Source of power:</td>\r\n<td>9V/1A</td>\r\n</tr>\r\n<tr>\r\n<td>Color:</td>\r\n<td>Combined white-black</td>\r\n</tr>\r\n<tr>\r\n<td>Width, mm:</td>\r\n<td>115</td>\r\n</tr>\r\n<tr>\r\n<td>Length, mm:</td>\r\n<td>235</td>\r\n</tr>\r\n<tr>\r\n<td>Height, mm:</td>\r\n<td>80</td>\r\n</tr>\r\n<tr>\r\n<td>Weight, kg:</td>\r\n<td>0,500</td>\r\n</tr>\r\n<tr>\r\n<td>Number of goods:</td>\r\n<td>15000</td>\r\n</tr>\r\n<tr>\r\n<td>Number of departments:</td>\r\n<td>15</td>\r\n</tr>\r\n<tr>\r\n<td>Number of cashiers:</td>\r\n<td>8</td>\r\n</tr>\r\n<tr>\r\n<td>Number of characters in the product name:</td>\r\n<td>22</td>\r\n</tr>\r\n<tr>\r\n<td>Initial message, lines:</td>\r\n<td>5</td>\r\n</tr>\r\n<tr>\r\n<td>Final message, lines:</td>\r\n<td>1</td>\r\n</tr>\r\n<tr>\r\n<td>Tax groups with a positive result:</td>\r\n<td>4</td>\r\n</tr>\r\n<tr>\r\n<td>Tax groups with a negative total:</td>\r\n<td>4</td>\r\n</tr>\r\n<tr>\r\n<td>Operating conditions: - temperature, &deg;С:</td>\r\n<td>-5 &hellip; +40</td>\r\n</tr>\r\n<tr>\r\n<td>Humidity, %, with +30 &deg;С:</td>\r\n<td>from 10 to 80 (without condensation)</td>\r\n</tr>\r\n<tr>\r\n<td>Storage conditions, &deg;С:</td>\r\n<td>-10 ...+50</td>\r\n</tr>\r\n</tbody>\r\n</table>', '<p class="group inner list-group-item-text">MIKRO.HM is designed to automate trade operations, provide and record payment and settlement services, as well as accounting and control of financial and economic operations of business entities.</p>', '', 'CASH REGISTERS MIKRO.HM  FISCAL VERSION: YES MODEM FOR DATA TRANSMISSION: MAXIMUM SPEED OF PRINTING, MM/S: 75 PAPER CUTTER: 32 PRINTING METHOD: THERMO MECHANISM: 2" THERMAL HEAD RESOURCE, KM: 50 PRINTING: THERMO 0,054 - 0,091 MM WIDTH, MM: 57 THE MAXIMUM DIAMETER A ROLL, 38 METHOD PAPER LOADING: EASY NUMBER CHARACTERS PER LINE: INTERFACES: USB, 2XRS232, GPRS WIRELESS INTERFACES: WI-FI OPTION SENSORS/INDICATORS: AVAILABILITY BATTERY TYPE: LI-ION SPECIFICATIONS: 7,4V, 1800MAH CAPACITY: 13,32 WH SOURCE POWER: 9V/1A COLOR: COMBINED WHITE-BLACK WIDTH, 115 LENGTH, 235 HEIGHT, 80 WEIGHT, KG: 0,500 GOODS: 15000 DEPARTMENTS: 15 CASHIERS: 8 IN THE PRODUCT NAME: 22 INITIAL MESSAGE,'),
 (371, 119, 'ru', 'MIKPO.XM', '', '<p>ЭККА МІКРО.ХМ предназначен для автоматизации торговых операций, оказания и учета услуг платежей и расчетов, а также учета и контроля финансово-хозяйственных операций субъектов предпринимательской деятельности.<br />МІКРО.ХМ имеет широкие функциональные возможности стационарных ЭККА.<br />В этом апарате реализована контрольная лента в електронной форме (КЛЭФ). КЛЭФ представляет собой копии рассчетных документов и фискальных отчетных чеков, последовательно сформированних ЭККА, которые созданы в електронной форме и сохраняются на встроенном носителе контрольной ленты (карточка ММС) в форме пакетов данных.<br />ЭККА имеет возможность передачи электронных копий контрольно-отчетной информации беспроводными каналами связи органам государственной налоговой службы (ДПС) с помощью встроенного GSM-модема в соответствии с Приказом Министерства финансов Украины №1057 от 08.10.2012 г.<br />ЭККА имеет графический индикатор, на котором отображаются числовые значения операций, которые регистрируются, справочная и вспомогательная информация. Информация отображается в две строки, где виден текущий статус аппарата и другая дополнительная информация.</p>', '<table class="table table-striped">\r\n<tbody>\r\n<tr>\r\n<td>Фискальная версия:</td>\r\n<td>Да</td>\r\n</tr>\r\n<tr>\r\n<td>Модем для передачи данных:</td>\r\n<td>Да</td>\r\n</tr>\r\n<tr>\r\n<td>Максимальная скорость печати ,мм/с:</td>\r\n<td>75</td>\r\n</tr>\r\n<tr>\r\n<td>Обрезчик бумаги:</td>\r\n<td>32</td>\r\n</tr>\r\n<tr>\r\n<td>Метод печати:</td>\r\n<td>термо</td>\r\n</tr>\r\n<tr>\r\n<td>Печатающий механизм:</td>\r\n<td>2"</td>\r\n</tr>\r\n<tr>\r\n<td>Ресурс термоголовки, км:</td>\r\n<td>50</td>\r\n</tr>\r\n<tr>\r\n<td>Бумага для печати:</td>\r\n<td>термо 0,054 - 0,091мм</td>\r\n</tr>\r\n<tr>\r\n<td>Ширина бумаги, мм:</td>\r\n<td>57</td>\r\n</tr>\r\n<tr>\r\n<td>Максимальный диаметр рулона, мм:</td>\r\n<td>38</td>\r\n</tr>\r\n<tr>\r\n<td>Метод загрузки бумаги:</td>\r\n<td>легкий</td>\r\n</tr>\r\n<tr>\r\n<td>Количество символов в строке:</td>\r\n<td>32</td>\r\n</tr>\r\n<tr>\r\n<td>Интерфейсы:</td>\r\n<td>USB, 2xRS232, GPRS</td>\r\n</tr>\r\n<tr>\r\n<td>Беспроводные интерфейсы:</td>\r\n<td>Wi-Fi - опция</td>\r\n</tr>\r\n<tr>\r\n<td>Датчики/индикаторы:</td>\r\n<td>наличия бумаги</td>\r\n</tr>\r\n<tr>\r\n<td>Тип аккумулятора:</td>\r\n<td>Li-Ion</td>\r\n</tr>\r\n<tr>\r\n<td>Характеристики аккумулятора:</td>\r\n<td>7,4V, 1800mAh</td>\r\n</tr>\r\n<tr>\r\n<td>Емкость аккумулятора:</td>\r\n<td>13,32 Wh</td>\r\n</tr>\r\n<tr>\r\n<td>Источник питания:</td>\r\n<td>9V/1A</td>\r\n</tr>\r\n<tr>\r\n<td>Цвет:</td>\r\n<td>Комбинированный бело-черный</td>\r\n</tr>\r\n<tr>\r\n<td>Ширина, мм:</td>\r\n<td>115</td>\r\n</tr>\r\n<tr>\r\n<td>Длина, мм:</td>\r\n<td>235</td>\r\n</tr>\r\n<tr>\r\n<td>Высота, мм:</td>\r\n<td>80</td>\r\n</tr>\r\n<tr>\r\n<td>Вес, кг:</td>\r\n<td>0,500</td>\r\n</tr>\r\n<tr>\r\n<td>Количество товаров:</td>\r\n<td>15000</td>\r\n</tr>\r\n<tr>\r\n<td>Количество отделов:</td>\r\n<td>15</td>\r\n</tr>\r\n<tr>\r\n<td>Количество кассиров:</td>\r\n<td>8</td>\r\n</tr>\r\n<tr>\r\n<td>Количество символов в названии товара:</td>\r\n<td>22</td>\r\n</tr>\r\n<tr>\r\n<td>Начальное сообщение, строк:</td>\r\n<td>5</td>\r\n</tr>\r\n<tr>\r\n<td>Заключительное сообщение, строк:</td>\r\n<td>1</td>\r\n</tr>\r\n<tr>\r\n<td>Налоговые группы с положительным итогом:</td>\r\n<td>4</td>\r\n</tr>\r\n<tr>\r\n<td>Налоговые группы с отрицательным итогом:</td>\r\n<td>4</td>\r\n</tr>\r\n<tr>\r\n<td>Рабочие условия: - температура, &deg;С:</td>\r\n<td>-5 &hellip; +40</td>\r\n</tr>\r\n<tr>\r\n<td>Влажность, %, при +30 &deg;С:</td>\r\n<td>10 до 80 (без конденсата)</td>\r\n</tr>\r\n<tr>\r\n<td>Условия хранения, &deg;С:</td>\r\n<td>-10 ...+50</td>\r\n</tr>\r\n</tbody>\r\n</table>', '<p class="group inner list-group-item-text">ЭККА МІКРО.ХМ предназначен для автоматизации торговых операций, оказания и учета услуг платежей и расчетов, а также учета и контроля финансово-хозяйственных операций субъектов предпринимательской деятельности.</p>', '', 'КАССОВЫЕ АППАРАТЫ MIKPO.XM  ФИСКАЛЬНАЯ ВЕРСИЯ: ДА МОДЕМ ДЛЯ ПЕРЕДАЧИ ДАННЫХ: МАКСИМАЛЬНАЯ СКОРОСТЬ ПЕЧАТИ ,ММ/С: 75 ОБРЕЗЧИК БУМАГИ: 32 МЕТОД ПЕЧАТИ: ТЕРМО ПЕЧАТАЮЩИЙ МЕХАНИЗМ: 2" РЕСУРС ТЕРМОГОЛОВКИ, КМ: 50 БУМАГА 0,054 - 0,091ММ ШИРИНА БУМАГИ, ММ: 57 МАКСИМАЛЬНЫЙ ДИАМЕТР РУЛОНА, 38 ЗАГРУЗКИ ЛЕГКИЙ КОЛИЧЕСТВО СИМВОЛОВ В СТРОКЕ: ИНТЕРФЕЙСЫ: USB, 2XRS232, GPRS БЕСПРОВОДНЫЕ ИНТЕРФЕЙСЫ: WI-FI ОПЦИЯ ДАТЧИКИ/ИНДИКАТОРЫ: НАЛИЧИЯ БУМАГИ ТИП АККУМУЛЯТОРА: LI-ION ХАРАКТЕРИСТИКИ 7,4V, 1800MAH ЕМКОСТЬ 13,32 WH ИСТОЧНИК ПИТАНИЯ: 9V/1A ЦВЕТ: КОМБИНИРОВАННЫЙ БЕЛО-ЧЕРНЫЙ ШИРИНА, 115 ДЛИНА, 235 ВЫСОТА, 80 ВЕС, КГ: 0,500 ТОВАРОВ: 15000 ОТДЕЛОВ: 15 КАССИРОВ: 8 НАЗВАНИИ ТОВАРА: 22 НАЧАЛЬНОЕ СООБЩЕНИЕ, СТРОК: 5 ЗАКЛЮЧИТЕЛЬНОЕ 1 НАЛОГОВЫЕ ГРУППЫ С'),
 (373, 120, 'en', 'VAMP-MICRO', '', '<p>VAMP-MICRO has a GPRS modem for sending data to the tax, and also forms a control tape in electronic form. Cash register VAMP-MICRO is designed specifically for small businesses and meets all the requirements of the law.</p>\r\n<p>Features of the cash register VAMP-MICRO:</p>\r\n<ul>\r\n<li>Built-in GSM-modem;</li>\r\n<li>Remote control (WEB access);</li>\r\n<li>Number of programmable products: 15000;</li>\r\n<li>Printing speed: 75 mm/s;</li>\r\n<li>Check tape width: 57 mm;</li>\r\n<li>Liquid crystal display with backlight;</li>\r\n<li>Waterproof keyboard;</li>\r\n<li>Built-in Li-Pol battery (1900 mAh, 7.4V).</li>\r\n</ul>', '<table class="table table-striped">\r\n<tbody>\r\n<tr>\r\n<td>Cash register type:</td>\r\n<td>Portable</td>\r\n</tr>\r\n<tr>\r\n<td>Number of goods:</td>\r\n<td>15000</td>\r\n</tr>\r\n<tr>\r\n<td>Number of characters in the product name:</td>\r\n<td>22</td>\r\n</tr>\r\n<tr>\r\n<td>Modem connection:</td>\r\n<td>Built-in</td>\r\n</tr>\r\n<tr>\r\n<td>Type of indicator:</td>\r\n<td>Sign synthesizing</td>\r\n</tr>\r\n<tr>\r\n<td>Customer indicator:</td>\r\n<td>No</td>\r\n</tr>\r\n<tr>\r\n<td>LED backlighting:</td>\r\n<td>Yes</td>\r\n</tr>\r\n<tr>\r\n<td>Connecting the scanner:</td>\r\n<td>Yes</td>\r\n</tr>\r\n<tr>\r\n<td>Easy paper loading:</td>\r\n<td>Yes</td>\r\n</tr>\r\n</tbody>\r\n</table>', '<p class="group inner list-group-item-text">The VAMP-MICRO device is designed to automate the accounting and control of cash transactions in the sphere of trade and the provision of services. It is indispensable for on-site trade.</p>', '', 'CASH REGISTERS VAMP-MICRO  REGISTER TYPE: PORTABLE NUMBER OF GOODS: 15000 CHARACTERS IN THE PRODUCT NAME: 22 MODEM CONNECTION: BUILT-IN TYPE INDICATOR: SIGN SYNTHESIZING CUSTOMER NO LED BACKLIGHTING: YES CONNECTING SCANNER: EASY PAPER LOADING: THE DEVICE IS DESIGNED TO AUTOMATE ACCOUNTING AND CONTROL CASH TRANSACTIONS SPHERE TRADE PROVISION SERVICES. IT INDISPENSABLE FOR ON-SITE TRADE.'),
-(374, 120, 'ru', 'ВАМП-МИКРО', '', '<p>ВАМП-МИКРО имеет GPRS модем для отправки данных в налоговую, а также формирует контрольную ленту в электронной форме. Кассовый аппарат ВАМП-МИКРО разработан специально для малого бизнеса и соответствует всем требованиям законодательства.</p>\r\n<p>Особенности кассового аппарата ВАМП-МИКРО:</p>\r\n<ul>\r\n<li>Встроенный GSM-модем;</li>\r\n<li>Дистанционное управление (WEB-доступ);</li>\r\n<li>Количество программируемых товаров: 15000;</li>\r\n<li>Скорость печати: 75 мм/сек;</li>\r\n<li>Ширина чековой ленты: 57 мм;</li>\r\n<li>Жидкокристаллический индикатор с подсветкой;</li>\r\n<li>Влагозащищенная клавиатура;</li>\r\n<li>Встроенный Li-Pol аккумулятор (1900 mAh, 7.4V).</li>\r\n</ul>', '<table class="table table-striped">\r\n<tbody>\r\n<tr>\r\n<td>Тип кассового аппарата:</td>\r\n<td>Портативный</td>\r\n</tr>\r\n<tr>\r\n<td>Количество товаров:</td>\r\n<td>15000</td>\r\n</tr>\r\n<tr>\r\n<td>Количество символов в названии товара:</td>\r\n<td>22</td>\r\n</tr>\r\n<tr>\r\n<td>Подключение модема:</td>\r\n<td>Встроенный</td>\r\n</tr>\r\n<tr>\r\n<td>Тип индикатора:</td>\r\n<td>Знакосинтезирующий</td>\r\n</tr>\r\n<tr>\r\n<td>Индикатор клиента:</td>\r\n<td>Нет</td>\r\n</tr>\r\n<tr>\r\n<td>Подсветка индикатора:</td>\r\n<td>Есть</td>\r\n</tr>\r\n<tr>\r\n<td>Подключение сканера:</td>\r\n<td>Есть</td>\r\n</tr>\r\n<tr>\r\n<td>Лёгкая загрузка бумаги:</td>\r\n<td>Есть</td>\r\n</tr>\r\n</tbody>\r\n</table>', '<p class="group inner list-group-item-text">Аппарат ВАМП-МИКРО предназначен для автоматизации учета и контроля кассовых операций в сфере торговли и предоставлении услуг, незаменим при выездной торговле.</p>', '', 'КАССОВЫЕ АППАРАТЫ ВАМП-МИКРО  ТИП КАССОВОГО АППАРАТА: ПОРТАТИВНЫЙ КОЛИЧЕСТВО ТОВАРОВ: 15000 СИМВОЛОВ В НАЗВАНИИ ТОВАРА: 22 ПОДКЛЮЧЕНИЕ МОДЕМА: ВСТРОЕННЫЙ ИНДИКАТОРА: ЗНАКОСИНТЕЗИРУЮЩИЙ ИНДИКАТОР КЛИЕНТА: НЕТ ПОДСВЕТКА ЕСТЬ СКАНЕРА: ЛЁГКАЯ ЗАГРУЗКА БУМАГИ: АППАРАТ ПРЕДНАЗНАЧЕН ДЛЯ АВТОМАТИЗАЦИИ УЧЕТА И КОНТРОЛЯ КАССОВЫХ ОПЕРАЦИЙ СФЕРЕ ТОРГОВЛИ ПРЕДОСТАВЛЕНИИ УСЛУГ, НЕЗАМЕНИМ ПРИ ВЫЕЗДНОЙ ТОРГОВЛЕ.');
-INSERT INTO `productlang` (`id`, `product_id`, `language`, `title`, `size_fit`, `editor_notes`, `content`, `short_description`, `table_size`, `search_text`) VALUES
+(374, 120, 'ru', 'ВАМП-МИКРО', '', '<p>ВАМП-МИКРО имеет GPRS модем для отправки данных в налоговую, а также формирует контрольную ленту в электронной форме. Кассовый аппарат ВАМП-МИКРО разработан специально для малого бизнеса и соответствует всем требованиям законодательства.</p>\r\n<p>Особенности кассового аппарата ВАМП-МИКРО:</p>\r\n<ul>\r\n<li>Встроенный GSM-модем;</li>\r\n<li>Дистанционное управление (WEB-доступ);</li>\r\n<li>Количество программируемых товаров: 15000;</li>\r\n<li>Скорость печати: 75 мм/сек;</li>\r\n<li>Ширина чековой ленты: 57 мм;</li>\r\n<li>Жидкокристаллический индикатор с подсветкой;</li>\r\n<li>Влагозащищенная клавиатура;</li>\r\n<li>Встроенный Li-Pol аккумулятор (1900 mAh, 7.4V).</li>\r\n</ul>', '<table class="table table-striped">\r\n<tbody>\r\n<tr>\r\n<td>Тип кассового аппарата:</td>\r\n<td>Портативный</td>\r\n</tr>\r\n<tr>\r\n<td>Количество товаров:</td>\r\n<td>15000</td>\r\n</tr>\r\n<tr>\r\n<td>Количество символов в названии товара:</td>\r\n<td>22</td>\r\n</tr>\r\n<tr>\r\n<td>Подключение модема:</td>\r\n<td>Встроенный</td>\r\n</tr>\r\n<tr>\r\n<td>Тип индикатора:</td>\r\n<td>Знакосинтезирующий</td>\r\n</tr>\r\n<tr>\r\n<td>Индикатор клиента:</td>\r\n<td>Нет</td>\r\n</tr>\r\n<tr>\r\n<td>Подсветка индикатора:</td>\r\n<td>Есть</td>\r\n</tr>\r\n<tr>\r\n<td>Подключение сканера:</td>\r\n<td>Есть</td>\r\n</tr>\r\n<tr>\r\n<td>Лёгкая загрузка бумаги:</td>\r\n<td>Есть</td>\r\n</tr>\r\n</tbody>\r\n</table>', '<p class="group inner list-group-item-text">Аппарат ВАМП-МИКРО предназначен для автоматизации учета и контроля кассовых операций в сфере торговли и предоставлении услуг, незаменим при выездной торговле.</p>', '', 'КАССОВЫЕ АППАРАТЫ ВАМП-МИКРО  ТИП КАССОВОГО АППАРАТА: ПОРТАТИВНЫЙ КОЛИЧЕСТВО ТОВАРОВ: 15000 СИМВОЛОВ В НАЗВАНИИ ТОВАРА: 22 ПОДКЛЮЧЕНИЕ МОДЕМА: ВСТРОЕННЫЙ ИНДИКАТОРА: ЗНАКОСИНТЕЗИРУЮЩИЙ ИНДИКАТОР КЛИЕНТА: НЕТ ПОДСВЕТКА ЕСТЬ СКАНЕРА: ЛЁГКАЯ ЗАГРУЗКА БУМАГИ: АППАРАТ ПРЕДНАЗНАЧЕН ДЛЯ АВТОМАТИЗАЦИИ УЧЕТА И КОНТРОЛЯ КАССОВЫХ ОПЕРАЦИЙ СФЕРЕ ТОРГОВЛИ ПРЕДОСТАВЛЕНИИ УСЛУГ, НЕЗАМЕНИМ ПРИ ВЫЕЗДНОЙ ТОРГОВЛЕ.'),
 (375, 120, 'ua', 'ВАМП-МІКРО', '', '<p>ВАМП-МІКРО має GPRS модем для відправки даних в податкову, а також формує контрольну стрічку в електронній формі. Касовий апарат ВАМП-МІКРО розроблений спеціально для малого бізнесу і відповідає всім вимогам законодавства.</p>\r\n<p>Особливості касового апарату ВАМП-МІКРО:</p>\r\n<ul>\r\n<li>Вбудований GSM-модем;</li>\r\n<li>Дистанційне керування (WEB-доступ);</li>\r\n<li>Кількість програмованих товарів: 15000;</li>\r\n<li>Швидкість друку: 75 мм/сек;</li>\r\n<li>Ширина чекової стрічки: 57 мм;</li>\r\n<li>Рідкокристалічний індикатор з підсвічуванням;</li>\r\n<li>Вологозахищена клавіатура;</li>\r\n<li>Вбудований Li-Pol акумулятор (1900 mAh, 7.4V).</li>\r\n</ul>', '<table class="table table-striped">\r\n<tbody>\r\n<tr>\r\n<td>Тип касового апарату:</td>\r\n<td>Портативний</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість товарів:</td>\r\n<td>15000</td>\r\n</tr>\r\n<tr>\r\n<td>Кількість символів в назві товару:</td>\r\n<td>22</td>\r\n</tr>\r\n<tr>\r\n<td>Підключення модему:</td>\r\n<td>Вбудований</td>\r\n</tr>\r\n<tr>\r\n<td>Тип індикатору:</td>\r\n<td>Знакосинтезуючий</td>\r\n</tr>\r\n<tr>\r\n<td>Індикатор клієнта:</td>\r\n<td>Ні</td>\r\n</tr>\r\n<tr>\r\n<td>Підсвічування індикатора:</td>\r\n<td>Так</td>\r\n</tr>\r\n<tr>\r\n<td>Підключення сканера:</td>\r\n<td>Так</td>\r\n</tr>\r\n<tr>\r\n<td>Легке завантаження паперу:</td>\r\n<td>Так</td>\r\n</tr>\r\n</tbody>\r\n</table>', '<p class="group inner list-group-item-text">Апарат ВАМП-МІКРО призначений для автоматизації обліку і контролю касових операцій в сфері торгівлі і надання послуг, незамінний при виїзній торгівлі.</p>', '', 'КАСОВІ АПАРАТИ ВАМП-МІКРО  ТИП КАСОВОГО АПАРАТУ: ПОРТАТИВНИЙ КІЛЬКІСТЬ ТОВАРІВ: 15000 СИМВОЛІВ В НАЗВІ ТОВАРУ: 22 ПІДКЛЮЧЕННЯ МОДЕМУ: ВБУДОВАНИЙ ІНДИКАТОРУ: ЗНАКОСИНТЕЗУЮЧИЙ ІНДИКАТОР КЛІЄНТА: НІ ПІДСВІЧУВАННЯ ІНДИКАТОРА: ТАК СКАНЕРА: ЛЕГКЕ ЗАВАНТАЖЕННЯ ПАПЕРУ: АПАРАТ ПРИЗНАЧЕНИЙ ДЛЯ АВТОМАТИЗАЦІЇ ОБЛІКУ І КОНТРОЛЮ КАСОВИХ ОПЕРАЦІЙ СФЕРІ ТОРГІВЛІ НАДАННЯ ПОСЛУГ, НЕЗАМІННИЙ ПРИ ВИЇЗНІЙ ТОРГІВЛІ.'),
 (376, 121, 'en', 'I Pos.HM', '', '<p>I Pos.HM &mdash; computer-cash system consisting of a fiscal registrar and a built-in Linux computer.</p>\r\n<p>Features of the system:</p>\r\n<ul>\r\n<li>scope: trade, catering, services;</li>\r\n<li>internet connection: Ethernet, (wi-fi optional);</li>\r\n<li>buyer''s display: built-in;</li>\r\n<li>number of goods: 100 000;</li>\r\n<li>built-in modem for reporting in the STA;</li>\r\n<li>set up the registrar and print checks through the web interface.</li>\r\n</ul>\r\n<p>Included with I Pos.XM may be a program&nbsp;<a href="http://www.artsoft.ua/ArtSoftPortal.php" target="_blank" rel="noopener">ArtSoft Portal</a>.</p>', '<table class="table table-striped">\r\n<tbody>\r\n<tr>\r\n<td>Chipset:</td>\r\n<td>Olimex A13/1 Ghz/512 Mb</td>\r\n</tr>\r\n<tr>\r\n<td>Operating system:</td>\r\n<td>Linux/Android</td>\r\n</tr>\r\n<tr>\r\n<td>Touchscreen:</td>\r\n<td>8&rdquo; TFT 800x600</td>\r\n</tr>\r\n<tr>\r\n<td>Buyer display:</td>\r\n<td>5&rdquo; TFT</td>\r\n</tr>\r\n<tr>\r\n<td>Number of goods:</td>\r\n<td>100 000</td>\r\n</tr>\r\n<tr>\r\n<td>Number of cashiers:</td>\r\n<td>16</td>\r\n</tr>\r\n<tr>\r\n<td>Number of characters in the product name:</td>\r\n<td>46</td>\r\n</tr>\r\n<tr>\r\n<td>Types of payment:</td>\r\n<td>Cash, check, payment card, combined</td>\r\n</tr>\r\n<tr>\r\n<td>Tax groups with a positive result:</td>\r\n<td>4</td>\r\n</tr>\r\n<tr>\r\n<td>Tax groups with a negative total:</td>\r\n<td>4</td>\r\n</tr>\r\n<tr>\r\n<td>Printing mechanism:</td>\r\n<td>Seiko</td>\r\n</tr>\r\n<tr>\r\n<td>Printing speed, mm/s:</td>\r\n<td>200</td>\r\n</tr>\r\n<tr>\r\n<td>Tape width, mm:</td>\r\n<td>57,5 or 79,5</td>\r\n</tr>\r\n<tr>\r\n<td>External diameter of a roll, mm:</td>\r\n<td>up to 60</td>\r\n</tr>\r\n<tr>\r\n<td>Automatic trimming of a check:</td>\r\n<td>Yes</td>\r\n</tr>\r\n<tr>\r\n<td>Interfaces:</td>\r\n<td>USB-A, RS-232, Ethernet</td>\r\n</tr>\r\n<tr>\r\n<td>Customer indicator:</td>\r\n<td>Built-in</td>\r\n</tr>\r\n<tr>\r\n<td>Overall dimensions, mm:</td>\r\n<td>180 х 150 х 180</td>\r\n</tr>\r\n<tr>\r\n<td>Weight, kg:</td>\r\n<td>1,1</td>\r\n</tr>\r\n</tbody>\r\n</table>', '<p class="group inner list-group-item-text">I Pos.XM &mdash; computer-cash system, which consists of a fiscal registrar and a built-in Linux computer.</p>', '', 'COMPUTER-CASH SYSTEMS I POS.HM  CHIPSET: OLIMEX A13/1 GHZ/512 MB OPERATING SYSTEM: LINUX/ANDROID TOUCHSCREEN: 8&RDQUO; TFT 800X600 BUYER DISPLAY: 5&RDQUO; NUMBER OF GOODS: 100 000 CASHIERS: 16 CHARACTERS IN THE PRODUCT NAME: 46 TYPES PAYMENT: CASH, CHECK, PAYMENT CARD, COMBINED TAX GROUPS WITH A POSITIVE RESULT: 4 NEGATIVE TOTAL: PRINTING MECHANISM: SEIKO SPEED, MM/S: 200 TAPE WIDTH, MM: 57,5 OR 79,5 EXTERNAL DIAMETER ROLL, UP TO 60 AUTOMATIC TRIMMING CHECK: YES INTERFACES: USB-A, RS-232, ETHERNET CUSTOMER INDICATOR: BUILT-IN OVERALL DIMENSIONS, 180 Х 150 WEIGHT, KG: 1,1 POS.XM &MDASH; COMPUTER-CASH SYSTEM, WHICH CONSISTS FISCAL REGISTRAR AND BUILT-IN LINUX COMPUTER.'),
 (377, 121, 'ru', 'I Pos.XM', '', '<p>I Pos.XM &mdash; компьютерно-кассовая система, которая состоит из фискального регистратора и встроенного Linux-компьютера.</p>\r\n<p>Особенности работы системы:</p>\r\n<ul>\r\n<li>сфера применения: торговля, общественное питание, сфера услуг;</li>\r\n<li>интернет-связь: Ethernet, (wi-fi опционально);</li>\r\n<li>дисплей покупателя: встроенный;</li>\r\n<li>количество товаров: 100 000;</li>\r\n<li>строенный модем для передачи отчетности в ГНА;</li>\r\n<li>настройки регистратора и печать чеков через веб-интерфейс.</li>\r\n</ul>\r\n<p>В комплекте с I Pos.XM может поставляться программа&nbsp;<a href="http://www.artsoft.ua/ArtSoftPortal.php" target="_blank" rel="noopener">АртСофт Портал</a>.</p>', '<table class="table table-striped">\r\n<tbody>\r\n<tr>\r\n<td>Чипсет:</td>\r\n<td>Olimex A13/1 Ghz/512 Mb</td>\r\n</tr>\r\n<tr>\r\n<td>Операционная система:</td>\r\n<td>Linux/Android</td>\r\n</tr>\r\n<tr>\r\n<td>Сенсорный дисплей:</td>\r\n<td>8&rdquo; TFT 800x600</td>\r\n</tr>\r\n<tr>\r\n<td>Дисплей покупателя:</td>\r\n<td>5&rdquo; TFT</td>\r\n</tr>\r\n<tr>\r\n<td>Количество товаров:</td>\r\n<td>100 000</td>\r\n</tr>\r\n<tr>\r\n<td>Количество кассиров:</td>\r\n<td>16</td>\r\n</tr>\r\n<tr>\r\n<td>Количество символов в наименовании товара:</td>\r\n<td>46</td>\r\n</tr>\r\n<tr>\r\n<td>Виды оплаты:</td>\r\n<td>Наличные, чек, платежная карта, комбинированная</td>\r\n</tr>\r\n<tr>\r\n<td>Налоговые группы с положительным итогом:</td>\r\n<td>4</td>\r\n</tr>\r\n<tr>\r\n<td>Налоговые группы с отрицательным итогом:</td>\r\n<td>4</td>\r\n</tr>\r\n<tr>\r\n<td>Печатающий механизм:</td>\r\n<td>Seiko</td>\r\n</tr>\r\n<tr>\r\n<td>Скорость печати, мм/с:</td>\r\n<td>200</td>\r\n</tr>\r\n<tr>\r\n<td>Ширина ленты, мм:</td>\r\n<td>57,5 или 79,5</td>\r\n</tr>\r\n<tr>\r\n<td>Наружный диаметр рулона, мм:</td>\r\n<td>до 60</td>\r\n</tr>\r\n<tr>\r\n<td>Автоматическая обрезка чека:</td>\r\n<td>есть</td>\r\n</tr>\r\n<tr>\r\n<td>Интерфейсы:</td>\r\n<td>USB-A, RS-232, Ethernet</td>\r\n</tr>\r\n<tr>\r\n<td>Индикатор клиента:</td>\r\n<td>встроенный</td>\r\n</tr>\r\n<tr>\r\n<td>Габаритные размеры, мм:</td>\r\n<td>180 х 150 х 180</td>\r\n</tr>\r\n<tr>\r\n<td>Масса, кг:</td>\r\n<td>1,1</td>\r\n</tr>\r\n</tbody>\r\n</table>', '<p class="group inner list-group-item-text">I Pos.XM &mdash; компьютерно-кассовая система, которая состоит из фискального регистратора и встроенного Linux-компьютера.</p>', '', 'КОМПЬЮТЕРНО-КАССОВЫЕ СИСТЕМЫ I POS.XM  ЧИПСЕТ: OLIMEX A13/1 GHZ/512 MB ОПЕРАЦИОННАЯ СИСТЕМА: LINUX/ANDROID СЕНСОРНЫЙ ДИСПЛЕЙ: 8&RDQUO; TFT 800X600 ДИСПЛЕЙ ПОКУПАТЕЛЯ: 5&RDQUO; КОЛИЧЕСТВО ТОВАРОВ: 100 000 КАССИРОВ: 16 СИМВОЛОВ В НАИМЕНОВАНИИ ТОВАРА: 46 ВИДЫ ОПЛАТЫ: НАЛИЧНЫЕ, ЧЕК, ПЛАТЕЖНАЯ КАРТА, КОМБИНИРОВАННАЯ НАЛОГОВЫЕ ГРУППЫ С ПОЛОЖИТЕЛЬНЫМ ИТОГОМ: 4 ОТРИЦАТЕЛЬНЫМ ПЕЧАТАЮЩИЙ МЕХАНИЗМ: SEIKO СКОРОСТЬ ПЕЧАТИ, ММ/С: 200 ШИРИНА ЛЕНТЫ, ММ: 57,5 ИЛИ 79,5 НАРУЖНЫЙ ДИАМЕТР РУЛОНА, ДО 60 АВТОМАТИЧЕСКАЯ ОБРЕЗКА ЧЕКА: ЕСТЬ ИНТЕРФЕЙСЫ: USB-A, RS-232, ETHERNET ИНДИКАТОР КЛИЕНТА: ВСТРОЕННЫЙ ГАБАРИТНЫЕ РАЗМЕРЫ, 180 Х 150 МАССА, КГ: 1,1 &MDASH; КОМПЬЮТЕРНО-КАССОВАЯ СИСТЕМА, КОТОРАЯ СОСТОИТ ИЗ ФИСКАЛЬНОГО РЕГИСТРАТОРА И ВСТРОЕННОГО LINUX-КОМПЬЮТЕРА.'),
@@ -2437,20 +2379,17 @@ INSERT INTO `productlang` (`id`, `product_id`, `language`, `title`, `size_fit`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_category`
+-- Структура таблицы `product_category`
 --
 
-CREATE TABLE IF NOT EXISTS `product_category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `product_category` (
+  `id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `product_id` (`product_id`),
-  KEY `category_id` (`category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=267 ;
+  `category_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `product_category`
+-- Дамп данных таблицы `product_category`
 --
 
 INSERT INTO `product_category` (`id`, `product_id`, `category_id`) VALUES
@@ -2466,36 +2405,31 @@ INSERT INTO `product_category` (`id`, `product_id`, `category_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_characteristic`
+-- Структура таблицы `product_characteristic`
 --
 
-CREATE TABLE IF NOT EXISTS `product_characteristic` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `product_characteristic` (
+  `id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `characteristic_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `product_id` (`product_id`,`characteristic_id`),
-  KEY `characteristic_id` (`characteristic_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `characteristic_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_file`
+-- Структура таблицы `product_file`
 --
 
-CREATE TABLE IF NOT EXISTS `product_file` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `product_file` (
+  `id` int(11) NOT NULL,
   `file` varchar(255) NOT NULL,
   `product_id` int(11) NOT NULL,
   `sort` int(11) DEFAULT NULL,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `product_id` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=136 ;
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `product_file`
+-- Дамп данных таблицы `product_file`
 --
 
 INSERT INTO `product_file` (`id`, `file`, `product_id`, `sort`, `name`) VALUES
@@ -2516,20 +2450,18 @@ INSERT INTO `product_file` (`id`, `file`, `product_id`, `sort`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_gallery`
+-- Структура таблицы `product_gallery`
 --
 
-CREATE TABLE IF NOT EXISTS `product_gallery` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `product_gallery` (
+  `id` int(11) NOT NULL,
   `image` varchar(255) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `sort` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `product_id` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1879 ;
+  `sort` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `product_gallery`
+-- Дамп данных таблицы `product_gallery`
 --
 
 INSERT INTO `product_gallery` (`id`, `image`, `product_id`, `sort`) VALUES
@@ -2555,20 +2487,18 @@ INSERT INTO `product_gallery` (`id`, `image`, `product_id`, `sort`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_link`
+-- Структура таблицы `product_link`
 --
 
-CREATE TABLE IF NOT EXISTS `product_link` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `product_link` (
+  `id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `link` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `product_id` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+  `link` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `product_link`
+-- Дамп данных таблицы `product_link`
 --
 
 INSERT INTO `product_link` (`id`, `product_id`, `title`, `link`) VALUES
@@ -2585,51 +2515,43 @@ INSERT INTO `product_link` (`id`, `product_id`, `title`, `link`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_relation`
+-- Структура таблицы `product_relation`
 --
 
-CREATE TABLE IF NOT EXISTS `product_relation` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `product_relation` (
+  `id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `product_related_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `product_id` (`product_id`,`product_related_id`),
-  KEY `product_id_2` (`product_id`),
-  KEY `product_related_id` (`product_related_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=cp1251 AUTO_INCREMENT=1 ;
+  `product_related_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_variation`
+-- Структура таблицы `product_variation`
 --
 
-CREATE TABLE IF NOT EXISTS `product_variation` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `product_variation` (
+  `id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `characteristic_id` int(11) NOT NULL,
   `price` double NOT NULL,
   `currency_id` int(11) NOT NULL,
-  `in_stock` tinyint(4) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `product_id` (`product_id`,`characteristic_id`),
-  KEY `characteristic_id` (`characteristic_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `in_stock` tinyint(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `setting`
+-- Структура таблицы `setting`
 --
 
-CREATE TABLE IF NOT EXISTS `setting` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `phone` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+CREATE TABLE `setting` (
+  `id` int(11) NOT NULL,
+  `phone` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `setting`
+-- Дамп данных таблицы `setting`
 --
 
 INSERT INTO `setting` (`id`, `phone`) VALUES
@@ -2638,22 +2560,20 @@ INSERT INTO `setting` (`id`, `phone`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `settinglang`
+-- Структура таблицы `settinglang`
 --
 
-CREATE TABLE IF NOT EXISTS `settinglang` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `settinglang` (
+  `id` int(11) NOT NULL,
   `setting_id` int(11) NOT NULL,
   `language` varchar(10) NOT NULL,
   `table_size` text NOT NULL,
   `seo_category_description` text NOT NULL,
-  `product_delivery_description` text NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `setting_id` (`setting_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  `product_delivery_description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `settinglang`
+-- Дамп данных таблицы `settinglang`
 --
 
 INSERT INTO `settinglang` (`id`, `setting_id`, `language`, `table_size`, `seo_category_description`, `product_delivery_description`) VALUES
@@ -2664,47 +2584,43 @@ INSERT INTO `settinglang` (`id`, `setting_id`, `language`, `table_size`, `seo_ca
 -- --------------------------------------------------------
 
 --
--- Table structure for table `slider`
+-- Структура таблицы `slider`
 --
 
-CREATE TABLE IF NOT EXISTS `slider` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `slider` (
+  `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `alias` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `alias` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `slider_item`
+-- Структура таблицы `slider_item`
 --
 
-CREATE TABLE IF NOT EXISTS `slider_item` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `slider_item` (
+  `id` int(11) NOT NULL,
   `slider_id` int(11) NOT NULL,
   `image` varchar(255) NOT NULL,
   `url` varchar(255) NOT NULL,
-  `sort` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `slider_id` (`slider_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `sort` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `source_message`
+-- Структура таблицы `source_message`
 --
 
-CREATE TABLE IF NOT EXISTS `source_message` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `source_message` (
+  `id` int(11) NOT NULL,
   `category` varchar(255) DEFAULT NULL,
-  `message` text,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=982 ;
+  `message` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `source_message`
+-- Дамп данных таблицы `source_message`
 --
 
 INSERT INTO `source_message` (`id`, `category`, `message`) VALUES
@@ -3250,20 +3166,19 @@ INSERT INTO `source_message` (`id`, `category`, `message`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `stock`
+-- Структура таблицы `stock`
 --
 
-CREATE TABLE IF NOT EXISTS `stock` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `stock` (
+  `id` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL,
   `enabled` tinyint(1) NOT NULL,
-  `sort` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+  `sort` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `stock`
+-- Дамп данных таблицы `stock`
 --
 
 INSERT INTO `stock` (`id`, `created_at`, `updated_at`, `enabled`, `sort`) VALUES
@@ -3280,21 +3195,19 @@ INSERT INTO `stock` (`id`, `created_at`, `updated_at`, `enabled`, `sort`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `stocklang`
+-- Структура таблицы `stocklang`
 --
 
-CREATE TABLE IF NOT EXISTS `stocklang` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `stocklang` (
+  `id` int(11) NOT NULL,
   `stock_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` text NOT NULL,
-  `language` varchar(5) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `stock_id` (`stock_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
+  `language` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `stocklang`
+-- Дамп данных таблицы `stocklang`
 --
 
 INSERT INTO `stocklang` (`id`, `stock_id`, `title`, `content`, `language`) VALUES
@@ -3329,27 +3242,25 @@ INSERT INTO `stocklang` (`id`, `stock_id`, `title`, `content`, `language`) VALUE
 -- --------------------------------------------------------
 
 --
--- Table structure for table `task`
+-- Структура таблицы `task`
 --
 
-CREATE TABLE IF NOT EXISTS `task` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `task` (
+  `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `job_id` int(11) NOT NULL,
   `status` varchar(255) NOT NULL,
-  `crontab` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `job_id` (`job_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `crontab` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Структура таблицы `user`
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
   `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `auth_key` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `password_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -3359,15 +3270,11 @@ CREATE TABLE IF NOT EXISTS `user` (
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL,
   `logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `subscription` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+  `subscription` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `user`
+-- Дамп данных таблицы `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `logo`, `subscription`) VALUES
@@ -3375,17 +3282,535 @@ INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_res
 (4, 'test', 'UiHg8-7YbLsB2XzVnQw7gX0jFAfmeIID', '$2y$13$vybbrdv99ndFh9d7BXiNqehrs/0m0NbaHfS5ja.xm5q0j989J.61W', NULL, 'artemkramov@gmail.com', 10, 1502300128, 1502355427, NULL, 0);
 
 --
--- Constraints for dumped tables
+-- Индексы сохранённых таблиц
 --
 
 --
--- Constraints for table `email_templatelang`
+-- Индексы таблицы `auth_assignment`
+--
+ALTER TABLE `auth_assignment`
+  ADD PRIMARY KEY (`item_name`,`user_id`);
+
+--
+-- Индексы таблицы `auth_item`
+--
+ALTER TABLE `auth_item`
+  ADD PRIMARY KEY (`name`),
+  ADD KEY `rule_name` (`rule_name`),
+  ADD KEY `idx-auth_item-type` (`type`);
+
+--
+-- Индексы таблицы `auth_item_child`
+--
+ALTER TABLE `auth_item_child`
+  ADD PRIMARY KEY (`parent`,`child`),
+  ADD KEY `child` (`child`);
+
+--
+-- Индексы таблицы `auth_rule`
+--
+ALTER TABLE `auth_rule`
+  ADD PRIMARY KEY (`name`);
+
+--
+-- Индексы таблицы `blog_category`
+--
+ALTER TABLE `blog_category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `blog_categorylang`
+--
+ALTER TABLE `blog_categorylang`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `blog_post`
+--
+ALTER TABLE `blog_post`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `blog_category_id` (`blog_category_id`);
+
+--
+-- Индексы таблицы `blog_postlang`
+--
+ALTER TABLE `blog_postlang`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `parent_id` (`parent_id`);
+
+--
+-- Индексы таблицы `categorylang`
+--
+ALTER TABLE `categorylang`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `characteristic`
+--
+ALTER TABLE `characteristic`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `alias` (`alias`);
+
+--
+-- Индексы таблицы `characteristiclang`
+--
+ALTER TABLE `characteristiclang`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `characteristic_group_id` (`characteristic_id`),
+  ADD KEY `characteristic_id` (`characteristic_id`,`language`);
+
+--
+-- Индексы таблицы `characteristic_group`
+--
+ALTER TABLE `characteristic_group`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `characteristic_grouplang`
+--
+ALTER TABLE `characteristic_grouplang`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `characteristic_group_id` (`characteristic_group_id`),
+  ADD KEY `characteristic_group_id_2` (`characteristic_group_id`,`language`);
+
+--
+-- Индексы таблицы `comment`
+--
+ALTER TABLE `comment`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `parent_id` (`parent_id`),
+  ADD KEY `video_id` (`video_id`);
+
+--
+-- Индексы таблицы `currency`
+--
+ALTER TABLE `currency`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `email_template`
+--
+ALTER TABLE `email_template`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `email_templatelang`
+--
+ALTER TABLE `email_templatelang`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `email_template_id` (`email_template_id`);
+
+--
+-- Индексы таблицы `job`
+--
+ALTER TABLE `job`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `lang`
+--
+ALTER TABLE `lang`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `menu`
+--
+ALTER TABLE `menu`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `menu_type_id` (`menu_type_id`);
+
+--
+-- Индексы таблицы `menulang`
+--
+ALTER TABLE `menulang`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `post_id` (`menu_id`),
+  ADD KEY `language` (`language`),
+  ADD KEY `menu_id` (`menu_id`),
+  ADD KEY `menu_id_2` (`menu_id`,`language`);
+
+--
+-- Индексы таблицы `menu_type`
+--
+ALTER TABLE `menu_type`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `message`
+--
+ALTER TABLE `message`
+  ADD PRIMARY KEY (`id`,`language`);
+
+--
+-- Индексы таблицы `migration`
+--
+ALTER TABLE `migration`
+  ADD PRIMARY KEY (`version`);
+
+--
+-- Индексы таблицы `post`
+--
+ALTER TABLE `post`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `postlang`
+--
+ALTER TABLE `postlang`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `post_id` (`post_id`),
+  ADD KEY `language` (`language`),
+  ADD KEY `post_id_2` (`post_id`,`language`);
+
+--
+-- Индексы таблицы `product`
+--
+ALTER TABLE `product`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `alias` (`alias`);
+
+--
+-- Индексы таблицы `productlang`
+--
+ALTER TABLE `productlang`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`),
+  ADD KEY `product_id_2` (`product_id`,`language`);
+ALTER TABLE `productlang` ADD FULLTEXT KEY `search_text` (`search_text`);
+
+--
+-- Индексы таблицы `product_category`
+--
+ALTER TABLE `product_category`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`),
+  ADD KEY `category_id` (`category_id`);
+
+--
+-- Индексы таблицы `product_characteristic`
+--
+ALTER TABLE `product_characteristic`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`,`characteristic_id`),
+  ADD KEY `characteristic_id` (`characteristic_id`);
+
+--
+-- Индексы таблицы `product_file`
+--
+ALTER TABLE `product_file`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
+-- Индексы таблицы `product_gallery`
+--
+ALTER TABLE `product_gallery`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
+-- Индексы таблицы `product_link`
+--
+ALTER TABLE `product_link`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
+-- Индексы таблицы `product_relation`
+--
+ALTER TABLE `product_relation`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `product_id` (`product_id`,`product_related_id`),
+  ADD KEY `product_id_2` (`product_id`),
+  ADD KEY `product_related_id` (`product_related_id`);
+
+--
+-- Индексы таблицы `product_variation`
+--
+ALTER TABLE `product_variation`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`,`characteristic_id`),
+  ADD KEY `characteristic_id` (`characteristic_id`);
+
+--
+-- Индексы таблицы `setting`
+--
+ALTER TABLE `setting`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `settinglang`
+--
+ALTER TABLE `settinglang`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `setting_id` (`setting_id`);
+
+--
+-- Индексы таблицы `slider`
+--
+ALTER TABLE `slider`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `slider_item`
+--
+ALTER TABLE `slider_item`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `slider_id` (`slider_id`);
+
+--
+-- Индексы таблицы `source_message`
+--
+ALTER TABLE `source_message`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `stock`
+--
+ALTER TABLE `stock`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `stocklang`
+--
+ALTER TABLE `stocklang`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `stock_id` (`stock_id`);
+
+--
+-- Индексы таблицы `task`
+--
+ALTER TABLE `task`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `job_id` (`job_id`);
+
+--
+-- Индексы таблицы `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `password_reset_token` (`password_reset_token`);
+
+--
+-- AUTO_INCREMENT для сохранённых таблиц
+--
+
+--
+-- AUTO_INCREMENT для таблицы `blog_category`
+--
+ALTER TABLE `blog_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `blog_categorylang`
+--
+ALTER TABLE `blog_categorylang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `blog_post`
+--
+ALTER TABLE `blog_post`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `blog_postlang`
+--
+ALTER TABLE `blog_postlang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `category`
+--
+ALTER TABLE `category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT для таблицы `categorylang`
+--
+ALTER TABLE `categorylang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+--
+-- AUTO_INCREMENT для таблицы `characteristic`
+--
+ALTER TABLE `characteristic`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `characteristiclang`
+--
+ALTER TABLE `characteristiclang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `characteristic_group`
+--
+ALTER TABLE `characteristic_group`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `characteristic_grouplang`
+--
+ALTER TABLE `characteristic_grouplang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `comment`
+--
+ALTER TABLE `comment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+--
+-- AUTO_INCREMENT для таблицы `currency`
+--
+ALTER TABLE `currency`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT для таблицы `email_template`
+--
+ALTER TABLE `email_template`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT для таблицы `email_templatelang`
+--
+ALTER TABLE `email_templatelang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT для таблицы `job`
+--
+ALTER TABLE `job`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `lang`
+--
+ALTER TABLE `lang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT для таблицы `menu`
+--
+ALTER TABLE `menu`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT для таблицы `menulang`
+--
+ALTER TABLE `menulang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+--
+-- AUTO_INCREMENT для таблицы `menu_type`
+--
+ALTER TABLE `menu_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT для таблицы `post`
+--
+ALTER TABLE `post`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT для таблицы `postlang`
+--
+ALTER TABLE `postlang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+--
+-- AUTO_INCREMENT для таблицы `product`
+--
+ALTER TABLE `product`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+--
+-- AUTO_INCREMENT для таблицы `productlang`
+--
+ALTER TABLE `productlang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=379;
+--
+-- AUTO_INCREMENT для таблицы `product_category`
+--
+ALTER TABLE `product_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=267;
+--
+-- AUTO_INCREMENT для таблицы `product_characteristic`
+--
+ALTER TABLE `product_characteristic`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `product_file`
+--
+ALTER TABLE `product_file`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
+--
+-- AUTO_INCREMENT для таблицы `product_gallery`
+--
+ALTER TABLE `product_gallery`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1879;
+--
+-- AUTO_INCREMENT для таблицы `product_link`
+--
+ALTER TABLE `product_link`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT для таблицы `product_relation`
+--
+ALTER TABLE `product_relation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `product_variation`
+--
+ALTER TABLE `product_variation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `setting`
+--
+ALTER TABLE `setting`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT для таблицы `settinglang`
+--
+ALTER TABLE `settinglang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT для таблицы `slider`
+--
+ALTER TABLE `slider`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `slider_item`
+--
+ALTER TABLE `slider_item`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `source_message`
+--
+ALTER TABLE `source_message`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=982;
+--
+-- AUTO_INCREMENT для таблицы `stock`
+--
+ALTER TABLE `stock`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT для таблицы `stocklang`
+--
+ALTER TABLE `stocklang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+--
+-- AUTO_INCREMENT для таблицы `task`
+--
+ALTER TABLE `task`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `email_templatelang`
 --
 ALTER TABLE `email_templatelang`
   ADD CONSTRAINT `email_templatelang_ibfk_1` FOREIGN KEY (`email_template_id`) REFERENCES `email_template` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `product_link`
+-- Ограничения внешнего ключа таблицы `product_link`
 --
 ALTER TABLE `product_link`
   ADD CONSTRAINT `product_link_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;

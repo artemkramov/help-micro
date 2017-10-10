@@ -1,7 +1,6 @@
 <?php
 namespace common\models;
 
-use backend\models\Customer;
 use backend\models\Product;
 use Yii;
 use yii\base\NotSupportedException;
@@ -12,7 +11,6 @@ use yii\web\IdentityInterface;
 use yii\helpers\BaseFileHelper;
 use yii\imagine\Image;
 use developeruz\db_rbac\interfaces\UserRbacInterface;
-use backend\models\Employee;
 
 /**
  * User model

@@ -23,6 +23,9 @@ return [
         'shop'    => [
             'class' => 'frontend\modules\shop\Module',
         ],
+        'api'     => [
+            'class' => 'frontend\modules\api\Module',
+        ]
     ],
     'components'          => [
         'user'         => [
@@ -47,6 +50,9 @@ return [
         'request'      => [
             'baseUrl' => '',
             'class'   => 'common\components\LangRequest',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ],
         ],
         'i18n'         => [
             'class'        => \common\components\I18N::className(),
@@ -96,6 +102,31 @@ return [
                 [
                     'pattern' => '/product/<alias:[a-zA-Z0-9-]+>',
                     'route'   => 'shop/products/view',
+                ],
+                [
+                    'class'         => 'yii\rest\UrlRule',
+                    'controller'    => ['api/customer'],
+                    'tokens'        => [
+                        '{id}'     => '<id:\\w+>',
+                        '{email}'  => '<email>',
+                        '{serial}' => '<serial>',
+                        '{dic}'    => '<dic>'
+                    ],
+                    'extraPatterns' => [
+                        'POST get-record' => 'get-record'
+                    ]
+                ],
+                [
+                    'class'         => 'yii\rest\UrlRule',
+                    'controller'    => ['api/novelty'],
+                    'tokens'        => [
+                        '{id}'        => '<id:\\w+>',
+                        '{noveltyID}' => '<noveltyID>'
+                    ],
+                    'extraPatterns' => [
+                        'GET get-novelties'                => 'get-novelties',
+                        'GET get-unread-count/{noveltyID}' => 'get-unread-count'
+                    ]
                 ],
                 '/<url:[a-zA-Z0-9-]+>' => 'page/default/show',
             ]

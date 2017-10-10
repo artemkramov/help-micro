@@ -60,13 +60,14 @@ class SiteHelper extends \yii\base\Component
     /**
      * @return string
      */
-    public static function generateUUID() {
-        return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
-            mt_rand( 0, 0xffff ),
-            mt_rand( 0, 0x0fff ) | 0x4000,
-            mt_rand( 0, 0x3fff ) | 0x8000,
-            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
+    public static function generateUUID()
+    {
+        return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+            mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0x0fff) | 0x4000,
+            mt_rand(0, 0x3fff) | 0x8000,
+            mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
         );
     }
 
@@ -320,6 +321,8 @@ class SiteHelper extends \yii\base\Component
             ['label' => Module::t('Settings'), 'icon' => 'fa fa-cog', 'url' => '#',
              'items' => [
                  ['label' => Module::t('Settings'), 'icon' => 'fa fa-circle-o', 'url' => ['/settings/settings/index']],
+                 ['label' => Module::t('Customers'), 'icon' => 'fa fa-circle-o', 'url' => ['/settings/customers/index']],
+                 ['label' => Module::t('News'), 'icon' => 'fa fa-circle-o', 'url' => ['/settings/novelties/index']],
                  ['label' => Module::t('Translations'), 'url' => ['/i18n'], 'icon' => 'fa fa-book'],
              ]
             ],
